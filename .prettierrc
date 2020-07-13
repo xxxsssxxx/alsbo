@@ -1,5 +1,7 @@
 {
-  "semi": false,
-  "arrowParens": "always",
-  "singleQuote": true
+  "semi": true,
+  "arrowParens": "avoid",
+  "singleQuote": false,
+  "space-before-function-parentheses": true,
+  "printWidth": 120
 }
