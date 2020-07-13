@@ -1,4 +1,4 @@
-const colors = require("vuetify/es5/util/colors").default
+const colors = require("vuetify/es5/util/colors").default;
 
 module.exports = {
   mode: "universal",
@@ -30,7 +30,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: "@/plugins/veeValidate", ssr: "false" }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -71,6 +71,7 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    transpile: ["vee-validate"],
+    extend(config, ctx) { }
   }
-}
+};
