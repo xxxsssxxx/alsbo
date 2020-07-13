@@ -12,6 +12,11 @@ extend("max", {
   message: "{_field_} may not be greater than {length} characters"
 });
 
+extend("min", {
+  ...min,
+  message: "{_field_} should be greater than {length} characters"
+});
+
 extend("email", {
   ...email,
   message: "Email must be valid"

@@ -2,13 +2,10 @@
   <v-app>
     <v-main>
       <v-container>
-        <v-switch v-model="theme" label="Dark theme" color="indigo darken-3" hide-details></v-switch>
+        <!-- <v-switch v-model="theme" label="Dark theme" color="indigo darken-3" hide-details></v-switch> -->
         <nuxt />
       </v-container>
     </v-main>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
   </v-app>
 </template>
 
@@ -30,9 +27,7 @@ export default {
     }
   },
   mounted() {
-    this.$vuetify.theme.dark = false;
+    this.$vuetify.theme.dark = true;
   }
 };
 </script>
-
-<style scoped></style>

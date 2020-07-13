@@ -5,7 +5,7 @@ const utils = require("../mixins/utils");
 
 export const state = () => ({
   token: null,
-  locale: "en",
+  locale: "ru",
   tables: ["sale", "service"],
   saleAttributes: ["service_type", "batch_number", "pn", "description", "quantity", "price_per_unit"],
   exchangeAttr: ["batch_number", "pn", "description", "serial_number", "new_serial_number"],
