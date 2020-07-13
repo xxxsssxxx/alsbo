@@ -1,0 +1,141 @@
+{
+  "global": {
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "button": {
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "delete": "Удалить",
+    "download": "Скачать",
+    "excel_export": "Экспорт в Excel",
+    "save": "Сохранить",
+    "save_continue": "Сохранить и продолжить",
+    "save_new": "Сохранить и снова",
+    "submit": "Отправить"
+  },
+  "email": {
+    "long": "Электронная почта",
+    "no_share": "Мы никогда не передадим вашу электронную почту кому-либо еще.",
+    "short": "Эл. адрес",
+    "enter": "Введите ел. адресс"
+  },
+  "login": {
+    "first": "Пожалуйста, сначала войдите в свою учетную запись, чтобы использовать это приложение.",
+    "title": "Авторизоваться"
+  },
+  "registration": {
+    "title": "Регистрация",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "address": "Адресс",
+    "city": "Город",
+    "state": "Страна",
+    "street": "Улица",
+    "zip": "ZIP",
+    "private_data_share": "Я согласен с хранением моей личной информации",
+    "sign_up": "Зарегистрироваться"
+  },
+  "language": "Язык",
+  "languages": {
+    "english": "English",
+    "russian": "Русский",
+    "czech": "Čeština"
+  },
+  "modal": {
+    "create_new_item": "Создать новую услугу",
+    "edit_item": "Изменить элемент",
+    "main": "Главное",
+    "additional": "Дополнительно",
+    "conclusive": "Заключительное",
+    "service": {
+      "action_date": "Дата создания",
+      "batch_number": "Batch номер",
+      "customer_name": "Имя клиента",
+      "customer_po": "ПО Клиента",
+      "customer_type": "Тип клиента",
+      "currency": "Валюта",
+      "description": "Описание",
+      "order_price": "Стоимость заказа",
+      "price_per_unit": "Цена за единицу",
+      "pn": "П/Н",
+      "quantity": "Кол-во",
+      "quantity_long": "Количество",
+      "select_service_type": "Выберите тип услуги",
+      "select_service": "Выберите услугу",
+      "serial_number": "Серийный номер"
+    }
+  },
+  "navbar": {
+    "button_add_item": "Добавить елемент",
+    "link_home": "Главная страница",
+    "link_pricing": "Цены",
+    "link_all_items": "Список",
+    "link_logout": "Выйти",
+    "link_login": "Войти",
+    "link_registration": "Зарегестрироваться"
+  },
+  "password": "Пароль",
+  "notification": {
+    "form": {
+      "title_validation_error": "Проверка не удалась!",
+      "title_validation_success": "Поздравляем Вас!",
+      "error": {
+        "empty_req_fields": "Пожалуйста, заполните все обязательные поля",
+        "negative_margin": "Ваша прибыль отрицательна, пожалуйста, проверьте цену заказа и цену за единицу"
+      },
+      "success": {
+        "saved": "Успешно сохранено",
+        "sent": "Успешно отправлено"
+      }
+    }
+  },
+  "table": {
+    "header": {
+      "#": "№",
+      "action_date": "Дата создания",
+      "acquistition_price": "Общая стоимость приобретения",
+      "batch_number": "Batch номер",
+      "customer_name": "Имя клиента",
+      "customer_po": "ПО Клиента",
+      "total_local_price": "Общая местная цена",
+      "total_local_priceder_price": "Общая местная цена",
+      "customer_type": "Тип клиента",
+      "currency": "Валюта",
+      "description": "Описание",
+      "exchange_status": "Состояние обмена",
+      "invoice_status": "Статус счета",
+      "margin": "Прибыль",
+      "new_serial_number": "Новый серийный номер",
+      "order_price": "Цена заказа",
+      "price_per_unit": "Цена за единицу",
+      "pn": "П/Н",
+      "quantity": "Кол-во",
+      "quantity_long": "Количество",
+      "select_service_type": "Выберите тип услуги",
+      "select_service": "Выберите услугу",
+      "serial_number": "Серийный номер",
+      "repair_status": "Статус ремонта"
+    }
+  },
+  "sale_register": "Реестр продаж",
+  "service_register": "Реестр сервисов",
+  "simple_confirm": "Вы уверены?",
+  "alerts": {
+    "register": {
+      "empty": "Пустой реестр",
+      "no_items": "Пока что нет ни одного елемента.",
+      "add_items": "Вы можете добавлять элементы, используя кнопку «Добавить элемент» на панели навигации."
+    }
+  },
+  "attachments": {
+    "title": "Вложения",
+    "dropzone": "Перетащите ваши файлы сюда, чтобы начать или нажмите, чтобы просмотреть.",
+    "saving": "Загрузка файла...",
+    "uploaded_at": "Загружено"
+  },
+  "detail": {
+    "title": "Подробности",
+    "user": "Пользователь"
+  }
+}

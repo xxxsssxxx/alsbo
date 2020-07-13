@@ -1,0 +1,123 @@
+{
+  "global": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "button": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "download": "Download",
+    "excel_export": "Export to excel",
+    "save": "Save",
+    "save_continue": "Save and Continue",
+    "save_new": "Save and New",
+    "submit": "Submit"
+  },
+  "email": {
+    "long": "Email address",
+    "no_share": "We will never share your email with anyone else.",
+    "short": "Email",
+    "enter": "Enter email"
+  },
+  "login": {
+    "first": "Please login first to your account to use this app.",
+    "title": "Log in"
+  },
+  "registration": {
+    "title": "Registration",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "address": "Address",
+    "street": "Street",
+    "city": "City",
+    "state": "State",
+    "zip": "ZIP",
+    "private_data_share": "I agree to keep my personal information",
+    "sign_up": "Sign up"
+  },
+  "language": "Language",
+  "languages": {
+    "english": "English",
+    "russian": "Русский",
+    "czech": "Čeština"
+  },
+  "modal": {
+    "create_new_item": "Create new item",
+    "edit_item": "Edit item",
+    "main": "Main",
+    "additional": "Additional",
+    "conclusive": "Conclusive"
+  },
+  "navbar": {
+    "button_add_item": "Add item",
+    "link_all_items": "All items",
+    "link_home": "Home",
+    "link_login": "Login",
+    "link_logout": "Logout",
+    "link_pricing": "Pricing",
+    "link_registration": "Registration"
+  },
+  "password": "Password",
+  "notification": {
+    "form": {
+      "title_validation_error": "Validation failed",
+      "title_validation_success": "Congratulations!",
+      "error": {
+        "empty_req_fields": "Please fill in all required fields",
+        "negative_margin": "Your margin is negative, please check order price and price per unit"
+      },
+      "success": {
+        "saved": "Successfully saved",
+        "sent": "Successfully sent"
+      }
+    }
+  },
+  "table": {
+    "header": {
+      "#": "#",
+      "action_date": "Action date",
+      "acquistition_price": "Total acquisition price",
+      "batch_number": "Batch number",
+      "currency": "Currency",
+      "customer_name": "Customer name",
+      "total_local_price": "Total local price",
+      "customer_po": "Customer po",
+      "customer_type": "Customer type",
+      "description": "Description",
+      "exchange_status": "Exchange status",
+      "invoice_status": "Invoice status",
+      "margin": "Margin",
+      "new_serial_number": "New serial number",
+      "pn": "P/N",
+      "price_per_unit": "Price per unit",
+      "order_price": "Order price",
+      "quantity": "QTY",
+      "quantity_long": "Quantity",
+      "repair_status": "Repair status",
+      "select_service": "Chose service",
+      "select_service_type": "Chose service type",
+      "serial_number": "Serial number"
+    }
+  },
+  "sale_register": "Sale register",
+  "service_register": "Service register",
+  "simple_confirm": "Are you sure?",
+  "alerts": {
+    "register": {
+      "empty": "Empty register",
+      "no_items": "There are no items yet.",
+      "add_items": "You can add items by using 'Add items' button in navigation bar"
+    }
+  },
+  "attachments": {
+    "title": "Attachments",
+    "dropzone": "Drag your file(s) here to begin or click to browse.",
+    "saving": "Uploading file...",
+    "uploaded_at": "Uploaded at"
+  },
+  "detail": {
+    "title": "Detail",
+    "user": "User"
+  }
+}

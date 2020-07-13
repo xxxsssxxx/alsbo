@@ -43,7 +43,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/login">
+          <v-btn color="primary" nuxt to="/registration">
             Continue
           </v-btn>
         </v-card-actions>

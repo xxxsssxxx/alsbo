@@ -30,7 +30,11 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "@/plugins/veeValidate", ssr: "false" }],
+  plugins: [
+    { src: "@/plugins/veeValidate", ssr: "false" },
+    "@/plugins/i18n",
+    { src: "@/plugins/mixins", ssr: "false" }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -74,6 +78,6 @@ module.exports = {
     transpile: ["vee-validate"],
     parallel: true,
     cache: true,
-    extend(config, ctx) { }
+    extend(config, ctx) {}
   }
 };

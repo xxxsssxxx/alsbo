@@ -1,0 +1,141 @@
+{
+  "global": {
+    "yes": "Ano",
+    "no": "Ne"
+  },
+  "button": {
+    "cancel": "Zrušit",
+    "close": "Zavřit",
+    "delete": "Smazat",
+    "download": "Stažení",
+    "excel_export": "Export do Excelu",
+    "save": "Uložit",
+    "save_continue": "Uložit a Pokračovat",
+    "save_new": "Uložit a nový",
+    "submit": "Odeslat"
+  },
+  "email": {
+    "long": "Emailová addresa ",
+    "no_share": "Nikdy nesdílíme vaš e-mail s někým jiným.",
+    "short": "Email",
+    "enter": "Zadejte email"
+  },
+  "login": {
+    "first": "Chcete-li tuto aplikaci používat, nejprve se přihlaste k účtu.",
+    "title": "Přihlášení"
+  },
+  "registration": {
+    "title": "Registrace",
+    "first_name": "Jméno",
+    "last_name": "Příjmení",
+    "address": "Adresa",
+    "city": "Město",
+    "state": "Stát",
+    "street": "Ulice",
+    "zip": "ZIP",
+    "private_data_share": "Souhlasím s uchováním svých osobních údajů",
+    "sign_up": "Zaregistrovat se"
+  },
+  "language": "Jazyk",
+  "languages": {
+    "english": "English",
+    "russian": "Русский",
+    "czech": "Čeština"
+  },
+  "modal": {
+    "create_new_item": "Vytvořit novou položku",
+    "edit_item": "Upravit položku",
+    "main": "Hlavní",
+    "additional": "Další",
+    "conclusive": "Konečný",
+    "service": {
+      "action_date": "Datum výtvoření",
+      "batch_number": "Batch číslo",
+      "currency": "Měna",
+      "customer_name": "Jméno zákazníka",
+      "customer_po": "PO zákazníka",
+      "customer_type": "Typ zákazníka",
+      "description": "Popis",
+      "pn": "P/N",
+      "price_per_unit": "Cena za jednotku",
+      "order_price": "Cena objednávky",
+      "quantity": "Množ.",
+      "quantity_long": "Množství",
+      "select_service": "Vyberte si službu",
+      "select_service_type": "Vyberte typ služby",
+      "serial_number": "Sériové číslo"
+    }
+  },
+  "navbar": {
+    "button_add_item": "Přidat položku",
+    "link_home": "Domů",
+    "link_pricing": "Ceny",
+    "link_all_items": "Všechny položky",
+    "link_logout": "Odhlásit se",
+    "link_login": "Přihlásit se",
+    "link_registration": "Registrovat se"
+  },
+  "password": "Heslo",
+  "notification": {
+    "form": {
+      "title_validation_error": "Ověření se nezdařilo",
+      "title_validation_success": "Gratulujeme!",
+      "error": {
+        "empty_req_fields": "Prosím, vyplňte všechny požadované pole",
+        "negative_margin": "Vaš zisk je záporný, zkontrolujte prosím cenu objednávky a cenu za jednotku"
+      },
+      "success": {
+        "saved": "Úspěšně uloženo",
+        "sent": "Úspěšně odesláno"
+      }
+    }
+  },
+  "table": {
+    "header": {
+      "#": "#",
+      "action_date": "Datum výtvoření",
+      "acquistition_price": "Celková pořizovací cena",
+      "batch_number": "Batch číslo",
+      "currency": "Měna",
+      "customer_name": "Jméno zákazníka",
+      "customer_po": "PO zákazníka",
+      "total_local_price": "Celková místní cena",
+      "total_local_priceder_price": "Celková místní cena",
+      "customer_type": "Typ zákazníka",
+      "description": "Popis",
+      "exchange_status": "Stav výměny",
+      "invoice_status": "Stav faktury",
+      "margin": "Zisk",
+      "new_serial_number": "Nové sériové číslo",
+      "pn": "P/N",
+      "price_per_unit": "Cena za jednotku",
+      "order_price": "Cena objednávky",
+      "quantity": "Množ.",
+      "quantity_long": "Množství",
+      "select_service": "Vyberte si službu",
+      "select_service_type": "Vyberte typ služby",
+      "serial_number": "Sériové číslo",
+      "repair_status": "Stav opravy"
+    }
+  },
+  "sale_register": "Prodejní seznam",
+  "service_register": "Seznam služeb",
+  "simple_confirm": "Jste jistý(á)?",
+  "alerts": {
+    "register": {
+      "empty": "Prázdný seznam",
+      "no_items": "Zatím nejsou žádné položky.",
+      "add_items": "Položky můžete přidat pomocí tlačítka „Přidat položky“ na navigační liště"
+    }
+  },
+  "attachments": {
+    "title": "Přílohy",
+    "dropzone": "Přetáhněte své soubory sem, nebo vyhledejte kliknutím.",
+    "saving": "Nahrávám soubor...",
+    "uploaded_at": "Nahráno"
+  },
+  "detail": {
+    "title": "Detail",
+    "user": "Uživatel"
+  }
+}
