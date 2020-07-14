@@ -73,6 +73,13 @@
       }
     }
   },
+  "validation": {
+    "empty_field": "can not be empty",
+    "max_length": "may not be  greater than",
+    "mix_length": "should be greater than",
+    "email": "must be valid",
+    "characters": " characters"
+  },
   "table": {
     "header": {
       "#": "#",

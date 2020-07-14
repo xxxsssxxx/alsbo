@@ -90,6 +90,13 @@
       }
     }
   },
+  "validation": {
+    "empty_field": "nemůže být prázdný",
+    "max_length": "nesmí být větší než",
+    "mix_length": "by měl být větší než",
+    "email": "musí být platný",
+    "characters": " znaků"
+  },
   "table": {
     "header": {
       "#": "#",

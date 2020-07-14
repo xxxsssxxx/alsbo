@@ -1,6 +1,9 @@
 import Vue from "vue";
 import { ValidationObserver, ValidationProvider, extend, setInteractionMode } from "vee-validate";
 import { required, email, min, max, confirmed } from "vee-validate/dist/rules";
+// const en = require("~/locales/en.json");
+// const cz = require("~/locales/cz.json");
+// const ru = require("~/locales/ru.json");
 
 extend("required", {
   ...required,
@@ -19,7 +22,7 @@ extend("min", {
 
 extend("email", {
   ...email,
-  message: "Email must be valid"
+  message: "{_field_} must be valid"
 });
 
 setInteractionMode("eager");
