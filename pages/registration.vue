@@ -2,20 +2,20 @@
   <div class="wrapper">
     <v-container fluid class="d-flex align-center justify-center">
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="12" md="12" lg="9">
-          <v-card class="mx-auto" outlined raised height="100%">
-            <v-row align="center" justify="space-around" class="p-4">
-              <v-col cols="12" sm="5">
-                <div>
-                  <v-img src="/Brand.svg"></v-img>
-                </div>
+        <v-col cols="12" sm="12" md="12" lg="10">
+          <v-card class="mx-auto" rounded elevation="20" raised>
+            <v-row align="center" justify="space-around">
+              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left">
+                <span class="bg-form-left secondary" />
+                <v-img :min-height="imageMinHeight" src="/Brand.svg" contain max-height="600"></v-img>
               </v-col>
-              <v-col cols="10" sm="6">
+              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right">
                 <v-card-text>
-                  <p class="display-1 text--primary card-title">
+                  <p class="display-1 text--text card-title">
                     {{ $t("registration.title") }}
                   </p>
                 </v-card-text>
+                <span class="bg-form-right primary" />
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
                     <v-row align="center" justify="space-around">
@@ -30,6 +30,7 @@
                             :counter="10"
                             :error-messages="errors"
                             :label="$t('registration.first_name')"
+                            class="text--text"
                             required
                           ></v-text-field>
                         </ValidationProvider>
@@ -45,6 +46,7 @@
                             :counter="10"
                             :error-messages="errors"
                             :label="$t('registration.last_name')"
+                            class="text--text"
                             required
                           ></v-text-field>
                         </ValidationProvider>
@@ -107,6 +109,7 @@
                         v-model="email"
                         :error-messages="errors"
                         :label="$t('email.short')"
+                        class="pa-3"
                         required
                         autocomplete="new-password"
                       ></v-text-field>
@@ -119,13 +122,14 @@
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"
+                        class="pa-3"
                         required
                         counter
                         autocomplete="new-password"
                       ></v-text-field>
                     </ValidationProvider>
                     <div class="button-group mt-4 mb-4 d-flex justify-end">
-                      <v-btn class="mr-4" color="success" @click="submit">submit</v-btn>
+                      <v-btn @click="submit" class="mr-4" color="success">submit</v-btn>
                       <v-btn @click="clear">clear</v-btn>
                     </div>
                   </form>
@@ -152,7 +156,19 @@ export default {
     zip: "",
     showPassword: false
   }),
-
+  computed: {
+    imageMinHeight() {
+      const heights = {
+        sm: "605",
+        md: "605",
+        lg: "605",
+        xl: "605"
+      };
+      const height = heights[this.$vuetify.breakpoint.name];
+      if (height) return height;
+      return undefined;
+    }
+  },
   methods: {
     submit() {
       this.$refs.observer.validate();
@@ -171,6 +187,10 @@ export default {
 $switcher-height: 46px;
 $container-padding: 12px;
 $card-bottom-margin: 50px;
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
 @media only screen and (min-width: 600px) {
   .wrapper {
     height: calc(100vh - #{$switcher-height} - #{$container-padding * 2} - #{$card-bottom-margin});
@@ -188,6 +208,23 @@ $card-bottom-margin: 50px;
       width: 115px;
       display: block;
     }
+  }
+}
+.form-col {
+  &-right,
+  &-left {
+    position: relative;
+  }
+}
+.bg-form {
+  &-right,
+  &-left {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
   }
 }
 </style>
