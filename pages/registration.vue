@@ -4,16 +4,18 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="12" md="12" lg="9">
           <v-card class="mx-auto" outlined raised height="100%">
-            <v-row align="center" justify="space-around" class="p-4 mt-4">
+            <v-row align="center" justify="space-around" class="p-4">
               <v-col cols="12" sm="5">
+                <div>
+                  <v-img src="/Brand.svg"></v-img>
+                </div>
+              </v-col>
+              <v-col cols="10" sm="6">
                 <v-card-text>
-                  <p class="display-1 text--primary">
+                  <p class="display-1 text--primary card-title">
                     {{ $t("registration.title") }}
                   </p>
                 </v-card-text>
-                <v-img src="/Brand.svg"></v-img>
-              </v-col>
-              <v-col cols="10" sm="6">
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
                     <v-row align="center" justify="space-around">
@@ -168,13 +170,24 @@ export default {
 <style lang="scss" scoped>
 $switcher-height: 46px;
 $container-padding: 12px;
-$card-bottom-margin: 200px;
+$card-bottom-margin: 50px;
 @media only screen and (min-width: 600px) {
   .wrapper {
     height: calc(100vh - #{$switcher-height} - #{$container-padding * 2} - #{$card-bottom-margin});
     width: 100%;
     display: flex;
     align-items: center;
+  }
+  .v-card__text {
+    padding-left: 0;
+  }
+  .card-title {
+    &::after {
+      content: "";
+      border-bottom: 3px solid #fff;
+      width: 115px;
+      display: block;
+    }
   }
 }
 </style>
