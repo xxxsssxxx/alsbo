@@ -5,17 +5,23 @@
         <v-col cols="12" sm="12" md="12" lg="10">
           <v-card class="mx-auto" rounded elevation="20" raised>
             <v-row align="center" justify="space-around">
-              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left">
-                <span class="bg-form-left secondary" />
-                <v-img :min-height="imageMinHeight" src="/Brand.svg" contain max-height="600"></v-img>
+              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left secondary">
+                <v-img src="/Brand.svg" contain max-height="600">
+                  <template v-slot:placeholder>
+                    <v-row class="fill-height ma-0" align="center" justify="center">
+                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+                <!-- Placeholder for image to size a col to a right height from beginning -->
+                <!-- <span v-if="!imgHeight" class="img-placeholder" /> -->
               </v-col>
-              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right">
-                <v-card-text>
-                  <p class="display-1 text--text card-title">
+              <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right primary">
+                <v-card-text class="pl-3">
+                  <p class="display-1 text--text">
                     {{ $t("registration.title") }}
                   </p>
                 </v-card-text>
-                <span class="bg-form-right primary" />
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
                     <v-row align="center" justify="space-around">
@@ -154,20 +160,11 @@ export default {
     city: "",
     street: "",
     zip: "",
-    showPassword: false
+    showPassword: false,
+    imgMinHeight: undefined
   }),
-  computed: {
-    imageMinHeight() {
-      const heights = {
-        sm: "605",
-        md: "605",
-        lg: "605",
-        xl: "605"
-      };
-      const height = heights[this.$vuetify.breakpoint.name];
-      if (height) return height;
-      return undefined;
-    }
+  beforeMount() {
+    this.imgMinHeight = this.imgHeight();
   },
   methods: {
     submit() {
@@ -179,6 +176,17 @@ export default {
       this.email = "";
       this.password = null;
       this.$refs.observer.reset();
+    },
+    imgHeight() {
+      const heights = {
+        sm: "602",
+        md: "602",
+        lg: "602",
+        xl: "602"
+      };
+      const height = heights[this.$vuetify.breakpoint.name];
+      if (height) return height;
+      return undefined;
     }
   }
 };
@@ -201,19 +209,15 @@ $card-bottom-margin: 50px;
   .v-card__text {
     padding-left: 0;
   }
-  .card-title {
-    &::after {
-      content: "";
-      border-bottom: 3px solid #fff;
-      width: 115px;
-      display: block;
-    }
+  .v-image {
+    min-height: 602px;
   }
 }
 .form-col {
   &-right,
   &-left {
     position: relative;
+    background-size: cover;
   }
 }
 .bg-form {
@@ -226,5 +230,10 @@ $card-bottom-margin: 50px;
     left: 0;
     background-size: cover;
   }
+}
+.img-placeholder {
+  height: 602px;
+  width: 100%;
+  display: block;
 }
 </style>

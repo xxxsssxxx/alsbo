@@ -67,13 +67,13 @@ module.exports = {
           text: colors.grey.lighten5
         },
         light: {
-          primary: colors.deepPurple.darken1,
+          primary: colors.deepPurple.lighten1,
           accent: colors.grey.darken1,
           secondary: colors.amber.darken1,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+          success: colors.green.accent4,
           text: colors.grey.darken4
         }
       }
