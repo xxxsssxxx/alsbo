@@ -64,7 +64,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.darken2,
           success: colors.green.accent3,
-          text: colors.grey.lighten5
+          text: colors.grey.lighten5,
+          neutral: colors.indigo.accent4
         },
         light: {
           primary: colors.deepPurple.lighten1,
@@ -74,7 +75,8 @@ module.exports = {
           warning: colors.amber.base,
           error: colors.deepOrange.darken1,
           success: colors.green.accent4,
-          text: colors.deepPurple.lighten5
+          text: colors.deepPurple.lighten5,
+          neutral: colors.indigo.accent2
         }
       }
     }
