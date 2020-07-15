@@ -150,12 +150,8 @@ export default {
     city: "",
     street: "",
     zip: "",
-    showPassword: false,
-    imgMinHeight: undefined
+    showPassword: false
   }),
-  beforeMount() {
-    this.imgMinHeight = this.imgHeight();
-  },
   methods: {
     submit() {
       this.$refs.observer.validate();
@@ -169,17 +165,6 @@ export default {
       this.zip = "";
       this.password = null;
       this.$refs.observer.reset();
-    },
-    imgHeight() {
-      const heights = {
-        sm: "602",
-        md: "602",
-        lg: "602",
-        xl: "602"
-      };
-      const height = heights[this.$vuetify.breakpoint.name];
-      if (height) return height;
-      return undefined;
     }
   }
 };

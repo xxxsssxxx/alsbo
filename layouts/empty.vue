@@ -5,7 +5,7 @@
       <span class="right primary"></span>
     </span>
     <v-main>
-      <v-switch v-model="theme" label="Dark theme" color="indigo darken-3" hide-details></v-switch>
+      <v-switch v-model="theme" label="Dark" color="indigo darken-3" hide-details></v-switch>
       <nuxt />
     </v-main>
   </v-app>
