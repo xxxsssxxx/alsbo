@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="12" md="12" lg="10">
           <v-card class="mx-auto" rounded elevation="20" raised>
-            <v-row align="center" justify="space-around">
+            <v-row justify="space-around">
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left secondary">
                 <v-img src="/Brand.svg" contain max-height="600">
                   <template v-slot:placeholder>
@@ -13,8 +13,6 @@
                     </v-row>
                   </template>
                 </v-img>
-                <!-- Placeholder for image to size a col to a right height from beginning -->
-                <!-- <span v-if="!imgHeight" class="img-placeholder" /> -->
               </v-col>
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right primary">
                 <v-card-text class="pl-3">
@@ -25,20 +23,17 @@
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
                     <v-row align="center" justify="space-around">
-                      <v-col cols="12" sm="6">
+                      <v-col cols="12" sm="6" class="text--text">
                         <ValidationProvider
                           v-slot="{ errors }"
                           :name="$t('registration.first_name')"
-                          rules="required|max:10"
+                          rules="required|max:15"
                         >
-                          <v-text-field
-                            v-model="firstName"
-                            :counter="10"
-                            :error-messages="errors"
-                            :label="$t('registration.first_name')"
-                            class="text--text"
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="firstName" :counter="15" :error-messages="errors" required>
+                            <template v-slot:label>
+                              <span class="input__label text--text">{{ $t("registration.first_name") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                       <v-col cols="12" sm="6">
@@ -47,27 +42,22 @@
                           :name="$t('registration.last_name')"
                           rules="required|max:15"
                         >
-                          <v-text-field
-                            v-model="lastName"
-                            :counter="10"
-                            :error-messages="errors"
-                            :label="$t('registration.last_name')"
-                            class="text--text"
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="lastName" :counter="15" :error-messages="errors" required>
+                            <template v-slot:label>
+                              <span class="input__label text--text">{{ $t("registration.last_name") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                     </v-row>
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.city')" rules="required|min:2">
-                          <v-text-field
-                            v-model="city"
-                            :error-messages="errors"
-                            :label="$t('registration.city')"
-                            counter
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="city" :error-messages="errors" counter required>
+                            <template v-slot:label>
+                              <span class="input__label text--text text--text">{{ $t("registration.city") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                       <v-col>
@@ -76,37 +66,31 @@
                           :name="$t('registration.street')"
                           rules="required|min:2"
                         >
-                          <v-text-field
-                            v-model="street"
-                            :error-messages="errors"
-                            :label="$t('registration.street')"
-                            counter
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="street" :error-messages="errors" counter required>
+                            <template v-slot:label>
+                              <span class="input__label text--text">{{ $t("registration.street") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                     </v-row>
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.state')" rules="required|min:2">
-                          <v-text-field
-                            v-model="state"
-                            :error-messages="errors"
-                            :label="$t('registration.state')"
-                            counter
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="state" :error-messages="errors" counter required>
+                            <template v-slot:label>
+                              <span class="input__label text--text">{{ $t("registration.state") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.zip')" rules="required|min:6">
-                          <v-text-field
-                            v-model="zip"
-                            :error-messages="errors"
-                            :label="$t('registration.zip')"
-                            counter
-                            required
-                          ></v-text-field>
+                          <v-text-field v-model="zip" :error-messages="errors" counter required>
+                            <template v-slot:label>
+                              <span class="input__label text--text">{{ $t("registration.zip") }}</span>
+                            </template>
+                          </v-text-field>
                         </ValidationProvider>
                       </v-col>
                     </v-row>
@@ -114,17 +98,19 @@
                       <v-text-field
                         v-model="email"
                         :error-messages="errors"
-                        :label="$t('email.short')"
                         class="pa-3"
                         required
                         autocomplete="new-password"
-                      ></v-text-field>
+                      >
+                        <template v-slot:label>
+                          <span class="input__label text--text">{{ $t("email.short") }}</span>
+                        </template>
+                      </v-text-field>
                     </ValidationProvider>
                     <ValidationProvider v-slot="{ errors, valid }" :name="$t('password')" rules="required|min:8">
                       <v-text-field
                         v-model="password"
                         :error-messages="errors"
-                        :label="$t('password')"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"
@@ -132,7 +118,11 @@
                         required
                         counter
                         autocomplete="new-password"
-                      ></v-text-field>
+                      >
+                        <template v-slot:label>
+                          <span class="input__label text--text">{{ $t("password") }}</span>
+                        </template>
+                      </v-text-field>
                     </ValidationProvider>
                     <div class="button-group mt-4 mb-4 d-flex justify-end">
                       <v-btn @click="submit" class="mr-4" color="success">submit</v-btn>
@@ -174,6 +164,9 @@ export default {
       this.firstName = "";
       this.lastName = "";
       this.email = "";
+      this.city = "";
+      this.state = "";
+      this.zip = "";
       this.password = null;
       this.$refs.observer.reset();
     },
@@ -195,6 +188,7 @@ export default {
 $switcher-height: 46px;
 $container-padding: 12px;
 $card-bottom-margin: 50px;
+$deepPuprpleLighten5: #ede7f6;
 .row {
   margin-right: 0;
   margin-left: 0;
@@ -219,21 +213,5 @@ $card-bottom-margin: 50px;
     position: relative;
     background-size: cover;
   }
-}
-.bg-form {
-  &-right,
-  &-left {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-  }
-}
-.img-placeholder {
-  height: 602px;
-  width: 100%;
-  display: block;
 }
 </style>

@@ -62,7 +62,7 @@ module.exports = {
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: colors.deepOrange.darken2,
           success: colors.green.accent3,
           text: colors.grey.lighten5
         },
@@ -72,9 +72,9 @@ module.exports = {
           secondary: colors.amber.darken1,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: colors.deepOrange.darken1,
           success: colors.green.accent4,
-          text: colors.grey.darken4
+          text: colors.deepPurple.lighten5
         }
       }
     }
