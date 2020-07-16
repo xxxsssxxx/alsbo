@@ -61,7 +61,8 @@
   "password": "Password",
   "notification": {
     "form": {
-      "title_validation_error": "Validation failed",
+      "title_validation_error": "Ooops... Something went wrong!",
+      "login_validation_error": "Email or password is not matched! Please reenter your credentials!",
       "title_validation_success": "Congratulations!",
       "error": {
         "empty_req_fields": "Please fill in all required fields",

@@ -78,7 +78,8 @@
   "password": "Пароль",
   "notification": {
     "form": {
-      "title_validation_error": "Проверка не удалась!",
+      "title_validation_error": "Упс... Что-то пошло не так!",
+      "login_validation_error": "E-mail или пароль не совпадают! Пожалуйста, введите ваши учетные данные еще раз!",
       "title_validation_success": "Поздравляем Вас!",
       "error": {
         "empty_req_fields": "Пожалуйста, заполните все обязательные поля",

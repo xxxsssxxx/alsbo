@@ -1,6 +1,6 @@
 import Cookies from "../plugins/cookies";
-// const cookieparser = require("cookieparser");
-// const jwt = require("jsonwebtoken");
+const cookieparser = require("cookieparser");
+const jwt = require("jsonwebtoken");
 const utils = require("../mixins/utils");
 
 export const state = () => ({
@@ -39,15 +39,15 @@ export const mutations = {
 
 export const actions = {
   nuxtServerInit({ commit }, { req }) {
-    // if (req.headers.cookie) {
-    //   const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
-    //   const parsed = cookieparser.parse(req.headers.cookie);
-    //   const { userData: user } = jwt.verify(parsed.auth_token, secretKey);
-    //   commit("setToken", parsed.auth_token);
-    //   commit("setCurrentUser", user);
-    // }
-    // const urlPrefix = process.env.API_URL || "http://localhost:3000/api";
-    // commit("setUrlPrefix", urlPrefix);
+    if (req.headers.cookie) {
+      const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
+      const parsed = cookieparser.parse(req.headers.cookie);
+      const { userData: user } = jwt.verify(parsed.auth_token, secretKey);
+      commit("setToken", parsed.auth_token);
+      commit("setCurrentUser", user);
+    }
+    const urlPrefix = process.env.API_URL || "http://localhost:3000/api";
+    commit("setUrlPrefix", urlPrefix);
   },
   login({ commit }, user) {
     Cookies.set("auth_token", user.token);

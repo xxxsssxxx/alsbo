@@ -43,11 +43,15 @@ module.exports = {
     "@nuxtjs/eslint-module",
     "@nuxtjs/vuetify"
   ],
-  serverMiddleware: ["~/api/users.js"],
+  serverMiddleware: [],
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/pwa"],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/axios"],
+  /* Axious nuxt module configuration */
+  axios: {
+    prefix: "/api"
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

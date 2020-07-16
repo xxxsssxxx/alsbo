@@ -78,7 +78,8 @@
   "password": "Heslo",
   "notification": {
     "form": {
-      "title_validation_error": "Ověření se nezdařilo",
+      "title_validation_error": "Ooops... Něco se pokazilo!",
+      "login_validation_error": "E-mail nebo heslo se neshodují! Zadejte prosím znovu své přihlašovací údaje!",
       "title_validation_success": "Gratulujeme!",
       "error": {
         "empty_req_fields": "Prosím, vyplňte všechny požadované pole",

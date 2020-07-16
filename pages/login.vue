@@ -72,47 +72,48 @@
   </div>
 </template>
 <script>
+import Authorization from "../plugins/authorization.js";
+
 export default {
   layout: "empty",
   data: () => ({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: null,
-    state: "",
-    city: "",
-    street: "",
-    zip: "",
-    showPassword: false,
-    imgMinHeight: undefined
+    email: "manager@manager.com",
+    password: "12345678",
+    showPassword: false
   }),
-  beforeMount() {
-    this.imgMinHeight = this.imgHeight();
+  mounted() {
+    this.$store.dispatch("logout");
   },
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    async submit() {
+      const valid = await this.$refs.observer.validate();
+      if (valid) {
+        const data = {
+          email: this.email,
+          password: this.password
+        };
+        const { matched, user } = await Authorization.login(data);
+        if (matched) {
+          this.$store.dispatch("login", user);
+          this.$router.push("/");
+          return;
+        }
+        this.setLoginValidationErrors();
+      }
     },
     clear() {
-      this.firstName = "";
-      this.lastName = "";
       this.email = "";
-      this.city = "";
-      this.state = "";
-      this.zip = "";
       this.password = null;
       this.$refs.observer.reset();
     },
-    imgHeight() {
-      const heights = {
-        sm: "602",
-        md: "602",
-        lg: "602",
-        xl: "602"
+    setLoginValidationErrors() {
+      const email = this.$t("email.short");
+      const password = this.$t("password");
+      const errors = {
+        [email]: [this.$t("notification.form.login_validation_error")],
+        [password]: [this.$t("notification.form.login_validation_error")]
       };
-      const height = heights[this.$vuetify.breakpoint.name];
-      if (height) return height;
-      return undefined;
+      this.$refs.observer.setErrors(errors);
     }
   }
 };

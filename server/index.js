@@ -31,6 +31,10 @@ app.use(
 const config = require("../nuxt.config.js");
 config.dev = process.env.NODE_ENV !== "production";
 
+// Routes
+const users = require("../server/routes/users");
+// Add routes to server
+app.use(users);
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);

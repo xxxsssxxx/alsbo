@@ -139,22 +139,41 @@
   </div>
 </template>
 <script>
+import Authorization from "../plugins/authorization.js";
 export default {
   layout: "empty",
   data: () => ({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: null,
-    state: "",
-    city: "",
-    street: "",
-    zip: "",
+    firstName: "manager",
+    lastName: "manager",
+    email: "manager@manager.com",
+    password: "12345678",
+    state: "USA",
+    city: "NYC",
+    street: "Time-Squere 503/12",
+    zip: "000000",
     showPassword: false
   }),
+  mounted() {
+    this.$store.dispatch("logout");
+  },
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    async submit() {
+      const valid = await this.$refs.observer.validate();
+      if (valid) {
+        const data = {
+          firstname: this.firstName,
+          lastname: this.lastName,
+          email: this.email,
+          password: this.password,
+          state: this.state,
+          city: this.city,
+          street: this.street,
+          zip: this.zip
+        };
+        const user = await Authorization.registrate(data);
+        this.$store.dispatch("login", user);
+        this.$router.push("/");
+      }
     },
     clear() {
       this.firstName = "";
