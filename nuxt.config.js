@@ -17,7 +17,7 @@ module.exports = {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/Brand.svg" }]
   },
   /*
    ** Customize the progress-bar color
@@ -43,6 +43,7 @@ module.exports = {
     "@nuxtjs/eslint-module",
     "@nuxtjs/vuetify"
   ],
+  serverMiddleware: ["~/api/users.js"],
   /*
    ** Nuxt.js modules
    */
@@ -91,6 +92,6 @@ module.exports = {
     transpile: ["vee-validate"],
     parallel: true,
     cache: true,
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 };
