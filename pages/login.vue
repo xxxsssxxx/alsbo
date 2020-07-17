@@ -53,12 +53,12 @@
                       </v-text-field>
                     </ValidationProvider>
                     <div
-                      class="button-group justify-sm-end flex-column flex-sm-row mt-4 mb-4 pa-3 d-flex justify-space-between"
+                      class="button-group justify-sm-end flex-column flex-md-row mt-4 mb-4 pa-3 d-flex justify-space-between"
                     >
                       <v-btn @click="submit" class="mr-sm-4 mt-2" color="success">{{ $t("button.submit") }}</v-btn>
-                      <v-btn @click="clear" class="mr-sm-4 mt-2">clear</v-btn>
-                      <v-btn @click="submit" class="mt-2" color="neutral" to="/registration">
-                        {{ $t("navbar.link_registration") }}
+                      <v-btn @click="clear" class="mr-sm-4 mt-2">{{ $t("button.clear") }}</v-btn>
+                      <v-btn class="mr-4 mr-sm-4 mr-md-0 mt-2" color="neutral" to="/registration">
+                        {{ $t("navigation.link_registration") }}
                       </v-btn>
                     </div>
                   </form>

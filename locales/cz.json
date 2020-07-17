@@ -12,7 +12,8 @@
     "save": "Uložit",
     "save_continue": "Uložit a Pokračovat",
     "save_new": "Uložit a nový",
-    "submit": "Odeslat"
+    "submit": "Odeslat",
+    "clear": "Vyčistit"
   },
   "email": {
     "long": "Emailová addresa ",
@@ -66,14 +67,15 @@
       "serial_number": "Sériové číslo"
     }
   },
-  "navbar": {
+  "navigation": {
     "button_add_item": "Přidat položku",
     "link_home": "Domů",
     "link_pricing": "Ceny",
-    "link_all_items": "Všechny položky",
+    "link_items": "Položky",
     "link_logout": "Odhlásit se",
     "link_login": "Přihlásit se",
-    "link_registration": "Registrovat se"
+    "link_registration": "Registrovat se",
+    "link_administration": "Administrace"
   },
   "password": "Heslo",
   "notification": {

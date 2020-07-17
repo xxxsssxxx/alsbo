@@ -42,7 +42,7 @@ export const actions = {
     if (req.headers.cookie) {
       const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
       const parsed = cookieparser.parse(req.headers.cookie);
-      const { userData: user } = jwt.verify(parsed.auth_token, secretKey);
+      const user = jwt.verify(parsed.auth_token, secretKey);
       commit("setToken", parsed.auth_token);
       commit("setCurrentUser", user);
     }

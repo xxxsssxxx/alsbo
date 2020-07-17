@@ -12,7 +12,8 @@
     "save": "Save",
     "save_continue": "Save and Continue",
     "save_new": "Save and New",
-    "submit": "Submit"
+    "submit": "Submit",
+    "clear": "Clear"
   },
   "email": {
     "long": "Email address",
@@ -49,14 +50,15 @@
     "additional": "Additional",
     "conclusive": "Conclusive"
   },
-  "navbar": {
+  "navigation": {
     "button_add_item": "Add item",
-    "link_all_items": "All items",
+    "link_items": "Items",
     "link_home": "Home",
     "link_login": "Login",
     "link_logout": "Logout",
     "link_pricing": "Pricing",
-    "link_registration": "Registration"
+    "link_registration": "Registration",
+    "link_administration": "Administration"
   },
   "password": "Password",
   "notification": {

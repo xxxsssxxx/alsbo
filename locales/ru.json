@@ -12,7 +12,8 @@
     "save": "Сохранить",
     "save_continue": "Сохранить и продолжить",
     "save_new": "Сохранить и снова",
-    "submit": "Отправить"
+    "submit": "Отправить",
+    "clear": "Очистить"
   },
   "email": {
     "long": "Электронная почта",
@@ -66,14 +67,15 @@
       "serial_number": "Серийный номер"
     }
   },
-  "navbar": {
+  "navigation": {
     "button_add_item": "Добавить елемент",
     "link_home": "Главная страница",
     "link_pricing": "Цены",
-    "link_all_items": "Список",
+    "link_items": "Предметы",
     "link_logout": "Выйти",
     "link_login": "Войти",
-    "link_registration": "Зарегестрироваться"
+    "link_registration": "Регистрация",
+    "link_administration": "Администрация"
   },
   "password": "Пароль",
   "notification": {

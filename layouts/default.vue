@@ -7,8 +7,8 @@
             <img src="https://randomuser.me/api/portraits/men/81.jpg" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>Application</v-list-item-title>
-            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+            <v-list-item-title>{{ currentUser.firstname }}</v-list-item-title>
+            <v-list-item-subtitle>{{ currentUser.lastname }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -69,45 +69,6 @@ export default {
   name: "Default",
   data() {
     return {
-      tabs: [
-        {
-          icon: "mdi-apps",
-          title: "Home",
-          to: "/"
-        },
-        {
-          icon: "mdi-currency-usd",
-          title: "Pricing",
-          to: "/pricing"
-        },
-        {
-          icon: "mdi-file-table-box",
-          title: "All items",
-          to: "/items"
-        }
-      ],
-      rightMenuButtons: [
-        {
-          icon: "mdi-account-key",
-          title: "Administration",
-          to: "/administration"
-        },
-        {
-          icon: "mdi-clipboard-account",
-          title: "User",
-          to: "/user"
-        },
-        {
-          icon: "mdi-account-star",
-          title: "Registration",
-          to: "/registration"
-        },
-        {
-          icon: "mdi-door-open",
-          title: "Log out",
-          to: "/login"
-        }
-      ],
       miniVariant: false,
       rightDrawer: false
     };
@@ -120,6 +81,52 @@ export default {
       set(val) {
         this.$vuetify.theme.dark = val;
       }
+    },
+    currentUser() {
+      return this.$store.state.currentUser;
+    },
+    tabs() {
+      return [
+        {
+          icon: "mdi-apps",
+          title: this.$t("navigation.link_home"),
+          to: "/"
+        },
+        {
+          icon: "mdi-currency-usd",
+          title: this.$t("navigation.link_pricing"),
+          to: "/pricing"
+        },
+        {
+          icon: "mdi-file-table-box",
+          title: this.$t("navigation.link_items"),
+          to: "/items"
+        }
+      ];
+    },
+    rightMenuButtons() {
+      return [
+        {
+          icon: "mdi-account-key",
+          title: this.$t("navigation.link_administration"),
+          to: "/administration"
+        },
+        {
+          icon: "mdi-clipboard-account",
+          title: this.$t("detail.user"),
+          to: "/user"
+        },
+        {
+          icon: "mdi-account-star",
+          title: this.$t("registration.title"),
+          to: "/registration"
+        },
+        {
+          icon: "mdi-door-open",
+          title: this.$t("navigation.link_logout"),
+          to: "/login"
+        }
+      ];
     }
   },
   mounted() {

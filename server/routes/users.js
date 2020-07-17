@@ -44,7 +44,7 @@ router.post("/api/users/new", async (req, res) => {
 router.post("/api/users/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    await User.findOne({ email }, "password token", async (err, user) => {
+    await User.findOne({ email }, "password token firstname lastname", async (err, user) => {
       if (err) throw err;
       // test a matching password
       if (!user) {

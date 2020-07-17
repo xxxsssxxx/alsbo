@@ -49,7 +49,10 @@ User.pre("save", function(next) {
 User.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY || "secretKey");
+  const token = jwt.sign(
+    { _id: user._id, firstname: user.firstname, lastname: user.lastname },
+    process.env.JWT_KEY || "secretKey"
+  );
   user.token = token;
   await user.save();
   return token;
