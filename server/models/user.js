@@ -22,7 +22,8 @@ const User = new mongoose.Schema({
   token: {
     type: String,
     required: true
-  }
+  },
+  lang: { type: String, default: "en" }
 });
 
 // Not using arrow function to keep a context
@@ -50,7 +51,7 @@ User.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
   const token = jwt.sign(
-    { _id: user._id, firstname: user.firstname, lastname: user.lastname },
+    { _id: user._id, firstname: user.firstname, lastname: user.lastname, lang: user.lang },
     process.env.JWT_KEY || "secretKey"
   );
   user.token = token;

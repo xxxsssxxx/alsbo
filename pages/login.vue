@@ -2,7 +2,7 @@
   <div class="wrapper">
     <v-container fluid class="d-flex align-center justify-center">
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="7" md="6" lg="6" xl="3">
+        <v-col cols="10" sm="6" md="6" lg="6" xl="3">
           <v-card class="mx-auto" rounded elevation="20" raised>
             <v-row justify="space-around" class="d-flex flex-column">
               <v-col cols="12" class="form-col-left secondary">
@@ -16,7 +16,7 @@
               </v-col>
               <v-col cols="12" class="form-col-right primary">
                 <v-card-text class="pl-3">
-                  <p class="display-1 text--text">
+                  <p class="text-h6 text-sm-h4 text--text">
                     {{ $t("login.title") }}
                   </p>
                 </v-card-text>
@@ -55,9 +55,11 @@
                     <div
                       class="button-group justify-sm-end flex-column flex-md-row mt-4 mb-4 pa-3 d-flex justify-space-between"
                     >
-                      <v-btn @click="submit" class="mr-sm-4 mt-2" color="success">{{ $t("button.submit") }}</v-btn>
-                      <v-btn @click="clear" class="mr-sm-4 mt-2">{{ $t("button.clear") }}</v-btn>
-                      <v-btn class="mr-4 mr-sm-4 mr-md-0 mt-2" color="neutral" to="/registration">
+                      <v-btn @click="submit" small class="mr-sm-4 mt-2" color="success">{{
+                        $t("button.submit")
+                      }}</v-btn>
+                      <v-btn @click="clear" small class="mr-sm-4 mt-2">{{ $t("button.clear") }}</v-btn>
+                      <v-btn small class="mr-sm-4 mr-md-0 mt-2" color="neutral" to="/registration">
                         {{ $t("navigation.link_registration") }}
                       </v-btn>
                     </div>

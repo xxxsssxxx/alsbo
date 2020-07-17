@@ -52,6 +52,7 @@ module.exports = {
   axios: {
     prefix: "/api"
   },
+  telemetry: false,
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

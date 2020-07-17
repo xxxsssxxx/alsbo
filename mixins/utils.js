@@ -1,5 +1,6 @@
 import TableRow from "@/plugins/table/row.js";
 import TableHeader from "@/plugins/table/header.js";
+import User from "@/plugins/user";
 
 export default {
   methods: {
@@ -12,6 +13,24 @@ export default {
         .reverse()
         .join("-");
       return newDate;
+    },
+    async updateUsersProp(prop, value) {
+      this.loading[prop] = true;
+      const id = this.$store.state.currentUser._id;
+      const { token, user, errorMessage } = await User.save(prop, { id, [prop]: value });
+      if (errorMessage) {
+        this.loading[prop] = false;
+        this.error[prop] = true;
+        return;
+      }
+      this.$store.commit("setCurrentUser", user);
+      this.$store.dispatch("updateToken", token);
+      this.success[prop] = true;
+      if (this.successTimer) clearTimeout(this.successTimer);
+      setTimeout(() => {
+        this.success[prop] = false;
+      }, this.$store.state.messageTimeout);
+      this.loading[prop] = false;
     },
     createTableArray(row, tableProps, service) {
       const rowCopy = this.deepSimpleCopy(row);
@@ -145,10 +164,6 @@ export default {
     togglePlainAttrType(object, bool, matchGoal, type) {
       const value = bool ? "plain" : type;
       this.updateAttr(object, value, matchGoal, "type");
-    },
-    onSubmit(user) {
-      this.$store.dispatch("login", user);
-      this.$router.push("/");
     },
     async addRow(payload, id) {
       const { item, feeItems, table, tableProps, feeProps } = payload;

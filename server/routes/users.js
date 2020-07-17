@@ -39,12 +39,39 @@ router.post("/api/users/new", async (req, res) => {
   }
 });
 
+// @route POST /users/:id/update
+// @desc Update an user propperty
+router.post("/api/users/:id/update", async (req, res) => {
+  const { prop, data } = req.body;
+  const { id } = data;
+  const newValue = data[prop];
+  try {
+    await User.findOne({ _id: id }, "firstname lastname address email password lang", async (err, user) => {
+      if (err) {
+        res.status(403).json({ errorMessage: err });
+        return;
+      }
+      // test a matching password
+      if (!user) {
+        res.status(404).json({ errorMessage: "error.user_not_found" });
+        return;
+      }
+      user[prop] = newValue;
+      const token = await user.generateAuthToken();
+      const newUser = await user.save();
+      res.status(200).json({ user: newUser, token });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // @route POST /users/login
 // @desc Validate users creadentioals and create a token
 router.post("/api/users/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    await User.findOne({ email }, "password token firstname lastname", async (err, user) => {
+    await User.findOne({ email }, "password token firstname lastname lang", async (err, user) => {
       if (err) throw err;
       // test a matching password
       if (!user) {

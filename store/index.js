@@ -15,7 +15,8 @@ export const state = () => ({
   service: { name: "sale", id: "1" },
   currency: { name: "czk", id: "1" },
   rate: {},
-  modalGlobalError: null
+  modalGlobalError: null,
+  messageTimeout: 3000
 });
 
 export const mutations = {
@@ -38,27 +39,45 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
+  nuxtServerInit({ commit, dispatch }, { req, redirect }) {
     if (req.headers.cookie) {
       const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
       const parsed = cookieparser.parse(req.headers.cookie);
+      if (!parsed.auth_token) {
+        redirect("/login");
+        return;
+      }
       const user = jwt.verify(parsed.auth_token, secretKey);
       commit("setToken", parsed.auth_token);
       commit("setCurrentUser", user);
+      dispatch("setUserLang", user.lang || "en");
     }
     const urlPrefix = process.env.API_URL || "http://localhost:3000/api";
     commit("setUrlPrefix", urlPrefix);
   },
-  login({ commit }, user) {
+  login({ commit, dispatch }, user) {
     Cookies.set("auth_token", user.token);
     commit("setToken", user.token);
     commit("setCurrentUser", user);
+    dispatch("setUserLang", user.lang || "en");
   },
   logout({ commit }) {
     Cookies.remove("auth_token");
     commit("items/resetState");
     commit("setCurrentUser", {});
     commit("clearToken");
+  },
+  updateToken({ commit }, token) {
+    Cookies.remove("auth_token");
+    Cookies.set("auth_token", token);
+    commit("setToken", token);
+  },
+  setUserLang({ commit }, lang) {
+    const payload = {
+      value: lang,
+      pathToSet: ["locale"]
+    };
+    commit("setStoreValue", payload);
   }
 };
 
