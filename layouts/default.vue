@@ -2,7 +2,7 @@
   <v-app dark>
     <v-navigation-drawer class="secondary" mini-variant expand-on-hover permanent app>
       <v-list>
-        <v-list-item two-line class="px-2">
+        <v-list-item two-line class="px-2" to="/user">
           <v-list-item-avatar>
             <img src="https://randomuser.me/api/portraits/men/81.jpg" />
           </v-list-item-avatar>
@@ -32,11 +32,7 @@
         </template>
       </v-img>
       <v-spacer />
-      <v-switch v-model="theme" color="indigo darken-3" inset hide-details>
-        <template v-slot:label>
-          <span class="text--text">Dark</span>
-        </template>
-      </v-switch>
+      <v-switch v-model="theme" color="secondary" inset hide-details append-icon="mdi-brightness-4"> </v-switch>
       <v-btn @click.stop="rightDrawer = !rightDrawer" icon class="text--text">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -134,3 +130,4 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped></style>

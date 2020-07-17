@@ -29,7 +29,7 @@
                           :name="$t('registration.first_name')"
                           rules="required|max:15"
                         >
-                          <v-text-field v-model="firstName" :counter="15" :error-messages="errors" required>
+                          <v-text-field v-model="firstname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("registration.first_name") }}</span>
                             </template>
@@ -42,7 +42,7 @@
                           :name="$t('registration.last_name')"
                           rules="required|max:15"
                         >
-                          <v-text-field v-model="lastName" :counter="15" :error-messages="errors" required>
+                          <v-text-field v-model="lastname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("registration.last_name") }}</span>
                             </template>
@@ -143,8 +143,8 @@ import Authorization from "../plugins/authorization.js";
 export default {
   layout: "empty",
   data: () => ({
-    firstName: "manager",
-    lastName: "manager",
+    firstname: "manager",
+    lastname: "manager",
     email: "manager@manager.com",
     password: "12345678",
     state: "USA",
@@ -161,8 +161,8 @@ export default {
       const valid = await this.$refs.observer.validate();
       if (valid) {
         const data = {
-          firstname: this.firstName,
-          lastname: this.lastName,
+          firstname: this.firstname,
+          lastname: this.lastname,
           email: this.email,
           password: this.password,
           state: this.state,
@@ -176,8 +176,8 @@ export default {
       }
     },
     clear() {
-      this.firstName = "";
-      this.lastName = "";
+      this.firstname = "";
+      this.lastname = "";
       this.email = "";
       this.city = "";
       this.state = "";

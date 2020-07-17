@@ -44,6 +44,8 @@ router.post("/api/users/new", async (req, res) => {
 router.post("/api/users/:id/update", async (req, res) => {
   const { prop, data } = req.body;
   const { id } = data;
+  const userAddressProps = ["state", "city", "street", "zip"];
+  const isAddress = userAddressProps.find(el => el === prop);
   const newValue = data[prop];
   try {
     await User.findOne({ _id: id }, "firstname lastname address email password lang", async (err, user) => {
@@ -56,7 +58,7 @@ router.post("/api/users/:id/update", async (req, res) => {
         res.status(404).json({ errorMessage: "error.user_not_found" });
         return;
       }
-      user[prop] = newValue;
+      isAddress ? (user.address[prop] = newValue) : (user[prop] = newValue);
       const token = await user.generateAuthToken();
       const newUser = await user.save();
       res.status(200).json({ user: newUser, token });

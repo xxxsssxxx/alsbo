@@ -27,7 +27,7 @@ export default {
       this.$store.dispatch("updateToken", token);
       this.success[prop] = true;
       if (this.successTimer) clearTimeout(this.successTimer);
-      setTimeout(() => {
+      this.successTimer = setTimeout(() => {
         this.success[prop] = false;
       }, this.$store.state.messageTimeout);
       this.loading[prop] = false;

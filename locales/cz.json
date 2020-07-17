@@ -146,6 +146,7 @@
   },
   "detail": {
     "title": "Detail",
-    "user": "Uživatel"
+    "user": "Uživatel",
+    "settings": "Nastavení"
   }
 }
