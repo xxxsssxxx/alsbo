@@ -20,6 +20,7 @@
                   :success="success.firstname"
                   :loading="loading.firstname"
                   @blur="updateUser('firstname', valid)"
+                  @keyup.enter="$event.target.blur()"
                   required
                   autocomplete="off"
                 >
@@ -39,6 +40,7 @@
                   :success="success.lastname"
                   :loading="loading.lastname"
                   @blur="updateUser('lastname', valid)"
+                  @keyup.enter="$event.target.blur()"
                   required
                   autocomplete="off"
                 >
@@ -59,6 +61,7 @@
                   :success="success.state"
                   :loading="loading.state"
                   @blur="updateUser('state', valid)"
+                  @keyup.enter="$event.target.blur()"
                   counter
                   required
                   autocomplete="off"
@@ -78,6 +81,7 @@
                   :success="success.city"
                   :loading="loading.city"
                   @blur="updateUser('city', valid)"
+                  @keyup.enter="$event.target.blur()"
                   counter
                   required
                   autocomplete="off"
@@ -99,6 +103,7 @@
                   :success="success.street"
                   :loading="loading.street"
                   @blur="updateUser('street', valid)"
+                  @keyup.enter="$event.target.blur()"
                   counter
                   required
                   autocomplete="off"
@@ -118,6 +123,7 @@
                   :success="success.zip"
                   :loading="loading.zip"
                   @blur="updateUser('zip', valid)"
+                  @keyup.enter="$event.target.blur()"
                   counter
                   required
                   autocomplete="off"
@@ -139,6 +145,7 @@
                   :success="success.email"
                   :loading="loading.email"
                   @blur="updateUser('email', valid)"
+                  @keyup.enter="$event.target.blur()"
                   required
                   autocomplete="new-password"
                 >

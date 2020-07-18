@@ -25,7 +25,13 @@
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6" class="text--text">
                         <ValidationProvider v-slot="{ errors }" name="first_name" rules="required|max:15|min:2">
-                          <v-text-field v-model="firstname" :counter="15" :error-messages="errors" required>
+                          <v-text-field
+                            v-model="firstname"
+                            :counter="15"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.first_name") }}</span>
                             </template>
@@ -34,7 +40,13 @@
                       </v-col>
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" name="last_name" rules="required|max:15|min:2">
-                          <v-text-field v-model="lastname" :counter="15" :error-messages="errors" required>
+                          <v-text-field
+                            v-model="lastname"
+                            :counter="15"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.last_name") }}</span>
                             </template>
@@ -45,7 +57,13 @@
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" name="city" rules="required|min:2">
-                          <v-text-field v-model="city" :error-messages="errors" counter required>
+                          <v-text-field
+                            v-model="city"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            counter
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text text--text">{{ $t("main.registration.city") }}</span>
                             </template>
@@ -54,7 +72,13 @@
                       </v-col>
                       <v-col>
                         <ValidationProvider v-slot="{ errors }" name="street" rules="required|min:2">
-                          <v-text-field v-model="street" :error-messages="errors" counter required>
+                          <v-text-field
+                            v-model="street"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            counter
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.street") }}</span>
                             </template>
@@ -65,7 +89,13 @@
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" name="state" rules="required|min:2">
-                          <v-text-field v-model="state" :error-messages="errors" counter required>
+                          <v-text-field
+                            v-model="state"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            counter
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.state") }}</span>
                             </template>
@@ -74,7 +104,13 @@
                       </v-col>
                       <v-col cols="12" sm="6">
                         <ValidationProvider v-slot="{ errors }" name="zip" rules="required|min:6">
-                          <v-text-field v-model="zip" :error-messages="errors" counter required>
+                          <v-text-field
+                            v-model="zip"
+                            :error-messages="errors"
+                            @keyup.enter="$event.target.blur()"
+                            counter
+                            required
+                          >
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.zip") }}</span>
                             </template>
@@ -86,6 +122,7 @@
                       <v-text-field
                         v-model="email"
                         :error-messages="errors"
+                        @keyup.enter="$event.target.blur()"
                         class="pa-3"
                         required
                         autocomplete="new-password"
@@ -99,6 +136,7 @@
                       <v-text-field
                         v-model="password"
                         :error-messages="errors"
+                        @keyup.enter="$event.target.blur()"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"

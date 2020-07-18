@@ -27,6 +27,7 @@
                       <v-text-field
                         v-model="email"
                         :error-messages="errors"
+                        @keyup.enter="$event.target.blur()"
                         class="pa-3"
                         required
                         autocomplete="new-password"
@@ -40,6 +41,7 @@
                       <v-text-field
                         v-model="password"
                         :error-messages="errors"
+                        @keyup.enter="$event.target.blur()"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"
