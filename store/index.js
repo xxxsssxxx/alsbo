@@ -39,7 +39,7 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({ commit, dispatch }, { req, redirect }) {
+  nuxtServerInit({ commit, dispatch, state }, { req, redirect }) {
     if (req.headers.cookie) {
       const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
       const parsed = cookieparser.parse(req.headers.cookie);
@@ -48,6 +48,10 @@ export const actions = {
         return;
       }
       const user = jwt.verify(parsed.auth_token, secretKey);
+      if (!user) {
+        redirect(`/login?message='${state.$t("main.login.first")}'`);
+        return;
+      }
       commit("setToken", parsed.auth_token);
       commit("setCurrentUser", user);
       dispatch("setUserLang", user.lang || "en");

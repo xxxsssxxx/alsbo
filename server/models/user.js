@@ -59,7 +59,7 @@ User.methods.generateAuthToken = async function() {
       email: user.email,
       address: user.address
     },
-    process.env.JWT_KEY || "secretKey"
+    process.env.JWT_SECRET_KEY || "secretKey"
   );
   user.token = token;
   await user.save();
