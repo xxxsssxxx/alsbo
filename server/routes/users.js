@@ -73,7 +73,7 @@ router.post("/api/users/:id/update", async (req, res) => {
 router.post("/api/users/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    await User.findOne({ email }, "password token firstname lastname lang", async (err, user) => {
+    await User.findOne({ email }, "firstname lastname address email password lang", async (err, user) => {
       if (err) throw err;
       // test a matching password
       if (!user) {
