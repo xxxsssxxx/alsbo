@@ -19,6 +19,7 @@
                   <p class="text-h6 text-sm-h4 text--text">
                     {{ $t("main.login.title") }}
                   </p>
+                  <p v-if="$route.query.message" class="text--error">{{ $t("login.first") }}</p>
                 </v-card-text>
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
