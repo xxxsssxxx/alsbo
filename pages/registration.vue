@@ -24,11 +24,7 @@
                   <form>
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6" class="text--text">
-                        <ValidationProvider
-                          v-slot="{ errors }"
-                          :name="$t('registration.first_name')"
-                          rules="required|max:15"
-                        >
+                        <ValidationProvider v-slot="{ errors }" name="first_name" rules="required|max:15|min:2">
                           <v-text-field v-model="firstname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.first_name") }}</span>
@@ -37,11 +33,7 @@
                         </ValidationProvider>
                       </v-col>
                       <v-col cols="12" sm="6">
-                        <ValidationProvider
-                          v-slot="{ errors }"
-                          :name="$t('registration.last_name')"
-                          rules="required|max:15"
-                        >
+                        <ValidationProvider v-slot="{ errors }" name="last_name" rules="required|max:15|min:2">
                           <v-text-field v-model="lastname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.last_name") }}</span>
@@ -52,7 +44,7 @@
                     </v-row>
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
-                        <ValidationProvider v-slot="{ errors }" :name="$t('registration.city')" rules="required|min:2">
+                        <ValidationProvider v-slot="{ errors }" name="city" rules="required|min:2">
                           <v-text-field v-model="city" :error-messages="errors" counter required>
                             <template v-slot:label>
                               <span class="input__label text--text text--text">{{ $t("main.registration.city") }}</span>
@@ -61,11 +53,7 @@
                         </ValidationProvider>
                       </v-col>
                       <v-col>
-                        <ValidationProvider
-                          v-slot="{ errors }"
-                          :name="$t('registration.street')"
-                          rules="required|min:2"
-                        >
+                        <ValidationProvider v-slot="{ errors }" name="street" rules="required|min:2">
                           <v-text-field v-model="street" :error-messages="errors" counter required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.street") }}</span>
@@ -76,7 +64,7 @@
                     </v-row>
                     <v-row align="center" justify="space-around">
                       <v-col cols="12" sm="6">
-                        <ValidationProvider v-slot="{ errors }" :name="$t('registration.state')" rules="required|min:2">
+                        <ValidationProvider v-slot="{ errors }" name="state" rules="required|min:2">
                           <v-text-field v-model="state" :error-messages="errors" counter required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.state") }}</span>
@@ -85,7 +73,7 @@
                         </ValidationProvider>
                       </v-col>
                       <v-col cols="12" sm="6">
-                        <ValidationProvider v-slot="{ errors }" :name="$t('registration.zip')" rules="required|min:6">
+                        <ValidationProvider v-slot="{ errors }" name="zip" rules="required|min:6">
                           <v-text-field v-model="zip" :error-messages="errors" counter required>
                             <template v-slot:label>
                               <span class="input__label text--text">{{ $t("main.registration.zip") }}</span>
@@ -94,7 +82,7 @@
                         </ValidationProvider>
                       </v-col>
                     </v-row>
-                    <ValidationProvider v-slot="{ errors }" :name="$t('email.short')" rules="required|email">
+                    <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
                       <v-text-field
                         v-model="email"
                         :error-messages="errors"
@@ -107,7 +95,7 @@
                         </template>
                       </v-text-field>
                     </ValidationProvider>
-                    <ValidationProvider v-slot="{ errors, valid }" :name="$t('password')" rules="required|min:8">
+                    <ValidationProvider v-slot="{ errors, valid }" name="password" ules="required|min:8">
                       <v-text-field
                         v-model="password"
                         :error-messages="errors"

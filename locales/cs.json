@@ -35,7 +35,9 @@
     "street": "Ulice",
     "zip": "ZIP",
     "private_data_share": "Souhlasím s uchováním svých osobních údajů",
-    "sign_up": "Zaregistrovat se"
+    "sign_up": "Zaregistrovat se",
+    "email": "Email",
+    "password": "Heslo"
   },
   "language": "Jazyk",
   "languages": {

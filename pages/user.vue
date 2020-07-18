@@ -11,11 +11,7 @@
         <form>
           <v-row align="center" justify="space-around" justify-lg="start">
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                :name="$t('registration.first_name')"
-                rules="required|max:15"
-              >
+              <ValidationProvider v-slot="{ errors, valid }" name="first_name" rules="required|max:15|min:2">
                 <v-text-field
                   v-model.lazy="firstname"
                   :counter="15"
@@ -23,8 +19,9 @@
                   :success-messages="success.firstname ? successMessage : ''"
                   :success="success.firstname"
                   :loading="loading.firstname"
-                  @blur="updateUser($t('registration.first_name'), 'firstname', valid)"
+                  @blur="updateUser('firstname', valid)"
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.first_name") }}</span>
@@ -33,11 +30,7 @@
               </ValidationProvider>
             </v-col>
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                :name="$t('registration.last_name')"
-                rules="required|max:15"
-              >
+              <ValidationProvider v-slot="{ errors, valid }" name="last_name" rules="required|max:15|min:2">
                 <v-text-field
                   v-model.lazy="lastname"
                   :counter="15"
@@ -45,8 +38,9 @@
                   :success-messages="success.lastname ? successMessage : ''"
                   :success="success.lastname"
                   :loading="loading.lastname"
-                  @blur="updateUser($t('registration.last_name'), 'lastname', valid)"
+                  @blur="updateUser('lastname', valid)"
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.last_name") }}</span>
@@ -57,16 +51,17 @@
           </v-row>
           <v-row align="center" justify="space-around" justify-lg="start">
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider v-slot="{ errors, valid }" :name="$t('registration.state')" rules="required|min:2">
+              <ValidationProvider v-slot="{ errors, valid }" name="state" rules="required|min:2">
                 <v-text-field
                   v-model.lazy="state"
                   :error-messages="errors"
                   :success-messages="success.state ? successMessage : ''"
                   :success="success.state"
                   :loading="loading.state"
-                  @blur="updateUser($t('registration.state'), 'state', valid)"
+                  @blur="updateUser('state', valid)"
                   counter
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.state") }}</span>
@@ -75,16 +70,17 @@
               </ValidationProvider>
             </v-col>
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider v-slot="{ errors, valid }" :name="$t('registration.city')" rules="required|min:2">
+              <ValidationProvider v-slot="{ errors, valid }" name="city" rules="required|min:2">
                 <v-text-field
                   v-model.lazy="city"
                   :error-messages="errors"
                   :success-messages="success.city ? successMessage : ''"
                   :success="success.city"
                   :loading="loading.city"
-                  @blur="updateUser($t('registration.city'), 'city', valid)"
+                  @blur="updateUser('city', valid)"
                   counter
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.city") }}</span>
@@ -95,16 +91,17 @@
           </v-row>
           <v-row align="center" justify="space-around" justify-lg="start">
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider v-slot="{ errors, valid }" :name="$t('registration.street')" rules="required|min:2">
+              <ValidationProvider v-slot="{ errors, valid }" name="street" rules="required|min:2">
                 <v-text-field
                   v-model.lazy="street"
                   :error-messages="errors"
                   :success-messages="success.street ? successMessage : ''"
                   :success="success.street"
                   :loading="loading.street"
-                  @blur="updateUser($t('registration.street'), 'street', valid)"
+                  @blur="updateUser('street', valid)"
                   counter
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.street") }}</span>
@@ -113,16 +110,17 @@
               </ValidationProvider>
             </v-col>
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider v-slot="{ errors, valid }" :name="$t('registration.zip')" rules="required|min:6">
+              <ValidationProvider v-slot="{ errors, valid }" name="zip" rules="required|min:6">
                 <v-text-field
                   v-model.lazy="zip"
                   :error-messages="errors"
                   :success-messages="success.zip ? successMessage : ''"
                   :success="success.zip"
                   :loading="loading.zip"
-                  @blur="updateUser($t('registration.zip'), 'zip', valid)"
+                  @blur="updateUser('zip', valid)"
                   counter
                   required
+                  autocomplete="off"
                 >
                   <template v-slot:label>
                     <span class="input__label">{{ $t("main.registration.zip") }}</span>
@@ -133,14 +131,14 @@
           </v-row>
           <v-row align="center" justify="start">
             <v-col cols="12" sm="6" md="6" lg="4">
-              <ValidationProvider v-slot="{ errors, valid }" :name="$t('email.short')" rules="required|email">
+              <ValidationProvider v-slot="{ errors, valid }" name="email" rules="required|email">
                 <v-text-field
                   v-model.lazy="email"
                   :error-messages="errors"
                   :success-messages="success.email ? successMessage : ''"
                   :success="success.email"
                   :loading="loading.email"
-                  @blur="updateUser($t('registration.short'), 'email', valid)"
+                  @blur="updateUser('email', valid)"
                   required
                   autocomplete="new-password"
                 >
@@ -182,6 +180,8 @@
 </template>
 
 <script>
+import { localize } from "vee-validate";
+
 export default {
   name: "User",
   middleware: "auth",
@@ -189,7 +189,7 @@ export default {
     return {
       items: [
         { name: this.$t("main.languages.english"), attribute: "en" },
-        { name: this.$t("main.languages.czech"), attribute: "cz" },
+        { name: this.$t("main.languages.czech"), attribute: "cs" },
         { name: this.$t("main.languages.russian"), attribute: "ru" }
       ],
       loading: {
@@ -219,14 +219,13 @@ export default {
       },
       successMessage: "",
       errorMessage: "",
-      user: this.$store.state.currentUser,
-      firstname: this.$store.state.currentUser.firstname,
-      lastname: this.$store.state.currentUser.lastname,
-      email: this.$store.state.currentUser.email,
-      state: this.$store.state.currentUser.address.state,
-      city: this.$store.state.currentUser.address.city,
-      street: this.$store.state.currentUser.address.street,
-      zip: this.$store.state.currentUser.address.zip
+      firstname: "",
+      lastname: "",
+      email: "",
+      state: "",
+      city: "",
+      street: "",
+      zip: ""
     };
   },
   computed: {
@@ -243,6 +242,17 @@ export default {
       }
     }
   },
+  asyncData({ app, params, store }) {
+    return {
+      firstname: store.state.currentUser.firstname,
+      lastname: store.state.currentUser.lastname,
+      email: store.state.currentUser.email,
+      state: store.state.currentUser.address.state,
+      city: store.state.currentUser.address.city,
+      street: store.state.currentUser.address.street,
+      zip: store.state.currentUser.address.zip
+    };
+  },
   methods: {
     async setLanguage(lang) {
       const payload = {
@@ -252,12 +262,13 @@ export default {
       this.$i18n.locale = lang;
       this.$store.commit("setStoreValue", payload);
       this.setMessages();
+      this.loadLocale(lang);
       await this.saveUserLanguage(lang);
     },
     async saveUserLanguage(lang) {
       await this.updateUsersProp("lang", lang);
     },
-    async updateUser(field, prop, valid) {
+    async updateUser(prop, valid) {
       if (valid) {
         this.setMessages();
         await this.updateUsersProp(prop, this[prop]);
@@ -266,6 +277,11 @@ export default {
     setMessages() {
       this.successMessage = this.$t("main.notification.form.success.saved");
       this.errorMessage = this.$t("main.notification.form.title_validation_error");
+    },
+    loadLocale(code) {
+      return import(`vee-validate/dist/locale/${code}.json`).then(locale => {
+        localize(code, locale);
+      });
     }
   }
 };

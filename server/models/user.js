@@ -50,7 +50,6 @@ User.pre("save", function(next) {
 User.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
-  console.log(user);
   const token = jwt.sign(
     {
       _id: user._id,

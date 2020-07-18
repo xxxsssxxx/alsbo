@@ -3,6 +3,8 @@ import VueI18n from "vue-i18n";
 import en from "vee-validate/dist/locale/en.json";
 import ru from "vee-validate/dist/locale/ru.json";
 import cs from "vee-validate/dist/locale/cs.json";
+import { configure } from "vee-validate";
+
 Vue.use(VueI18n);
 
 export default ({ app, store }) => {
@@ -20,10 +22,18 @@ export default ({ app, store }) => {
         main: require("~/locales/ru.json"),
         validation: ru.messages
       },
-      cz: {
-        main: require("~/locales/cz.json"),
+      cs: {
+        main: require("~/locales/cs.json"),
         validation: cs.messages
       }
+    }
+  });
+
+  configure({
+    // this will be used to generate messages.
+    defaultMessage: (field, values) => {
+      values._field_ = app.i18n.t(`main.registration.${field}`);
+      return app.i18n.t(`validation.${values._rule_}`, values);
     }
   });
   // Add i18n to store

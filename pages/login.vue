@@ -22,7 +22,7 @@
                 </v-card-text>
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
                   <form>
-                    <ValidationProvider v-slot="{ errors }" :name="$t('email.short')" rules="required|email">
+                    <ValidationProvider v-slot="{ errors }" :name="$t('main.email.short')" rules="required|email">
                       <v-text-field
                         v-model="email"
                         :error-messages="errors"
@@ -35,7 +35,7 @@
                         </template>
                       </v-text-field>
                     </ValidationProvider>
-                    <ValidationProvider v-slot="{ errors, valid }" :name="$t('password')" rules="required|min:8">
+                    <ValidationProvider v-slot="{ errors, valid }" :name="$t('main.password')" rules="required|min:8">
                       <v-text-field
                         v-model="password"
                         :error-messages="errors"
