@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
-
+import en from "vee-validate/dist/locale/en.json";
+import ru from "vee-validate/dist/locale/ru.json";
+import cs from "vee-validate/dist/locale/cs.json";
 Vue.use(VueI18n);
 
 export default ({ app, store }) => {
@@ -10,9 +12,18 @@ export default ({ app, store }) => {
     locale: store.state.locale,
     fallbackLocale: "en",
     messages: {
-      en: require("~/locales/en.json"),
-      ru: require("~/locales/ru.json"),
-      cz: require("~/locales/cz.json")
+      en: {
+        main: require("~/locales/en.json"),
+        validation: en.messages
+      },
+      ru: {
+        main: require("~/locales/ru.json"),
+        validation: ru.messages
+      },
+      cz: {
+        main: require("~/locales/cz.json"),
+        validation: cs.messages
+      }
     }
   });
   // Add i18n to store

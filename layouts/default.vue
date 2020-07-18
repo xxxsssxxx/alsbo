@@ -85,17 +85,17 @@ export default {
       return [
         {
           icon: "mdi-apps",
-          title: this.$t("navigation.link_home"),
+          title: this.$t("main.navigation.link_home"),
           to: "/"
         },
         {
           icon: "mdi-currency-usd",
-          title: this.$t("navigation.link_pricing"),
+          title: this.$t("main.navigation.link_pricing"),
           to: "/pricing"
         },
         {
           icon: "mdi-file-table-box",
-          title: this.$t("navigation.link_items"),
+          title: this.$t("main.navigation.link_items"),
           to: "/items"
         }
       ];
@@ -104,22 +104,22 @@ export default {
       return [
         {
           icon: "mdi-account-key",
-          title: this.$t("navigation.link_administration"),
+          title: this.$t("main.navigation.link_administration"),
           to: "/administration"
         },
         {
           icon: "mdi-clipboard-account",
-          title: this.$t("detail.user"),
+          title: this.$t("main.detail.user"),
           to: "/user"
         },
         {
           icon: "mdi-account-star",
-          title: this.$t("registration.title"),
+          title: this.$t("main.registration.title"),
           to: "/registration"
         },
         {
           icon: "mdi-door-open",
-          title: this.$t("navigation.link_logout"),
+          title: this.$t("main.navigation.link_logout"),
           to: "/login"
         }
       ];

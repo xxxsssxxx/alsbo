@@ -17,7 +17,7 @@
               <v-col cols="12" class="form-col-right primary">
                 <v-card-text class="pl-3">
                   <p class="text-h6 text-sm-h4 text--text">
-                    {{ $t("login.title") }}
+                    {{ $t("main.login.title") }}
                   </p>
                 </v-card-text>
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
@@ -31,7 +31,7 @@
                         autocomplete="new-password"
                       >
                         <template v-slot:label>
-                          <span class="input__label text--text">{{ $t("email.short") }}</span>
+                          <span class="input__label text--text">{{ $t("main.email.short") }}</span>
                         </template>
                       </v-text-field>
                     </ValidationProvider>
@@ -48,7 +48,7 @@
                         autocomplete="new-password"
                       >
                         <template v-slot:label>
-                          <span class="input__label text--text">{{ $t("password") }}</span>
+                          <span class="input__label text--text">{{ $t("main.password") }}</span>
                         </template>
                       </v-text-field>
                     </ValidationProvider>
@@ -56,11 +56,11 @@
                       class="button-group justify-sm-end flex-column flex-md-row mt-4 mb-4 pa-3 d-flex justify-space-between"
                     >
                       <v-btn @click="submit" small class="mr-sm-4 mt-2" color="success">{{
-                        $t("button.submit")
+                        $t("main.button.submit")
                       }}</v-btn>
-                      <v-btn @click="clear" small class="mr-sm-4 mt-2">{{ $t("button.clear") }}</v-btn>
+                      <v-btn @click="clear" small class="mr-sm-4 mt-2">{{ $t("main.button.clear") }}</v-btn>
                       <v-btn small class="mr-sm-4 mr-md-0 mt-2" color="neutral" to="/registration">
-                        {{ $t("navigation.link_registration") }}
+                        {{ $t("main.navigation.link_registration") }}
                       </v-btn>
                     </div>
                   </form>
@@ -109,11 +109,11 @@ export default {
       this.$refs.observer.reset();
     },
     setLoginValidationErrors() {
-      const email = this.$t("email.short");
-      const password = this.$t("password");
+      const email = this.$t("main.email.short");
+      const password = this.$t("main.password");
       const errors = {
-        [email]: [this.$t("notification.form.login_validation_error")],
-        [password]: [this.$t("notification.form.login_validation_error")]
+        [email]: [this.$t("main.notification.form.login_validation_error")],
+        [password]: [this.$t("main.notification.form.login_validation_error")]
       };
       this.$refs.observer.setErrors(errors);
     }

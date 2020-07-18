@@ -17,7 +17,7 @@
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right primary">
                 <v-card-text class="pl-3">
                   <p class="display-1 text--text">
-                    {{ $t("registration.title") }}
+                    {{ $t("main.registration.title") }}
                   </p>
                 </v-card-text>
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
@@ -31,7 +31,7 @@
                         >
                           <v-text-field v-model="firstname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("registration.first_name") }}</span>
+                              <span class="input__label text--text">{{ $t("main.registration.first_name") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -44,7 +44,7 @@
                         >
                           <v-text-field v-model="lastname" :counter="15" :error-messages="errors" required>
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("registration.last_name") }}</span>
+                              <span class="input__label text--text">{{ $t("main.registration.last_name") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -55,7 +55,7 @@
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.city')" rules="required|min:2">
                           <v-text-field v-model="city" :error-messages="errors" counter required>
                             <template v-slot:label>
-                              <span class="input__label text--text text--text">{{ $t("registration.city") }}</span>
+                              <span class="input__label text--text text--text">{{ $t("main.registration.city") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -68,7 +68,7 @@
                         >
                           <v-text-field v-model="street" :error-messages="errors" counter required>
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("registration.street") }}</span>
+                              <span class="input__label text--text">{{ $t("main.registration.street") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -79,7 +79,7 @@
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.state')" rules="required|min:2">
                           <v-text-field v-model="state" :error-messages="errors" counter required>
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("registration.state") }}</span>
+                              <span class="input__label text--text">{{ $t("main.registration.state") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -88,7 +88,7 @@
                         <ValidationProvider v-slot="{ errors }" :name="$t('registration.zip')" rules="required|min:6">
                           <v-text-field v-model="zip" :error-messages="errors" counter required>
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("registration.zip") }}</span>
+                              <span class="input__label text--text">{{ $t("main.registration.zip") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -103,7 +103,7 @@
                         autocomplete="new-password"
                       >
                         <template v-slot:label>
-                          <span class="input__label text--text">{{ $t("email.short") }}</span>
+                          <span class="input__label text--text">{{ $t("main.email.short") }}</span>
                         </template>
                       </v-text-field>
                     </ValidationProvider>
@@ -120,7 +120,7 @@
                         autocomplete="new-password"
                       >
                         <template v-slot:label>
-                          <span class="input__label text--text">{{ $t("password") }}</span>
+                          <span class="input__label text--text">{{ $t("main.password") }}</span>
                         </template>
                       </v-text-field>
                     </ValidationProvider>

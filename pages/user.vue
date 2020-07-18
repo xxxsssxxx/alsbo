@@ -1,10 +1,10 @@
 <template>
   <v-layout>
     <v-flex xs12 sm12 md12 lg12>
-      <p class="display-1">{{ $t("detail.user") }}</p>
+      <p class="display-1">{{ $t("main.detail.user") }}</p>
       <p class="text-subtitle-1 d-flex align-center">
         <v-icon class="mr-2"> mdi-card-account-details</v-icon>
-        <span>{{ $t("detail.title") }}</span>
+        <span>{{ $t("main.detail.title") }}</span>
       </p>
       <v-divider></v-divider>
       <ValidationObserver ref="observer" v-slot="{ validate, reset }">
@@ -27,7 +27,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.first_name") }}</span>
+                    <span class="input__label">{{ $t("main.registration.first_name") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -49,7 +49,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.last_name") }}</span>
+                    <span class="input__label">{{ $t("main.registration.last_name") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -69,7 +69,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.state") }}</span>
+                    <span class="input__label">{{ $t("main.registration.state") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -87,7 +87,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.city") }}</span>
+                    <span class="input__label">{{ $t("main.registration.city") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -107,7 +107,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.street") }}</span>
+                    <span class="input__label">{{ $t("main.registration.street") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -125,7 +125,7 @@
                   required
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("registration.zip") }}</span>
+                    <span class="input__label">{{ $t("main.registration.zip") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -145,7 +145,7 @@
                   autocomplete="new-password"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("email.short") }}</span>
+                    <span class="input__label">{{ $t("main.email.short") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -155,7 +155,7 @@
       </ValidationObserver>
       <p class="text-subtitle-1 d-flex align-center mt-4">
         <v-icon class="mr-2"> mdi-hammer-screwdriver</v-icon>
-        <span>{{ $t("detail.settings") }}</span>
+        <span>{{ $t("main.detail.settings") }}</span>
       </p>
       <v-divider></v-divider>
       <v-row>
@@ -172,7 +172,7 @@
             item-value="attribute"
           >
             <template v-slot:label>
-              <span>{{ $t("language") }}</span>
+              <span>{{ $t("main.language") }}</span>
             </template>
           </v-select>
         </v-col>
@@ -188,9 +188,9 @@ export default {
   data() {
     return {
       items: [
-        { name: this.$t("languages.english"), attribute: "en" },
-        { name: this.$t("languages.czech"), attribute: "cz" },
-        { name: this.$t("languages.russian"), attribute: "ru" }
+        { name: this.$t("main.languages.english"), attribute: "en" },
+        { name: this.$t("main.languages.czech"), attribute: "cz" },
+        { name: this.$t("main.languages.russian"), attribute: "ru" }
       ],
       loading: {
         lang: false,
@@ -264,8 +264,8 @@ export default {
       }
     },
     setMessages() {
-      this.successMessage = this.$t("notification.form.success.saved");
-      this.errorMessage = this.$t("notification.form.title_validation_error");
+      this.successMessage = this.$t("main.notification.form.success.saved");
+      this.errorMessage = this.$t("main.notification.form.title_validation_error");
     }
   }
 };
