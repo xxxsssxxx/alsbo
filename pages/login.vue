@@ -58,11 +58,11 @@
                     <div
                       class="button-group justify-sm-end flex-column flex-md-row mt-4 mb-4 pa-3 d-flex justify-space-between"
                     >
-                      <v-btn @click="submit" small class="mr-sm-4 mt-2" color="success">{{
+                      <v-btn @click="submit" small class="mr-md-2 mt-2" color="success">{{
                         $t("main.button.submit")
                       }}</v-btn>
-                      <v-btn @click="clear" small class="mr-sm-4 mt-2">{{ $t("main.button.clear") }}</v-btn>
-                      <v-btn small class="mr-sm-4 mr-md-0 mt-2" color="neutral" to="/registration">
+                      <v-btn @click="clear" small class="mr-md-2 mt-2">{{ $t("main.button.clear") }}</v-btn>
+                      <v-btn small class="mr-md-2 mt-2" color="neutral" to="/registration">
                         {{ $t("main.navigation.link_registration") }}
                       </v-btn>
                     </div>

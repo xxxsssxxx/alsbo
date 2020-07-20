@@ -151,8 +151,8 @@
                       </v-text-field>
                     </ValidationProvider>
                     <div class="button-group mt-4 mb-4 d-flex justify-end">
-                      <v-btn @click="submit" class="mr-4" color="success">submit</v-btn>
-                      <v-btn @click="clear">clear</v-btn>
+                      <v-btn @click="submit" small class="mr-4" color="success">{{ $t("main.button.submit") }}</v-btn>
+                      <v-btn @click="clear" small class="mr-3">{{ $t("main.button.clear") }}</v-btn>
                     </div>
                   </form>
                 </ValidationObserver>
