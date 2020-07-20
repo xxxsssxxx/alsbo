@@ -2,7 +2,7 @@
   <div class="wrapper">
     <v-container fluid class="d-flex align-center justify-center">
       <v-row align="center" justify="center">
-        <v-col cols="9" sm="6" md="6" lg="6" xl="3">
+        <v-col cols="10" sm="6" md="6" lg="6" xl="3">
           <v-card class="mx-auto" rounded elevation="20" max-width="100vw" raised>
             <v-row justify="space-around" class="d-flex flex-column">
               <v-col cols="12" class="form-col-left secondary">

@@ -39,6 +39,9 @@ html {
   max-width: 100vw;
   overflow-x: hidden;
 }
+body {
+  padding: env(safe-area-inset, 0px);
+}
 .bg {
   width: 100%;
   height: 100%;
