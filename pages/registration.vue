@@ -6,7 +6,7 @@
           <v-card class="mx-auto" rounded elevation="20" raised max-width="100vw">
             <v-row justify="space-around">
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left secondary">
-                <v-img src="/Brand.svg" contain max-height="600">
+                <v-img src="/Brand.svg" contain max-height="600" min-height="180">
                   <template v-slot:placeholder>
                     <v-row class="fill-height ma-0" align="center" justify="center">
                       <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
