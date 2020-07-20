@@ -2,8 +2,8 @@
   <div class="wrapper">
     <v-container fluid class="d-flex align-center justify-center">
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="12" md="12" lg="10">
-          <v-card class="mx-auto" rounded elevation="20" raised>
+        <v-col cols="10" sm="12" md="12" lg="10">
+          <v-card class="mx-auto" rounded elevation="20" raised max-width="100vw">
             <v-row justify="space-around">
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-left secondary">
                 <v-img src="/Brand.svg" contain max-height="600">

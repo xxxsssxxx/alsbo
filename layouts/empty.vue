@@ -34,6 +34,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#app,
+html {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 .bg {
   width: 100%;
   height: 100%;
