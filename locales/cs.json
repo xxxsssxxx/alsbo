@@ -46,7 +46,7 @@
     "czech": "Čeština"
   },
   "modal": {
-    "create_new_item": "Vytvořit novou položku",
+    "new_item": "Nová položka",
     "edit_item": "Upravit položku",
     "main": "Hlavní",
     "additional": "Další",
@@ -128,6 +128,12 @@
       "select_service_type": "Vyberte typ služby",
       "serial_number": "Sériové číslo",
       "repair_status": "Stav opravy"
+    },
+    "toolbar": {
+      "new_columns": "Přidejte nové sloupce",
+      "items_per_page_text": "Položek na stránce",
+      "text_off": "z",
+      "available_columns": "Dostupné sloupce"
     }
   },
   "sale_register": "Prodejní seznam",

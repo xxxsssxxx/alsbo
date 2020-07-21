@@ -46,7 +46,7 @@
     "czech": "Čeština"
   },
   "modal": {
-    "create_new_item": "Создать новую услугу",
+    "new_item": "Новая услуга",
     "edit_item": "Изменить элемент",
     "main": "Главное",
     "additional": "Дополнительно",
@@ -128,6 +128,12 @@
       "select_service": "Выберите услугу",
       "serial_number": "Серийный номер",
       "repair_status": "Статус ремонта"
+    },
+    "toolbar": {
+      "new_columns": "Добавьте новые столбцы",
+      "items_per_page_text": "Пункты на странице",
+      "text_off": "из",
+      "available_columns": "Доступные столбцы"
     }
   },
   "sale_register": "Реестр продаж",

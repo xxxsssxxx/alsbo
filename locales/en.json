@@ -46,7 +46,7 @@
     "czech": "Čeština"
   },
   "modal": {
-    "create_new_item": "Create new item",
+    "new_item": "New item",
     "edit_item": "Edit item",
     "main": "Main",
     "additional": "Additional",
@@ -106,6 +106,12 @@
       "select_service": "Chose service",
       "select_service_type": "Chose service type",
       "serial_number": "Serial number"
+    },
+    "toolbar": {
+      "new_columns": "Add new columns",
+      "items_per_page_text": "Items per page",
+      "text_off": "of",
+      "available_columns": "Available columns"
     }
   },
   "sale_register": "Sale register",
