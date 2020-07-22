@@ -45,7 +45,7 @@ router.post("/api/columns/update", async (req, res) => {
         res.status(404).json({ errorMessage: "error.column_not_found" });
         return;
       }
-      column = newValue;
+      column.selected = newValue;
       const newColumn = await column.save();
       res.status(200).json({ column: newColumn });
     });

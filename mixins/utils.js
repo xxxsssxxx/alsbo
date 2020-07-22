@@ -32,6 +32,24 @@ export default {
       }, this.$store.state.messageTimeout);
       this.loading[prop] = false;
     },
+    async updateColumnProp(prop, value) {
+      this.loading[prop] = true;
+      const id = this.$store.state.currentUser._id;
+      const { token, user, errorMessage } = await User.save(prop, { id, [prop]: value });
+      if (errorMessage) {
+        this.loading[prop] = false;
+        this.error[prop] = true;
+        return;
+      }
+      this.$store.commit("setCurrentUser", user);
+      this.$store.dispatch("updateToken", token);
+      this.success[prop] = true;
+      if (this.successTimer) clearTimeout(this.successTimer);
+      this.successTimer = setTimeout(() => {
+        this.success[prop] = false;
+      }, this.$store.state.messageTimeout);
+      this.loading[prop] = false;
+    },
     createTableArray(row, tableProps, service) {
       const rowCopy = this.deepSimpleCopy(row);
       const filteredRow = tableProps.map((head, i) => {

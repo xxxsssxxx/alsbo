@@ -25,20 +25,6 @@
     "first": "Please login first to your account to use this app.",
     "title": "Log in"
   },
-  "registration": {
-    "title": "Registration",
-    "first_name": "First name",
-    "last_name": "Last name",
-    "address": "Address",
-    "street": "Street",
-    "city": "City",
-    "state": "State",
-    "zip": "ZIP",
-    "private_data_share": "I agree to keep my personal information",
-    "sign_up": "Sign up",
-    "email": "Email",
-    "password": "Password"
-  },
   "language": "Language",
   "languages": {
     "english": "English",
@@ -79,7 +65,22 @@
     }
   },
   "fields": {
-
+    "title": "Registration",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "address": "Address",
+    "street": "Street",
+    "city": "City",
+    "state": "State",
+    "zip": "ZIP",
+    "private_data_share": "I agree to keep my personal information",
+    "sign_up": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "text": "Text",
+    "value": "Value",
+    "sortable": "Sortable",
+    "filterable": "Filterable"
   },
   "table": {
     "header": {

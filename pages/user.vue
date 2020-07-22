@@ -25,7 +25,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.first_name") }}</span>
+                    <span class="input__label">{{ $t("main.fields.first_name") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -45,7 +45,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.last_name") }}</span>
+                    <span class="input__label">{{ $t("main.fields.last_name") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -67,7 +67,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.state") }}</span>
+                    <span class="input__label">{{ $t("main.fields.state") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -87,7 +87,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.city") }}</span>
+                    <span class="input__label">{{ $t("main.fields.city") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -109,7 +109,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.street") }}</span>
+                    <span class="input__label">{{ $t("main.fields.street") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>
@@ -129,7 +129,7 @@
                   autocomplete="off"
                 >
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.registration.zip") }}</span>
+                    <span class="input__label">{{ $t("main.fields.zip") }}</span>
                   </template>
                 </v-text-field>
               </ValidationProvider>

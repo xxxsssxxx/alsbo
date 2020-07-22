@@ -12,8 +12,8 @@ const Column = new mongoose.Schema({
       align: { type: String, required: false },
       sortable: { type: Boolean, required: true, default: true },
       filterable: { type: Boolean, required: true, default: true },
-      groupable: { type: Boolean, required: true, default: true },
-      divider: { type: Boolean, required: true, default: true }
+      divider: { type: Boolean, required: true, default: true },
+      selected: { type: Boolean, required: true, default: false }
     }
   ]
 });

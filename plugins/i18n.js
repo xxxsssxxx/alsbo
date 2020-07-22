@@ -32,7 +32,7 @@ export default ({ app, store }) => {
   configure({
     // this will be used to generate messages.
     defaultMessage: (field, values) => {
-      values._field_ = app.i18n.t(`main.registration.${field}`);
+      values._field_ = app.i18n.t(`main.fields.${field}`);
       return app.i18n.t(`validation.${values._rule_}`, values);
     }
   });

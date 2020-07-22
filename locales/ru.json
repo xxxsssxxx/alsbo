@@ -25,20 +25,6 @@
     "first": "Пожалуйста, сначала войдите в свою учетную запись, чтобы использовать это приложение.",
     "title": "Авторизоваться"
   },
-  "registration": {
-    "title": "Регистрация",
-    "first_name": "Имя",
-    "last_name": "Фамилия",
-    "address": "Адресс",
-    "city": "Город",
-    "state": "Страна",
-    "street": "Улица",
-    "zip": "ZIP",
-    "private_data_share": "Я согласен с хранением моей личной информации",
-    "sign_up": "Зарегистрироваться",
-    "email": "Эл. адрес",
-    "password": "Пароль"
-  },
   "language": "Язык",
   "languages": {
     "english": "English",
@@ -94,6 +80,24 @@
         "sent": "Успешно отправлено"
       }
     }
+  },
+  "fields": {
+    "title": "Регистрация",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "address": "Адресс",
+    "city": "Город",
+    "state": "Страна",
+    "street": "Улица",
+    "zip": "ZIP",
+    "private_data_share": "Я согласен с хранением моей личной информации",
+    "sign_up": "Зарегистрироваться",
+    "email": "Эл. адрес",
+    "password": "Пароль",
+    "text": "Text",
+    "value": "Value",
+    "sortable": "Sortable",
+    "filterable": "Filterable"
   },
   "validation": {
     "empty_field": "не может быть пустым",

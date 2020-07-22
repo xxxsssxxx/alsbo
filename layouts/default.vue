@@ -114,7 +114,7 @@ export default {
         },
         {
           icon: "mdi-account-star",
-          title: this.$t("main.registration.title"),
+          title: this.$t("main.fields.title"),
           to: "/registration"
         },
         {

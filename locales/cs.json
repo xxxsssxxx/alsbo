@@ -25,20 +25,6 @@
     "first": "Chcete-li tuto aplikaci používat, nejprve se přihlaste k účtu.",
     "title": "Přihlášení"
   },
-  "registration": {
-    "title": "Registrace",
-    "first_name": "Jméno",
-    "last_name": "Příjmení",
-    "address": "Adresa",
-    "city": "Město",
-    "state": "Stát",
-    "street": "Ulice",
-    "zip": "ZIP",
-    "private_data_share": "Souhlasím s uchováním svých osobních údajů",
-    "sign_up": "Zaregistrovat se",
-    "email": "Email",
-    "password": "Heslo"
-  },
   "language": "Jazyk",
   "languages": {
     "english": "English",
@@ -94,6 +80,24 @@
         "sent": "Úspěšně odesláno"
       }
     }
+  },
+  "fields": {
+    "title": "Registrace",
+    "first_name": "Jméno",
+    "last_name": "Příjmení",
+    "address": "Adresa",
+    "city": "Město",
+    "state": "Stát",
+    "street": "Ulice",
+    "zip": "ZIP",
+    "private_data_share": "Souhlasím s uchováním svých osobních údajů",
+    "sign_up": "Zaregistrovat se",
+    "email": "Email",
+    "password": "Heslo",
+    "text": "Text",
+    "value": "Value",
+    "sortable": "Sortable",
+    "filterable": "Filterable"
   },
   "validation": {
     "empty_field": "nemůže být prázdný",

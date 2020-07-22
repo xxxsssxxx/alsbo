@@ -17,7 +17,7 @@
               <v-col cols="12" sm="6" md="6" lg="6" class="form-col-right primary">
                 <v-card-text class="pl-3">
                   <p class="display-1 text--text">
-                    {{ $t("main.registration.title") }}
+                    {{ $t("main.fields.title") }}
                   </p>
                 </v-card-text>
                 <ValidationObserver ref="observer" v-slot="{ validate, reset }">
@@ -33,7 +33,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("main.registration.first_name") }}</span>
+                              <span class="input__label text--text">{{ $t("main.fields.first_name") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -48,7 +48,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("main.registration.last_name") }}</span>
+                              <span class="input__label text--text">{{ $t("main.fields.last_name") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -65,7 +65,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text text--text">{{ $t("main.registration.city") }}</span>
+                              <span class="input__label text--text text--text">{{ $t("main.fields.city") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -80,7 +80,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("main.registration.street") }}</span>
+                              <span class="input__label text--text">{{ $t("main.fields.street") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -97,7 +97,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("main.registration.state") }}</span>
+                              <span class="input__label text--text">{{ $t("main.fields.state") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
@@ -112,7 +112,7 @@
                             required
                           >
                             <template v-slot:label>
-                              <span class="input__label text--text">{{ $t("main.registration.zip") }}</span>
+                              <span class="input__label text--text">{{ $t("main.fields.zip") }}</span>
                             </template>
                           </v-text-field>
                         </ValidationProvider>
