@@ -87,5 +87,6 @@ export const actions = {
 
 export const getters = {
   hasToken: s => !!s.token,
-  error: s => s.modalGlobalError
+  error: s => s.modalGlobalError,
+  currentUser: s => s.currentUser
 };

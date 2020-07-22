@@ -121,6 +121,7 @@
 
 <script>
 // Please use this component just in case you need to add a columns by UI
+import { mapGetters } from "vuex";
 export default {
   name: "ColumnsDb",
   data() {
@@ -137,12 +138,10 @@ export default {
     };
   },
   computed: {
-    currentUser() {
-      return this.$store.state.currentUser;
-    },
-    columns() {
-      return this.$store.state.allColumns;
-    }
+    ...mapGetters({
+      currentUser: "currentUser",
+      columns: "items/allColumns"
+    })
   },
   async fetch() {
     const id = this.currentUser._id;

@@ -40,5 +40,6 @@ export const getters = {
     const headers = s.allColumns.filter(column => !column.type || column.type === "service");
     return headers;
   },
+  allColumns: s => s.allColumns,
   editedRow: s => s.editingRow
 };
