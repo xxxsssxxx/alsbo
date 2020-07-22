@@ -3,6 +3,7 @@
     <v-col cols="12" sm="12">
       <v-data-table
         :headers="headers"
+        :headers-length="headers.length"
         :items="items"
         :show-select="!!items.length"
         :server-items-length="15"

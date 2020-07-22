@@ -14,31 +14,44 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Table from "@/components/Table";
 export default {
   name: "Items",
   middleware: "auth",
   components: { Table },
   data: () => ({}),
-
   computed: {
+    ...mapGetters({
+      saleHeaders: "items/saleHeaders",
+      serviceHeaders: "items/serviceHeaders"
+    }),
+    currentUser() {
+      return this.$store.state.currentUser;
+    },
     sales() {
+      const headers = this.translateHeaders(this.saleHeaders);
       return {
         title: this.$t("main.sale_register"),
-        headers: this.$store.state.salesColumns,
+        headers,
         items: this.$store.state.salesItems
       };
     },
     service() {
+      const headers = this.translateHeaders(this.serviceHeaders);
       return {
         title: this.$t("main.service_register"),
-        headers: this.$store.state.serviceColumns,
+        headers,
         items: this.$store.state.serviceItems
       };
     }
   },
 
   watch: {},
+  async fetch() {
+    const id = this.currentUser._id;
+    await this.getAllColumns(id);
+  },
 
   created() {},
 

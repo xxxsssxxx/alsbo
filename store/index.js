@@ -16,8 +16,7 @@ export const state = () => ({
   currency: { name: "czk", id: "1" },
   rate: {},
   modalGlobalError: null,
-  messageTimeout: 3000,
-  allColumns: []
+  messageTimeout: 3000
 });
 
 export const mutations = {

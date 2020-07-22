@@ -42,10 +42,18 @@ export default {
     async getAllColumns(userId) {
       const urlPrefix = this.$store.state.urlPrefix;
       const { columns } = await Column.getAll(userId, { urlPrefix });
-      this.$store.commit("setStoreValue", {
+      this.$store.commit("items/setStoreValue", {
         value: columns,
         pathToSet: ["allColumns"]
       });
+    },
+    translateHeaders(headers) {
+      const headersArray = this.deepSimpleCopy(headers);
+      const translated = headersArray.map(header => {
+        header.text = this.$t(`main.table.header.${header.value}`);
+        return header;
+      });
+      return translated;
     },
     createTableArray(row, tableProps, service) {
       const rowCopy = this.deepSimpleCopy(row);
