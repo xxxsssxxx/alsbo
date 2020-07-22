@@ -94,10 +94,14 @@
     "sign_up": "Зарегистрироваться",
     "email": "Эл. адрес",
     "password": "Пароль",
-    "text": "Text",
-    "value": "Value",
-    "sortable": "Sortable",
-    "filterable": "Filterable"
+    "text": "Текст",
+    "value": "Значение",
+    "sortable": "Сортируемый",
+    "filterable": "Фильтрующийся",
+    "type": "Тип",
+    "divider": "Делитель",
+    "selected": "Выбранный",
+    "align": "Выравнивание"
   },
   "validation": {
     "empty_field": "не может быть пустым",

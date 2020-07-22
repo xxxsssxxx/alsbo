@@ -80,11 +80,14 @@
     "text": "Text",
     "value": "Value",
     "sortable": "Sortable",
-    "filterable": "Filterable"
+    "filterable": "Filterable",
+    "type": "Type",
+    "divider": "Divider",
+    "selected": "Selected",
+    "align": "Align"
   },
   "table": {
     "header": {
-      "#": "#",
       "action_date": "Action date",
       "acquistition_price": "Total acquisition price",
       "batch_number": "Batch number",

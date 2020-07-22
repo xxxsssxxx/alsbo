@@ -1,6 +1,7 @@
 import TableRow from "@/plugins/table/row.js";
 import TableHeader from "@/plugins/table/header.js";
 import User from "@/plugins/user";
+import Column from "@/plugins/column";
 
 export default {
   methods: {
@@ -14,10 +15,9 @@ export default {
         .join("-");
       return newDate;
     },
-    async updateUsersProp(prop, value) {
+    async updateUsersProp(prop, value, userId) {
       this.loading[prop] = true;
-      const id = this.$store.state.currentUser._id;
-      const { token, user, errorMessage } = await User.save(prop, { id, [prop]: value });
+      const { token, user, errorMessage } = await User.save(prop, { id: userId, [prop]: value });
       if (errorMessage) {
         this.loading[prop] = false;
         this.error[prop] = true;
@@ -32,23 +32,20 @@ export default {
       }, this.$store.state.messageTimeout);
       this.loading[prop] = false;
     },
-    async updateColumnProp(prop, value) {
-      this.loading[prop] = true;
-      const id = this.$store.state.currentUser._id;
-      const { token, user, errorMessage } = await User.save(prop, { id, [prop]: value });
-      if (errorMessage) {
-        this.loading[prop] = false;
-        this.error[prop] = true;
-        return;
-      }
-      this.$store.commit("setCurrentUser", user);
-      this.$store.dispatch("updateToken", token);
-      this.success[prop] = true;
-      if (this.successTimer) clearTimeout(this.successTimer);
-      this.successTimer = setTimeout(() => {
-        this.success[prop] = false;
-      }, this.$store.state.messageTimeout);
-      this.loading[prop] = false;
+    async addColumn(data, userId) {
+      const { columns } = await Column.add(data, userId);
+      this.$store.commit("setStoreValue", {
+        value: columns,
+        pathToSet: ["allColumns"]
+      });
+    },
+    async getAllColumns(userId) {
+      const urlPrefix = this.$store.state.urlPrefix;
+      const { columns } = await Column.getAll(userId, { urlPrefix });
+      this.$store.commit("setStoreValue", {
+        value: columns,
+        pathToSet: ["allColumns"]
+      });
     },
     createTableArray(row, tableProps, service) {
       const rowCopy = this.deepSimpleCopy(row);

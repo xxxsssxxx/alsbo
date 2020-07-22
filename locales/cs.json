@@ -95,9 +95,13 @@
     "email": "Email",
     "password": "Heslo",
     "text": "Text",
-    "value": "Value",
-    "sortable": "Sortable",
-    "filterable": "Filterable"
+    "value": "Hodnota",
+    "sortable": "Tříditelné",
+    "filterable": "Filtrovatelné",
+    "type": "Typ",
+    "divider": "Oddělovač",
+    "selected": "Vybraný",
+    "align": "Zarovnání"
   },
   "validation": {
     "empty_field": "nemůže být prázdný",

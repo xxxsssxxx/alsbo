@@ -16,7 +16,8 @@ export const state = () => ({
   currency: { name: "czk", id: "1" },
   rate: {},
   modalGlobalError: null,
-  messageTimeout: 3000
+  messageTimeout: 3000,
+  allColumns: []
 });
 
 export const mutations = {
@@ -40,6 +41,7 @@ export const mutations = {
 
 export const actions = {
   nuxtServerInit({ commit, dispatch, state }, { req, redirect }) {
+    const urlPrefix = process.env.API_URL || "http://localhost:3000/api";
     if (req.headers.cookie) {
       const secretKey = process.env.JWT_SECRET_KEY || "secretKey";
       const parsed = cookieparser.parse(req.headers.cookie);
@@ -56,7 +58,6 @@ export const actions = {
       commit("setCurrentUser", user);
       dispatch("setUserLang", user.lang || "en");
     }
-    const urlPrefix = process.env.API_URL || "http://localhost:3000/api";
     commit("setUrlPrefix", urlPrefix);
   },
   login({ commit, dispatch }, user) {

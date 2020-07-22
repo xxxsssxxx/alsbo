@@ -3,11 +3,11 @@ const router = express.Router();
 const Column = require("../models/column");
 
 // @route GET /columns
-// @desc  Get all columns
-router.get("/api/columns", async (req, res) => {
+// @desc  Get all columns for user with :id
+router.get("/api/columns/:id", async (req, res) => {
   try {
-    const columns = await Column.find();
-    res.status(200).json(columns);
+    const columns = await Column.find({ user: req.params.id });
+    res.status(200).json({ columns });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -16,14 +16,22 @@ router.get("/api/columns", async (req, res) => {
 // @route POST /columns/new
 // @desc Create a new column
 router.post("/api/columns/new", async (req, res) => {
-  const { type, list } = req.body;
-  const columns = new Column({
-    type,
-    list
-  });
+  const { text, value, type, align, sortable, filterable, divider, selected, userId } = req.body.data;
   try {
-    const newColumn = await columns.save();
-    res.status(200).json(newColumn);
+    const column = new Column({
+      text,
+      value,
+      type,
+      align,
+      sortable,
+      filterable,
+      divider,
+      selected,
+      user: userId
+    });
+    await column.save();
+    const columns = await Column.find({ user: userId });
+    res.status(200).json({ columns });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -33,22 +41,56 @@ router.post("/api/columns/new", async (req, res) => {
 // @desc Update an column propperty
 router.post("/api/columns/update", async (req, res) => {
   const { data } = req.body;
+  const { id, prop, newValue } = data;
+  try {
+    await Column.findOne(
+      { _id: id },
+      "text, value, type, align, sortable, filterable, divider, selected",
+      async (err, column) => {
+        if (err) {
+          res.status(403).json({ errorMessage: err });
+          return;
+        }
+        // test a matching password
+        if (!column) {
+          res.status(404).json({ errorMessage: "error.column_not_found" });
+          return;
+        }
+        column[prop] = newValue;
+        await column.save();
+        const columns = await Column.find();
+        res.status(200).json({ columns });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// @route POST /columns/select
+// @desc Update an selected column propperty
+router.post("/api/columns/select", async (req, res) => {
+  const { data } = req.body;
   const { id, newValue } = data;
   try {
-    await Column.findOne({ _id: id }, "type list", async (err, column) => {
-      if (err) {
-        res.status(403).json({ errorMessage: err });
-        return;
+    await Column.findOne(
+      { _id: id },
+      "text, value, type, align, sortable, filterable, divider, selected",
+      async (err, column) => {
+        if (err) {
+          res.status(403).json({ errorMessage: err });
+          return;
+        }
+        // test a matching password
+        if (!column) {
+          res.status(404).json({ errorMessage: "error.column_not_found" });
+          return;
+        }
+        column.selected = newValue;
+        const newColumn = await column.save();
+        res.status(200).json({ column: newColumn });
       }
-      // test a matching password
-      if (!column) {
-        res.status(404).json({ errorMessage: "error.column_not_found" });
-        return;
-      }
-      column.selected = newValue;
-      const newColumn = await column.save();
-      res.status(200).json({ column: newColumn });
-    });
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

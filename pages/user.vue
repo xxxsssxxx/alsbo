@@ -278,7 +278,7 @@ export default {
     async updateUser(prop, valid) {
       if (valid) {
         this.setMessages();
-        await this.updateUsersProp(prop, this[prop]);
+        await this.updateUsersProp(prop, this[prop], this.currentUser._id);
       }
     },
     setMessages() {
