@@ -139,8 +139,8 @@ export default {
       sortable: true,
       filterable: true,
       type: "",
-      align: "end",
-      divider: false,
+      align: "start",
+      divider: true,
       selected: {
         sale: true,
         service: true
@@ -188,7 +188,7 @@ export default {
       this.align = "end";
       this.sortable = true;
       this.filterable = true;
-      this.divider = false;
+      this.divider = true;
       this.selected = {
         sale: true,
         service: true
