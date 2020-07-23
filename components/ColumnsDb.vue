@@ -5,7 +5,7 @@
       <v-divider></v-divider>
       <ValidationObserver ref="observer" v-slot="{ validate, reset }">
         <form>
-          <v-row align="center" justify="space-around" justify-lg="start">
+          <v-row align="center" justify="start" justify-lg="start">
             <v-col cols="12" sm="6" md="6" lg="6">
               <ValidationProvider v-slot="{ errors, valid }" name="value" rules="required|min:2">
                 <v-text-field
@@ -23,7 +23,7 @@
               </ValidationProvider>
             </v-col>
           </v-row>
-          <v-row align="center" justify="space-around" justify-lg="start">
+          <v-row align="center" justify="start" justify-lg="start">
             <v-col cols="12" sm="6" md="6" lg="6">
               <ValidationProvider v-slot="{ errors, valid }" name="type">
                 <v-text-field
@@ -56,7 +56,7 @@
                 </v-text-field>
               </ValidationProvider>
             </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
+            <v-col cols="12" sm="4" md="4" lg="4">
               <ValidationProvider v-slot="{ errors, valid }" name="sortable" rules="required">
                 <v-switch v-model="sortable" :error-messages="errors" inset>
                   <template v-slot:label>
@@ -65,7 +65,7 @@
                 </v-switch>
               </ValidationProvider>
             </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
+            <v-col cols="12" sm="4" md="4" lg="4">
               <ValidationProvider v-slot="{ errors, valid }" name="filterable" rules="required">
                 <v-switch v-model="filterable" :error-messages="errors" inset>
                   <template v-slot:label>
@@ -75,8 +75,8 @@
               </ValidationProvider>
             </v-col>
           </v-row>
-          <v-row align="center" justify="space-around" justify-lg="start">
-            <v-col cols="12" sm="6" md="6" lg="6">
+          <v-row align="center" justify="start" justify-lg="start">
+            <v-col cols="12" sm="4" md="4" lg="4">
               <ValidationProvider v-slot="{ errors, valid }" name="divider" rules="required">
                 <v-switch v-model="divider" :error-messages="errors" inset>
                   <template v-slot:label>
@@ -85,11 +85,22 @@
                 </v-switch>
               </ValidationProvider>
             </v-col>
-            <v-col>
+            <v-col cols="12" sm="4" md="4" lg="4">
               <ValidationProvider v-slot="{ errors, valid }" name="selected" rules="required">
-                <v-switch v-model="selected" :error-messages="errors" inset>
+                <v-switch v-model="selected.sale" :error-messages="errors" inset>
                   <template v-slot:label>
-                    <span class="input__label">{{ $t("main.fields.selected") }}</span>
+                    <span class="input__label">{{ $t("main.fields.selected") }} ({{ $t("main.sale_register") }})</span>
+                  </template>
+                </v-switch>
+              </ValidationProvider>
+            </v-col>
+            <v-col cols="12" sm="4" md="4" lg="4">
+              <ValidationProvider v-slot="{ errors, valid }" name="selected" rules="required">
+                <v-switch v-model="selected.service" :error-messages="errors" inset>
+                  <template v-slot:label>
+                    <span class="input__label"
+                      >{{ $t("main.fields.selected") }}({{ $t("main.service_register") }})</span
+                    >
                   </template>
                 </v-switch>
               </ValidationProvider>
@@ -107,13 +118,11 @@
         <span>Added Columns</span>
       </p>
       <v-divider></v-divider>
-      <v-list v-if="columns.length">
-        <v-list-item v-for="(column, i) in columns" :key="i">
-          <v-list-item-content>
-            <v-list-item-title v-text="column.value"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <div v-if="columns.length">
+        <v-chip v-for="(column, i) in columns" :key="i" :color="chipColors[column.type] || 'neutral'" class="ma-2">
+          {{ column.value }}
+        </v-chip>
+      </div>
       <p v-else>No added columns</p>
     </v-flex>
   </v-layout>
@@ -132,7 +141,14 @@ export default {
       type: "",
       align: "end",
       divider: false,
-      selected: true,
+      selected: {
+        sale: true,
+        service: true
+      },
+      chipColors: {
+        sale: "primary",
+        service: "secondary"
+      },
       successMessage: this.$t("main.notification.form.success.saved"),
       errorMessage: this.$t("main.notification.form.title_validation_error")
     };
@@ -173,7 +189,10 @@ export default {
       this.sortable = true;
       this.filterable = true;
       this.divider = false;
-      this.selected = true;
+      this.selected = {
+        sale: true,
+        service: true
+      };
       this.$refs.observer.reset();
     }
   }
