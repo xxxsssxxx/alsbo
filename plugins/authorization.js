@@ -1,6 +1,6 @@
 class Authorization {
   static async registrate(data) {
-    const url = "/users/new";
+    const url = "/api/users/new";
     try {
       const req = new Request(url);
       const options = {
@@ -19,7 +19,7 @@ class Authorization {
   }
 
   static async login(data) {
-    const url = "/users/login";
+    const url = "/api/users/login";
     try {
       const req = new Request(url);
       const options = {

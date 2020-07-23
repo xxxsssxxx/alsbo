@@ -3,7 +3,7 @@ const router = express.Router();
 const Column = require("../models/column");
 
 // @route GET /columns
-// @desc  Get all columns for user with :id
+// @desc  Get all columns
 router.get("/api/columns/:id", async (req, res) => {
   try {
     const columns = await Column.find({});
