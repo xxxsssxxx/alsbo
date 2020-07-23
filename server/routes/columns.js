@@ -6,7 +6,7 @@ const Column = require("../models/column");
 // @desc  Get all columns for user with :id
 router.get("/api/columns/:id", async (req, res) => {
   try {
-    const columns = await Column.find({ user: req.params.id });
+    const columns = await Column.find({});
     res.status(200).json({ columns });
   } catch (error) {
     res.status(500).json({ message: error.message });
