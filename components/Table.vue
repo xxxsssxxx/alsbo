@@ -14,6 +14,7 @@
         }"
         v-model="selectedRows"
         class="elevation-3"
+        calculate-widths
       >
         <template #top>
           <v-toolbar flat class="primary toolbar-small">
@@ -50,7 +51,7 @@
                                 <template #default="{ active, toggle }">
                                   <v-list-item-action>
                                     <v-checkbox
-                                      v-model="column.active"
+                                      v-model="column.selected"
                                       @click="toggle"
                                       dense
                                       color="primary"
@@ -150,6 +151,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    accessibleColumns: {
+      type: Array,
+      default: () => []
     }
   },
   data: () => ({
@@ -157,7 +162,6 @@ export default {
     menu: false,
     selectedRows: [],
     activeColumns: [],
-    availableColumns: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -178,6 +182,9 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
+    availableColumns() {
+      return this.$props.accessibleColumns;
     }
   },
 

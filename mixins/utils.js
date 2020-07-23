@@ -34,7 +34,7 @@ export default {
     },
     async addColumn(data, userId) {
       const { columns } = await Column.add(data, userId);
-      this.$store.commit("setStoreValue", {
+      this.$store.commit("items/setStoreValue", {
         value: columns,
         pathToSet: ["allColumns"]
       });

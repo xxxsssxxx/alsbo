@@ -1,6 +1,6 @@
 class User {
   static async save(prop, data) {
-    const url = `/users/${data.id}/update`;
+    const url = `/api/users/${data.id}/update`;
     try {
       const req = new Request(url);
       const options = {

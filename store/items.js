@@ -33,10 +33,18 @@ export const mutations = {
 export const actions = () => {};
 export const getters = {
   saleHeaders: (s, mutations) => {
-    const headers = s.allColumns.filter(column => !column.type || column.type === "sale");
+    const headers = s.allColumns.filter(column => (!column.type || column.type === "sale") && column.selected);
     return headers;
   },
   serviceHeaders: (s, mutations) => {
+    const headers = s.allColumns.filter(column => (!column.type || column.type === "service") && column.selected);
+    return headers;
+  },
+  saleAvailableColumns: s => {
+    const headers = s.allColumns.filter(column => !column.type || column.type === "sale");
+    return headers;
+  },
+  serviceAvailableColumns: s => {
     const headers = s.allColumns.filter(column => !column.type || column.type === "service");
     return headers;
   },

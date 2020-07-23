@@ -2,12 +2,22 @@
   <v-row align="center" justify="center" class="flex-column">
     <v-col cols="12" sm="12">
       <client-only>
-        <Table :title="sales.title" :headers="sales.headers" :items="sales.items" />
+        <Table
+          :title="sales.title"
+          :headers="sales.headers"
+          :items="sales.items"
+          :accessible-columns="translateHeaders(saleAvailableColumns)"
+        />
       </client-only>
     </v-col>
     <v-col cols="12" sm="12">
       <client-only>
-        <Table :title="service.title" :headers="service.headers" :items="service.items" />
+        <Table
+          :title="service.title"
+          :headers="service.headers"
+          :items="service.items"
+          :accessible-columns="translateHeaders(serviceAvailableColumns)"
+        />
       </client-only>
     </v-col>
   </v-row>
@@ -24,7 +34,9 @@ export default {
   computed: {
     ...mapGetters({
       saleHeaders: "items/saleHeaders",
-      serviceHeaders: "items/serviceHeaders"
+      serviceHeaders: "items/serviceHeaders",
+      saleAvailableColumns: "items/saleAvailableColumns",
+      serviceAvailableColumns: "items/serviceAvailableColumns"
     }),
     currentUser() {
       return this.$store.state.currentUser;

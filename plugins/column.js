@@ -1,6 +1,6 @@
 class Column {
   static async add(data, userId) {
-    const url = "/columns/new";
+    const url = "/api/columns/new";
     try {
       const req = new Request(url);
       const options = {

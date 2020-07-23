@@ -8,7 +8,8 @@ const Column = new mongoose.Schema({
   filterable: { type: Boolean, required: true, default: true },
   divider: { type: Boolean, required: true, default: true },
   selected: { type: Boolean, required: true, default: true },
-  user: { type: mongoose.Schema.ObjectId, required: true }
+  user: { type: mongoose.Schema.ObjectId, required: true },
+  width: { type: Number, required: false, default: 150 }
 });
 
 module.exports = mongoose.model("Column", Column);

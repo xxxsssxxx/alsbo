@@ -273,7 +273,7 @@ export default {
       await this.saveUserLanguage(lang);
     },
     async saveUserLanguage(lang) {
-      await this.updateUsersProp("lang", lang);
+      await this.updateUsersProp("lang", lang, this.currentUser._id);
     },
     async updateUser(prop, valid) {
       if (valid) {
