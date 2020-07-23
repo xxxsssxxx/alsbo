@@ -31,7 +31,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Table from "@/components/Table";
+import Table from "@/components/table/Table";
 export default {
   name: "Items",
   middleware: "auth",

@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     "nuxt/no-cjs-in-config": "off",
     "vue/no-unused-vars": "off",
+    "vue/require-component-is": "off",
     "comma-dangle": [ 1, "never"],
     "quotes": [ 1, "double"],
     "arrow-parens": [ 1, "as-needed"],
