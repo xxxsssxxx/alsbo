@@ -30,7 +30,7 @@
                       <v-btn v-bind="attrs" v-on="on" color="success" class="mr-2" small>{{
                         $t("main.modal.new_item")
                       }}</v-btn>
-                      <v-menu v-model="menu" :nudge-width="200" close-on-click offset-x>
+                      <v-menu v-model="menu" :nudge-width="200" :close-on-content-click="false" offset-x>
                         <template #activator="{ on: click }">
                           <v-tooltip bottom>
                             <template #activator="{ on: hover }">
@@ -46,32 +46,23 @@
                           <v-card-title>{{ $t("main.table.toolbar.available_columns") }}</v-card-title>
                           <v-divider></v-divider>
                           <v-list dense flat>
-                            <v-list-item-group v-model="activeColumns" multiple dense>
-                              <v-list-item v-for="(column, i) in availableColumns" :key="i">
-                                <template #default="{ active, toggle }">
-                                  <v-list-item-action>
-                                    <v-checkbox
-                                      v-model="column.selected"
-                                      @click="toggle"
-                                      dense
-                                      color="primary"
-                                    ></v-checkbox>
-                                  </v-list-item-action>
-                                  <v-list-item-content dense>
-                                    <v-list-item-title dense>{{ column.text }}</v-list-item-title>
-                                  </v-list-item-content>
-                                </template>
-                              </v-list-item>
-                            </v-list-item-group>
+                            <v-list-item v-for="(column, i) in availableColumns" :key="i">
+                              <v-list-item-action>
+                                <v-checkbox
+                                  v-model="column.selected[type]"
+                                  :label="column.text"
+                                  @change="toggleSelectedColumn(column)"
+                                  dense
+                                  color="primary"
+                                ></v-checkbox>
+                              </v-list-item-action>
+                            </v-list-item>
                           </v-list>
 
                           <v-card-actions>
                             <v-spacer></v-spacer>
 
                             <v-btn @click="menu = false" x-small text>{{ $t("main.button.cancel") }}</v-btn>
-                            <v-btn @click="menu = false" x-small color="success" text>{{
-                              $t("main.button.save")
-                            }}</v-btn>
                           </v-card-actions>
                         </v-card>
                       </v-menu>
@@ -155,29 +146,39 @@ export default {
     accessibleColumns: {
       type: Array,
       default: () => []
+    },
+    currentUser: {
+      type: Object,
+      default: () => {}
+    },
+    type: {
+      type: String,
+      default: ""
     }
   },
-  data: () => ({
-    dialog: false,
-    menu: false,
-    selectedRows: [],
-    activeColumns: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
-  }),
+  data() {
+    return {
+      dialog: false,
+      menu: false,
+      selectedRows: [],
+      activeColumns: [],
+      editedIndex: -1,
+      editedItem: {
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      },
+      defaultItem: {
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      }
+    };
+  },
 
   computed: {
     formTitle() {
@@ -195,6 +196,9 @@ export default {
   },
 
   methods: {
+    toggleSelectedColumn(col) {
+      this.$emit("column:select", col);
+    },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);

@@ -39,6 +39,14 @@ export default {
         pathToSet: ["allColumns"]
       });
     },
+    async toggleColumn(col, userId, type) {
+      const { _id, selected } = col;
+      const { columns } = await Column.toggle({ id: _id, selected: selected[type], type }, userId);
+      this.$store.commit("items/setStoreValue", {
+        value: columns,
+        pathToSet: ["allColumns"]
+      });
+    },
     async getAllColumns(userId) {
       const urlPrefix = this.$store.state.urlPrefix;
       const { columns } = await Column.getAll(userId, { urlPrefix });

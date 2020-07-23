@@ -7,7 +7,10 @@ const Column = new mongoose.Schema({
   sortable: { type: Boolean, required: true, default: true },
   filterable: { type: Boolean, required: true, default: true },
   divider: { type: Boolean, required: true, default: true },
-  selected: { type: Boolean, required: true, default: true },
+  selected: {
+    sale: { type: Boolean, required: true, default: true },
+    service: { type: Boolean, required: true, default: true }
+  },
   user: { type: mongoose.Schema.ObjectId, required: true },
   width: { type: Number, required: false, default: 150 }
 });

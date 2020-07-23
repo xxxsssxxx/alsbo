@@ -41,10 +41,10 @@ router.post("/api/columns/new", async (req, res) => {
 // @desc Update an column propperty
 router.post("/api/columns/update", async (req, res) => {
   const { data } = req.body;
-  const { id, prop, newValue } = data;
+  const { prop, newValue, value } = data;
   try {
     await Column.findOne(
-      { _id: id },
+      { value },
       "text, value, type, align, sortable, filterable, divider, selected",
       async (err, column) => {
         if (err) {
@@ -69,9 +69,9 @@ router.post("/api/columns/update", async (req, res) => {
 
 // @route POST /columns/select
 // @desc Update an selected column propperty
-router.post("/api/columns/select", async (req, res) => {
+router.post("/api/columns/toggle_column", async (req, res) => {
   const { data } = req.body;
-  const { id, newValue } = data;
+  const { id, selected, type } = data;
   try {
     await Column.findOne(
       { _id: id },
@@ -86,9 +86,10 @@ router.post("/api/columns/select", async (req, res) => {
           res.status(404).json({ errorMessage: "error.column_not_found" });
           return;
         }
-        column.selected = newValue;
-        const newColumn = await column.save();
-        res.status(200).json({ column: newColumn });
+        column.selected[type] = selected;
+        await column.save();
+        const columns = await Column.find();
+        res.status(200).json({ columns });
       }
     );
   } catch (error) {

@@ -7,6 +7,9 @@
           :headers="sales.headers"
           :items="sales.items"
           :accessible-columns="translateHeaders(saleAvailableColumns)"
+          :current-user="currentUser"
+          @column:select="handleSelect($event, 'sale')"
+          type="sale"
         />
       </client-only>
     </v-col>
@@ -17,6 +20,9 @@
           :headers="service.headers"
           :items="service.items"
           :accessible-columns="translateHeaders(serviceAvailableColumns)"
+          :current-user="currentUser"
+          @column:select="handleSelect($event, 'service')"
+          type="service"
         />
       </client-only>
     </v-col>
@@ -67,6 +73,11 @@ export default {
 
   created() {},
 
-  methods: {}
+  methods: {
+    async handleSelect(col, type) {
+      const userId = this.currentUser._id;
+      await this.toggleColumn(col, userId, type);
+    }
+  }
 };
 </script>
