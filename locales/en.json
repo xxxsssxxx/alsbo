@@ -107,8 +107,8 @@
       "quantity": "QTY",
       "quantity_long": "Quantity",
       "repair_status": "Repair status",
-      "select_service": "Chose service",
-      "select_service_type": "Chose service type",
+      "service": "Chose service",
+      "service_type": "Chose service type",
       "serial_number": "Serial number"
     },
     "toolbar": {

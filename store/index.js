@@ -7,9 +7,10 @@ export const state = () => ({
   token: null,
   locale: "en",
   tables: ["sale", "service"],
-  service: { name: "sale", id: "1" },
-  currency: { name: "czk", id: "1" },
+  service: "sale",
+  currency: "",
   rate: {},
+  allFields: {},
   modalGlobalError: null,
   messageTimeout: 3000
 });
@@ -83,5 +84,6 @@ export const actions = {
 export const getters = {
   hasToken: s => !!s.token,
   error: s => s.modalGlobalError,
-  currentUser: s => s.currentUser
+  currentUser: s => s.currentUser,
+  urlPrefix: s => s.urlPrefix
 };

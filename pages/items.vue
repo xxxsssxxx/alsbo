@@ -42,7 +42,8 @@ export default {
       saleHeaders: "items/saleHeaders",
       serviceHeaders: "items/serviceHeaders",
       saleAvailableColumns: "items/saleAvailableColumns",
-      serviceAvailableColumns: "items/serviceAvailableColumns"
+      serviceAvailableColumns: "items/serviceAvailableColumns",
+      urlPrefix: "urlPrefix"
     }),
     currentUser() {
       return this.$store.state.currentUser;
@@ -68,7 +69,7 @@ export default {
   watch: {},
   async fetch() {
     const id = this.currentUser._id;
-    await this.getAllColumns(id);
+    await this.getAllColumns(id, this.urlPrefix);
   },
 
   created() {},

@@ -1,11 +1,5 @@
 const utils = require("../mixins/utils");
 const defaultState = {
-  mainFields: ["service"],
-  saleAttr: ["service_type", "batch_number", "pn", "description", "quantity", "price_per_unit"],
-  exchangeAttr: ["batch_number", "pn", "description", "serial_number", "new_serial_number"],
-  loanAttr: ["batch_number", "pn", "description"],
-  feeAttr: ["quantity", "description"],
-  defaultAttr: ["quantity", "description"],
   allColumns: [],
   saleTableHead: [],
   serviceTableHead: [],
@@ -38,23 +32,39 @@ export const mutations = {
 };
 export const actions = () => {};
 export const getters = {
-  saleHeaders: (s, mutations) => {
-    const headers = s.allColumns.filter(column => (!column.type || column.type === "sale") && column.selected.sale);
+  saleHeaders: s => {
+    const headers = s.allColumns.filter(({ type, selected }) => (type || type === "sale") && selected.sale);
     return headers;
   },
-  serviceHeaders: (s, mutations) => {
-    const headers = s.allColumns.filter(
-      column => (!column.type || column.type === "service") && column.selected.service
-    );
+  serviceHeaders: s => {
+    const headers = s.allColumns.filter(({ type, selected }) => (type || type === "service") && selected.service);
     return headers;
   },
   saleAvailableColumns: s => {
-    const headers = s.allColumns.filter(column => !column.type || column.type === "sale");
+    const headers = s.allColumns.filter(({ type }) => !type || type === "sale");
     return headers;
   },
   serviceAvailableColumns: s => {
-    const headers = s.allColumns.filter(column => !column.type || column.type === "service");
+    const headers = s.allColumns.filter(({ type }) => !type || type === "service");
     return headers;
+  },
+  newModalFields: (s, mutations, rootState) => {
+    if (!rootState.allFields.newItemModal) return false;
+    const allFields = rootState.allFields.newItemModal;
+    const main = [];
+    const additional = [];
+    const conclusive = [];
+    allFields.forEach(field => {
+      field.section === "main" && main.push(field);
+      field.section === "additional" && !!field.service.find(el => el === rootState.service) && additional.push(field);
+      field.section === "conclusive" && conclusive.push(field);
+    });
+    const fields = {
+      main,
+      additional,
+      conclusive
+    };
+    return fields;
   },
   allColumns: s => s.allColumns,
   editedRow: s => s.editingRow

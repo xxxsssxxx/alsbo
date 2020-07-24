@@ -9,7 +9,9 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template #activator="{ on, attrs }">
             <div class="d-flex align-center justify-space-between justify-sm-end">
-              <v-btn v-bind="attrs" v-on="on" color="success" class="mr-2" small>{{ $t("main.modal.new_item") }}</v-btn>
+              <v-btn v-bind="attrs" @click="openModal" color="success" class="mr-2" small>{{
+                $t("main.modal.new_item")
+              }}</v-btn>
               <BaseAddMenu
                 :tooltip="columnsButtonTooltip"
                 :component="'ColumnsList'"
@@ -18,7 +20,13 @@
               />
             </div>
           </template>
-          <NewItemModal :title="formTitle" :item="editedItem" @modal:cancel="close" @modal:save="save" />
+          <NewItemModal
+            :title="formTitle"
+            :item="editedItem"
+            :fields="fields"
+            @modal:cancel="close"
+            @modal:save="save"
+          />
         </v-dialog>
       </v-col>
     </v-row>
@@ -26,6 +34,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import BaseAddMenu from "@/components/BaseAddMenu";
 import NewItemModal from "@/components/NewItemModal";
 export default {
@@ -70,6 +79,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      urlPrefix: "urlPrefix",
+      fields: "items/newModalFields"
+    }),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
@@ -83,14 +96,15 @@ export default {
       };
     }
   },
-  watch: {
-    dialog(val) {
-      val || this.close();
-    }
-  },
   methods: {
     toggleSelectedColumn(col) {
       this.$emit("column:select", col);
+    },
+    async openModal() {
+      if (!this.fields) {
+        await this.getFieldsFor("NewItemModal", this.urlPrefix);
+      }
+      this.dialog = true;
     },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);

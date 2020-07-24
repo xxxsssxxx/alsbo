@@ -7,8 +7,18 @@
     <v-card-text>
       <v-container>
         <v-row>
-          <v-col v-for="(field, i) in mainFields" :key="i" cols="12" sm="6" md="4">
-            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field}`)"></v-text-field>
+          <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="4">
+            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="4">
+            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="4">
+            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -30,7 +40,7 @@ export default {
       type: String,
       default: () => "Title"
     },
-    item: {
+    editedItem: {
       type: Object,
       default: () => {}
     },
@@ -43,10 +53,20 @@ export default {
       default: () => {}
     }
   },
-  data() {},
+  data() {
+    return {
+      item: {}
+    };
+  },
   computed: {
-    mainFields() {
+    main() {
       return this.$props.fields.main;
+    },
+    additional() {
+      return this.$props.fields.additional;
+    },
+    conclusive() {
+      return this.$props.fields.conclusive;
     }
   },
   methods: {}
