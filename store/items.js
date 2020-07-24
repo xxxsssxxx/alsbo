@@ -1,5 +1,11 @@
 const utils = require("../mixins/utils");
 const defaultState = {
+  mainFields: ["service"],
+  saleAttr: ["service_type", "batch_number", "pn", "description", "quantity", "price_per_unit"],
+  exchangeAttr: ["batch_number", "pn", "description", "serial_number", "new_serial_number"],
+  loanAttr: ["batch_number", "pn", "description"],
+  feeAttr: ["quantity", "description"],
+  defaultAttr: ["quantity", "description"],
   allColumns: [],
   saleTableHead: [],
   serviceTableHead: [],

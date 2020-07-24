@@ -3,6 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SALT_WORK_FACTOR = 10;
 
+const Row = new mongoose.Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true, default: "text" },
+  value: { type: String, required: false }
+});
+
 const User = new mongoose.Schema({
   firstname: { type: String, minlength: [2, "Minimum 2 characters"], required: true },
   lastname: { type: String, minlength: [2, "Minimum 2 characters"], required: true },
@@ -23,7 +29,9 @@ const User = new mongoose.Schema({
     type: String,
     required: true
   },
-  lang: { type: String, default: "en" }
+  lang: { type: String, default: "en" },
+  saleRows: [[Row]],
+  serviceRows: [[Row]]
 });
 
 // Not using arrow function to keep a context

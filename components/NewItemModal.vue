@@ -7,20 +7,8 @@
     <v-card-text>
       <v-container>
         <v-row>
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="item.name" label="Dessert name"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="item.calories" label="Calories"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="item.fat" label="Fat (g)"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="item.carbs" label="Carbs (g)"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="item.protein" label="Protein (g)"></v-text-field>
+          <v-col v-for="(field, i) in mainFields" :key="i" cols="12" sm="6" md="4">
+            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field}`)"></v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -45,8 +33,23 @@ export default {
     item: {
       type: Object,
       default: () => {}
+    },
+    type: {
+      type: String,
+      default: () => ""
+    },
+    fields: {
+      type: Object,
+      default: () => {}
     }
-  }
+  },
+  data() {},
+  computed: {
+    mainFields() {
+      return this.$props.fields.main;
+    }
+  },
+  methods: {}
 };
 </script>
 
