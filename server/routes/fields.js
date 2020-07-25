@@ -7,7 +7,7 @@ const Field = require("../models/field");
 router.get("/api/fields/:place", async (req, res) => {
   try {
     const place = req.params.place;
-    const fields = await Field.find({ place }, "name section service type visible").exec();
+    const fields = await Field.find({ place }, "name section service type visible selectOptions").exec();
     res.status(200).json({ fields });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -8,17 +8,29 @@
       <v-container>
         <v-row>
           <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="4">
-            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
+            <BaseInput
+              :component="field.type"
+              :label="$t(`main.table.header.${field.name}`)"
+              :items="field.selectOptions"
+            />
           </v-col>
         </v-row>
         <v-row>
           <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="4">
-            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
+            <BaseInput
+              :component="field.type"
+              :label="$t(`main.table.header.${field.name}`)"
+              :items="field.selectOptions"
+            />
           </v-col>
         </v-row>
         <v-row>
           <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="4">
-            <v-text-field v-model="item[field]" :label="$t(`main.table.header.${field.name}`)"></v-text-field>
+            <BaseInput
+              :component="field.type"
+              :label="$t(`main.table.header.${field.name}`)"
+              :items="field.selectOptions"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -33,8 +45,12 @@
 </template>
 
 <script>
+import BaseInput from "@/components/BaseInput";
 export default {
   name: "NewItemModal",
+  components: {
+    BaseInput
+  },
   props: {
     title: {
       type: String,
