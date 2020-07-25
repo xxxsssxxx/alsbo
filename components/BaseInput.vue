@@ -13,12 +13,16 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-unused-components */
 import BaseDatepicker from "@/components/BaseDatepicker";
+import { VTextField, VSelect, VTextarea } from "vuetify/lib";
 export default {
   name: "BaseInput",
   components: {
-    // eslint-disable-next-line vue/no-unused-components
-    BaseDatepicker
+    BaseDatepicker,
+    VTextField,
+    VSelect,
+    VTextarea
   },
   props: {
     component: {
