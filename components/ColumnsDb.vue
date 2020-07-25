@@ -156,12 +156,13 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: "currentUser",
-      columns: "items/allColumns"
+      columns: "items/allColumns",
+      urlPrefix: "urlPrefix"
     })
   },
   async fetch() {
     const id = this.currentUser._id;
-    await this.getAllColumns(id);
+    await this.getAllColumns(id, this.urlPrefix);
   },
   methods: {
     async addColumnToDb() {

@@ -33,11 +33,11 @@ export const mutations = {
 export const actions = () => {};
 export const getters = {
   saleHeaders: s => {
-    const headers = s.allColumns.filter(({ type, selected }) => (type || type === "sale") && selected.sale);
+    const headers = s.allColumns.filter(({ type, selected }) => (!type || type === "sale") && selected.sale);
     return headers;
   },
   serviceHeaders: s => {
-    const headers = s.allColumns.filter(({ type, selected }) => (type || type === "service") && selected.service);
+    const headers = s.allColumns.filter(({ type, selected }) => (!type || type === "service") && selected.service);
     return headers;
   },
   saleAvailableColumns: s => {
