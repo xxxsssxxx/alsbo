@@ -12,7 +12,8 @@ export const state = () => ({
   rate: {},
   allFields: {},
   modalGlobalError: null,
-  messageTimeout: 3000
+  messageTimeout: 3000,
+  loading: false
 });
 
 export const mutations = {

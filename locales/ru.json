@@ -147,6 +147,7 @@
   "sale_register": "Реестр продаж",
   "service_register": "Реестр сервисов",
   "simple_confirm": "Вы уверены?",
+  "loading": "Загрузка, пожалуйста подождите",
   "alerts": {
     "register": {
       "empty": "Пустой реестр",

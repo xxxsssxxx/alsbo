@@ -121,6 +121,7 @@
   "sale_register": "Sale register",
   "service_register": "Service register",
   "simple_confirm": "Are you sure?",
+  "loading": "Loading, please wait",
   "alerts": {
     "register": {
       "empty": "Empty register",

@@ -147,6 +147,7 @@
   "sale_register": "Prodejní seznam",
   "service_register": "Seznam služeb",
   "simple_confirm": "Jste jistý(á)?",
+  "loading": "Načítání, prosím čekejte",
   "alerts": {
     "register": {
       "empty": "Prázdný seznam",

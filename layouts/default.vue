@@ -39,6 +39,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <Loading :loading="$store.state.loading" />
         <nuxt />
       </v-container>
     </v-main>
@@ -61,8 +62,12 @@
 </template>
 
 <script>
+import Loading from "@/components/Loading";
 export default {
   name: "Default",
+  components: {
+    Loading
+  },
   data() {
     return {
       miniVariant: false,

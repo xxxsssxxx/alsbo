@@ -61,6 +61,12 @@ export default {
         pathToSet: ["allFields", placeStore]
       });
     },
+    setLoadingState(state) {
+      this.$store.commit("setStoreValue", {
+        value: state,
+        pathToSet: ["loading"]
+      });
+    },
     // Method to set a deep obj values.
     // Main - the main object, value - value to set
     // Path - array of nested properties {a: {b :{c: val}}} = ["a", "b", "c"]

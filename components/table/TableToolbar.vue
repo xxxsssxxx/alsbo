@@ -101,9 +101,11 @@ export default {
       this.$emit("column:select", col);
     },
     async openModal() {
+      this.setLoadingState(true);
       if (!this.fields) {
         await this.getFieldsFor("NewItemModal", this.urlPrefix);
       }
+      this.setLoadingState(false);
       this.dialog = true;
     },
     editItem(item) {
