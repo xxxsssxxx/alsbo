@@ -21,7 +21,8 @@
             :title="title"
             :accessible-columns="availableColumns"
             :type="type"
-            @column:select="toggleSelectedColumn"
+            @column:select="handleColumnToggle"
+            @row:added="handleRowAdd"
           />
         </template>
         <template #item.actions="{ item }">
@@ -117,8 +118,11 @@ export default {
   },
 
   methods: {
-    toggleSelectedColumn(col) {
-      this.$emit("column:select", col);
+    handleColumnToggle(col) {
+      this.$emit("column:select", { table: this.type, col });
+    },
+    handleRowAdd(data) {
+      this.$emit("row:added", data);
     },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);

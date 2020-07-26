@@ -97,6 +97,7 @@ export default {
   watch: {
     "item.service": {
       handler(newValue, oldValue) {
+        if (oldValue && newValue && newValue.id === oldValue.id) return;
         const value = newValue ? newValue.value : "sales";
         const data = {
           value,

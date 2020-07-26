@@ -8,7 +8,8 @@
           :items="sales.items"
           :accessible-columns="translateHeaders(saleAvailableColumns)"
           :current-user="currentUser"
-          @column:select="handleSelect($event, 'sale')"
+          @column:select="handleSelect"
+          @row:added="handleRowAdd"
           type="sale"
         />
       </client-only>
@@ -21,7 +22,8 @@
           :items="service.items"
           :accessible-columns="translateHeaders(serviceAvailableColumns)"
           :current-user="currentUser"
-          @column:select="handleSelect($event, 'service')"
+          @column:select="handleSelect"
+          @row:added="handleRowAdd"
           type="service"
         />
       </client-only>
@@ -42,6 +44,8 @@ export default {
   },
   computed: {
     ...mapGetters({
+      saleRows: "items/sale",
+      serviceRows: "items/service",
       saleHeaders: "items/saleHeaders",
       serviceHeaders: "items/serviceHeaders",
       saleAvailableColumns: "items/saleAvailableColumns",
@@ -56,7 +60,7 @@ export default {
       return {
         title: this.$t("main.sale_register"),
         headers,
-        items: this.$store.state.salesItems
+        items: this.saleRows
       };
     },
     service() {
@@ -64,7 +68,7 @@ export default {
       return {
         title: this.$t("main.service_register"),
         headers,
-        items: this.$store.state.serviceItems
+        items: this.serviceRows
       };
     }
   },
@@ -72,15 +76,21 @@ export default {
   watch: {},
   async fetch() {
     const id = this.currentUser._id;
-    await this.getAllColumns(id, this.urlPrefix);
+    await this.getAllColumns(id);
+    await this.getRows(id, "sale");
+    await this.getRows(id, "service");
   },
 
   created() {},
 
   methods: {
-    async handleSelect(col, type) {
+    async handleSelect({ col, type }) {
       const userId = this.currentUser._id;
       await this.toggleColumn(col, userId, type);
+    },
+    async handleRowAdd(data) {
+      const userId = this.currentUser._id;
+      await this.addRow(data, userId);
     }
   }
 };

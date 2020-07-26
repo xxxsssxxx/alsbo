@@ -1,6 +1,7 @@
 import User from "@/plugins/user";
 import Column from "@/plugins/column";
 import Field from "@/plugins/field";
+import Row from "@/plugins/row";
 import Vue from "vue";
 
 export default {
@@ -38,10 +39,25 @@ export default {
       });
     },
     async getAllColumns(userId, urlPrefix) {
-      const { columns } = await Column.getAll(userId, { urlPrefix });
+      const { columns } = await Column.getAll(userId);
       this.$store.commit("items/setStoreValue", {
         value: columns,
         pathToSet: ["allColumns"]
+      });
+    },
+    async addRow(data, userId) {
+      const { table } = data;
+      const { rows } = await Row.add(data, userId);
+      this.$store.commit("items/setStoreValue", {
+        value: rows,
+        pathToSet: ["tables", table]
+      });
+    },
+    async getRows(userId, type) {
+      const { rows } = await Row.get(userId, type);
+      this.$store.commit("items/setStoreValue", {
+        value: rows,
+        pathToSet: ["tables", type]
       });
     },
     translateHeaders(headers) {

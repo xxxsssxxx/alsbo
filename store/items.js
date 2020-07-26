@@ -1,12 +1,7 @@
 const utils = require("../mixins/utils");
 const defaultState = {
   allColumns: [],
-  saleTableHead: [],
-  serviceTableHead: [],
-  saleTableContent: [],
-  serviceTableContent: [],
-  editingRow: {},
-  notVisisbleTableContent: ["service", "currency", "customer_type", "service_type"]
+  tables: {}
 };
 const getDefaultState = () => {
   return defaultState;
@@ -65,6 +60,12 @@ export const getters = {
       conclusive
     };
     return fields;
+  },
+  sale: s => {
+    return s.tables.sale || [];
+  },
+  service: s => {
+    return s.tables.service || [];
   },
   allColumns: s => s.allColumns,
   editedRow: s => s.editingRow

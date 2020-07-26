@@ -123,6 +123,7 @@ export default {
       this.dialog = false;
     },
     handleSave({ item }) {
+      this.$emit("row:added", { table: this.type, row: item });
       this.handleClose();
     }
   }
