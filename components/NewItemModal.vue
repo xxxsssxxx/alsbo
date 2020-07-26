@@ -3,43 +3,52 @@
     <v-card-title>
       <span class="headline">{{ title }}</span>
     </v-card-title>
-
+    <v-divider></v-divider>
     <v-card-text>
       <v-container>
         <v-row>
-          <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="4">
+          <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
             <BaseInput
               :component="field.type"
               :label="$t(`main.table.header.${field.name}`)"
               :items="field.selectOptions"
+              @select:changed="handleSelectChange($event, field.name)"
+              @date:changed="handleDateChange($event, field.name)"
+              @textfield:blured="handleBlurString($event, field.name)"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="4">
+          <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
             <BaseInput
               :component="field.type"
               :label="$t(`main.table.header.${field.name}`)"
               :items="field.selectOptions"
+              @select:changed="handleSelectChange($event, field.name)"
+              @date:changed="handleDateChange($event, field.name)"
+              @textfield:blured="handleBlurString($event, field.name)"
             />
           </v-col>
         </v-row>
         <v-row>
-          <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="4">
+          <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
             <BaseInput
               :component="field.type"
               :label="$t(`main.table.header.${field.name}`)"
               :items="field.selectOptions"
+              @select:changed="handleSelectChange($event, field.name)"
+              @date:changed="handleDateChange($event, field.name)"
+              @textfield:blured="handleBlurString($event, field.name)"
             />
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
-
+    <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="$emit('modal:cancel')" color="blue darken-1" text>{{ $t("main.button.cancel") }}</v-btn>
-      <v-btn @click="$emit('modal:save')" color="blue darken-1" text>{{ $t("main.button.save") }}</v-btn>
+      <v-btn @click="handleClose" color="blue darken-1" text>{{ $t("main.button.cancel") }}</v-btn>
+      <v-btn @click="handleSave" color="blue darken-1" text>{{ $t("main.button.save") }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -85,7 +94,41 @@ export default {
       return this.$props.fields.conclusive;
     }
   },
-  methods: {}
+  watch: {
+    "item.service": {
+      handler(newValue, oldValue) {
+        const value = newValue ? newValue.value : "sales";
+        const data = {
+          value,
+          pathToSet: ["service"]
+        };
+        this.$store.commit("setStoreValue", data);
+      }
+    }
+  },
+  methods: {
+    handleSelectChange({ value }, field) {
+      this.$set(this.item, field, value);
+    },
+    handleDateChange({ value }, field) {
+      this.$set(this.item, field, value);
+    },
+    handleBlurString({ value }, field) {
+      this.$set(this.item, field, value);
+    },
+    handleClose() {
+      this.$emit("modal:cancel");
+      this.resetFields();
+    },
+    handleSave() {
+      this.$emit("modal:save", { item: this.item });
+      this.resetFields();
+    },
+    async resetFields() {
+      await this.$nextTick();
+      this.item = {};
+    }
+  }
 };
 </script>
 

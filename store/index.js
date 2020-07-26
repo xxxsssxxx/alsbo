@@ -7,7 +7,7 @@ export const state = () => ({
   token: null,
   locale: "en",
   tables: ["sale", "service"],
-  service: "sale",
+  service: "sales",
   currency: "",
   rate: {},
   allFields: {},

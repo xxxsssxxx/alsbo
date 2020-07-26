@@ -6,10 +6,10 @@
         <v-divider v-if="$vuetify.breakpoint.name !== 'xs'" class="mx-4" inset vertical></v-divider>
       </v-col>
       <v-col cols="12" sm="7">
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" scrollable>
           <template #activator="{ on, attrs }">
             <div class="d-flex align-center justify-space-between justify-sm-end">
-              <v-btn v-bind="attrs" @click="openModal" color="success" class="mr-2" small>{{
+              <v-btn v-bind="attrs" @click.stop="openModal" color="success" class="mr-2" small>{{
                 $t("main.modal.new_item")
               }}</v-btn>
               <BaseAddMenu
@@ -24,8 +24,8 @@
             :title="formTitle"
             :item="editedItem"
             :fields="fields"
-            @modal:cancel="close"
-            @modal:save="save"
+            @modal:cancel="handleClose"
+            @modal:save="handleSave"
           />
         </v-dialog>
       </v-col>
@@ -119,21 +119,11 @@ export default {
       confirm("Are you sure you want to delete this item?") && this.desserts.splice(index, 1);
     },
 
-    close() {
+    handleClose() {
       this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
     },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
+    handleSave({ item }) {
+      this.handleClose();
     }
   }
 };
