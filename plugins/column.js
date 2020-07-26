@@ -39,8 +39,9 @@ class Column {
 
   static async getAll(userId, options) {
     try {
+      // eslint-disable-next-line no-unused-vars
       const { urlPrefix } = options;
-      const resposne = await fetch(`${urlPrefix}/columns/${userId}`);
+      const resposne = await fetch(`/api/columns/${userId}`);
       const { columns, errorMessage } = await resposne.json();
       return { columns, errorMessage };
     } catch (err) {
