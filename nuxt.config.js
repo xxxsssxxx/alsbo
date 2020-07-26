@@ -32,8 +32,8 @@ module.exports = {
    */
   plugins: [
     { src: "@/plugins/veeValidate", ssr: "false" },
-    "@/plugins/i18n",
-    { src: "@/plugins/mixins", ssr: "false" }
+    { src: "@/plugins/mixins", ssr: "false" },
+    { src: "@/plugins/i18n", ssr: "false" }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -94,9 +94,9 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    transpile: ["vee-validate"],
+    transpile: ["vee-validate", "vuetify/lib"],
     parallel: true,
     cache: true,
-    extend(config, ctx) { }
+    extend(config, ctx) {}
   }
 };
