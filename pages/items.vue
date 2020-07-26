@@ -36,7 +36,10 @@ export default {
   name: "Items",
   middleware: "auth",
   components: { Table },
-  data: () => ({}),
+  fetchOnServer: false,
+  data() {
+    return {};
+  },
   computed: {
     ...mapGetters({
       saleHeaders: "items/saleHeaders",

@@ -133,6 +133,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "ColumnsDb",
+  fetchOnServer: false,
   data() {
     return {
       value: "",
