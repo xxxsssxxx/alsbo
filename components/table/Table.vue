@@ -13,6 +13,7 @@
           showCurrentPage: true
         }"
         v-model="selectedRows"
+        item-key="_id"
         class="elevation-3"
         calculate-widths
       >
@@ -103,9 +104,6 @@ export default {
   },
 
   computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
     availableColumns() {
       return this.$props.accessibleColumns;
     }
@@ -114,12 +112,19 @@ export default {
   watch: {
     dialog(val) {
       val || this.close();
+    },
+    selectedRows(rows) {
+      this.$store.commit("items/setStoreValue", {
+        value: rows,
+        pathToSet: ["selectedRows", this.type],
+        toPush: true
+      });
     }
   },
 
   methods: {
     handleColumnToggle(col) {
-      this.$emit("column:select", { table: this.type, col });
+      this.$emit("column:select", col);
     },
     handleRowAdd(data) {
       this.$emit("row:added", data);

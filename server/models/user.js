@@ -3,6 +3,30 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SALT_WORK_FACTOR = 10;
 
+const Row = new mongoose.Schema({
+  action_date: { type: String, required: false, default: new Date() },
+  acquistition_price: { type: String, required: false },
+  batch_number: { type: String, required: false },
+  currency: { type: Object, required: false },
+  customer_name: { type: String, required: false },
+  total_local_price: { type: String, required: false },
+  customer_po: { type: String, required: false },
+  customer_type: { type: String, required: false },
+  description: { type: String, required: false },
+  exchange_status: { type: String, required: false },
+  invoice_status: { type: Object, required: false },
+  margin: { type: String, required: false },
+  new_serial_number: { type: String, required: false },
+  pn: { type: String, required: false },
+  price_per_unit: { type: String, required: false },
+  order_price: { type: String, required: false },
+  quantity: { type: String, required: false },
+  repair_status: { type: String, required: false },
+  service: { type: Object, required: false },
+  service_type: { type: Object, required: false },
+  serial_number: { type: String, required: false }
+});
+
 const User = new mongoose.Schema({
   firstname: { type: String, minlength: [2, "Minimum 2 characters"], required: true },
   lastname: { type: String, minlength: [2, "Minimum 2 characters"], required: true },
@@ -24,12 +48,12 @@ const User = new mongoose.Schema({
     required: true
   },
   lang: { type: String, default: "en" },
-  sale: [],
-  service: []
+  sale: [Row],
+  service: [Row]
 });
 
 // Not using arrow function to keep a context
-User.pre("save", function(next) {
+User.pre("save", function (next) {
   const user = this;
   // only hash the password if it has been modified (or is new)
   if (!user.isModified("password")) return next();
@@ -49,7 +73,7 @@ User.pre("save", function(next) {
   });
 });
 
-User.methods.generateAuthToken = async function() {
+User.methods.generateAuthToken = async function () {
   // Generate an auth token for the user
   const user = this;
   const token = jwt.sign(

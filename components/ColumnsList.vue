@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     toggleSelectedColumn(col) {
-      this.$emit("column:select", col);
+      this.$emit("column:select", { col, type: this.tableType });
     }
   }
 };

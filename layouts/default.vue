@@ -63,6 +63,7 @@
 
 <script>
 import Loading from "@/components/Loading";
+import { mapGetters } from "vuex";
 export default {
   name: "Default",
   components: {
@@ -75,6 +76,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      currentUser: "currentUser"
+    }),
     theme: {
       get() {
         return this.$vuetify.theme.dark;
@@ -82,9 +86,6 @@ export default {
       set(val) {
         this.$vuetify.theme.dark = val;
       }
-    },
-    currentUser() {
-      return this.$store.state.currentUser;
     },
     tabs() {
       return [

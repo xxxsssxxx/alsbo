@@ -1,7 +1,8 @@
 const utils = require("../mixins/utils");
 const defaultState = {
   allColumns: [],
-  tables: {}
+  tables: {},
+  selectedRows: []
 };
 const getDefaultState = () => {
   return defaultState;
@@ -61,12 +62,15 @@ export const getters = {
     };
     return fields;
   },
-  sale: s => {
-    return s.tables.sale || [];
+  selectedRows: s => {
+    let rows = [];
+    Object.values(s.selectedRows).forEach(table => {
+      rows = [...rows, ...table];
+    });
+    return rows || [];
   },
-  service: s => {
-    return s.tables.service || [];
-  },
+  sale: s => s.tables.sale || [],
+  service: s => s.tables.service || [],
   allColumns: s => s.allColumns,
   editedRow: s => s.editingRow
 };
