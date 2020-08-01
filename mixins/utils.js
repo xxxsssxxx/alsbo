@@ -97,6 +97,24 @@ export default {
         pathToSet: ["loading"]
       });
     },
+    notify(config = {}) {
+      if (!config) {
+        this.$store.commit("notify", false);
+        return;
+      }
+      const { title, text, icon, type } = config;
+      const payload = {
+        title: title || this.$t("main.notification.form.title_validation_success"),
+        text: text || this.$t("main.notification.form.success.saved"),
+        icon: icon || "mdi-check-outline",
+        type: type || "success"
+      };
+      this.$store.commit("notify", payload);
+      if (this.notificationTimer) clearTimeout(this.notificationTimer);
+      this.notificationTimer = setTimeout(() => {
+        this.$store.commit("notify", false);
+      }, this.$store.state.messageTimeout);
+    },
     // Method to set a deep obj values.
     // Main - the main object, value - value to set
     // Path - array of nested properties {a: {b :{c: val}}} = ["a", "b", "c"]
@@ -136,6 +154,13 @@ export default {
       } catch (err) {
         throw new SyntaxError(`Error while parsing obj in deep simple copy: ${err}`);
       }
+    },
+    // Send function as argument, and a function arguments
+    // Handle set and unset loading state for async functions
+    async loadingStateManager(fn, ...args) {
+      this.setLoadingState(true);
+      await fn(...args);
+      this.setLoadingState(false);
     }
   }
 };

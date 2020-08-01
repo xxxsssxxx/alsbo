@@ -50,7 +50,7 @@ module.exports = {
   modules: ["@nuxtjs/pwa", "@nuxtjs/axios"],
   /* Axious nuxt module configuration */
   axios: {
-    prefix: "/api"
+    baseUrl: "/api"
   },
   telemetry: false,
   /*

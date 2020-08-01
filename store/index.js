@@ -9,6 +9,7 @@ export const state = () => ({
   tables: ["sale", "service"],
   service: "sales",
   currency: "",
+  notification: false,
   rate: {},
   allFields: {},
   modalGlobalError: null,
@@ -32,6 +33,9 @@ export const mutations = {
   },
   setCurrentUser(state, payload) {
     state.currentUser = payload;
+  },
+  notify(state, config) {
+    state.notification = config;
   }
 };
 
@@ -86,5 +90,6 @@ export const getters = {
   hasToken: s => !!s.token,
   error: s => s.modalGlobalError,
   currentUser: s => s.currentUser,
-  urlPrefix: s => s.urlPrefix
+  urlPrefix: s => s.urlPrefix,
+  notification: s => s.notification
 };

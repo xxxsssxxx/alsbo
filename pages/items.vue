@@ -112,11 +112,13 @@ export default {
   methods: {
     async handleColumnSelect({ col, type }) {
       const userId = this.currentUser._id;
-      await this.toggleColumn(col, userId, type);
+      await this.loadingStateManager(this.toggleColumn, col, userId, type);
+      this.notify();
     },
     async handleRowAdd(data) {
       const userId = this.currentUser._id;
-      await this.addRow(data, userId);
+      await this.loadingStateManager(this.addRow, data, userId);
+      this.notify();
     },
     dotClass(dot) {
       const service = dot.service.value;
@@ -126,8 +128,9 @@ export default {
     async handleBulkRowDelete() {
       const rows = this.allSelected;
       const userId = this.currentUser._id;
-      await this.rowBulkDelete(userId, rows);
+      await this.loadingStateManager(this.rowBulkDelete, userId, rows);
       this.handleRowUncheck();
+      this.notify();
     },
     handleRowUncheck() {
       this.$store.commit("items/setStoreValue", {

@@ -39,6 +39,19 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <v-alert
+          :value="notification"
+          :color="notification.type"
+          :icon="notification.icon"
+          transition="scale-transition"
+          dark
+          prominent
+          dismissible
+          width="360"
+        >
+          <p v-if="notification.title" class="title">{{ notification.title }}</p>
+          <p v-if="notification.text">{{ notification.text }}</p>
+        </v-alert>
         <Loading :loading="$store.state.loading" />
         <nuxt />
       </v-container>
@@ -77,7 +90,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentUser: "currentUser"
+      currentUser: "currentUser",
+      notification: "notification"
     }),
     theme: {
       get() {
@@ -131,9 +145,20 @@ export default {
       ];
     }
   },
+  watch: {
+    $route() {
+      this.notification && this.$store.commit("notify", false);
+    }
+  },
   mounted() {
     this.$vuetify.theme.dark = false;
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-alert {
+  position: absolute;
+  z-index: 7;
+  right: 0;
+}
+</style>
