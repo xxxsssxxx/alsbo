@@ -9,9 +9,10 @@
             :items="sales.items"
             :accessible-columns="translateHeaders(saleAvailableColumns)"
             :current-user="currentUser"
+            :selected="selectedRows.sale"
             @column:select="handleColumnSelect"
             @row:added="handleRowAdd"
-            type="sale"
+            table="sale"
           />
         </client-only>
       </v-col>
@@ -23,23 +24,24 @@
             :items="service.items"
             :accessible-columns="translateHeaders(serviceAvailableColumns)"
             :current-user="currentUser"
+            :selected="selectedRows.service"
             @column:select="handleColumnSelect"
             @row:added="handleRowAdd"
-            type="service"
+            table="service"
           />
         </client-only>
       </v-col>
     </v-row>
-    <v-bottom-sheet :value="selectedRows.length" hide-overlay inset persistent max-width="300">
+    <v-bottom-sheet :value="allSelected.length" hide-overlay inset persistent max-width="300">
       <v-sheet class="secondary" height="100px" width="100%">
         <div class="bottom-sheet_wrapper secondary">
           <v-row align="center" justify="center">
             <v-col cols="3" class="d-flex justify-center">
-              <span class="display-1 text-center">{{ selectedRows.length }}</span>
-              <span v-for="(dot, i) in selectedRows" :key="i" :class="`dot ${dotClass(dot)}`"></span>
+              <span class="display-1 text-center">{{ allSelected.length }}</span>
+              <span v-for="(dot, i) in allSelected" :key="i" :class="`dot ${dotClass(dot)}`"></span>
             </v-col>
             <v-col cols="8" class="d-flex justify-end">
-              <v-btn @click="handleRowDelete" color="error mr-2" small>{{ $t("main.button.delete") }}</v-btn>
+              <v-btn @click="handleBulkRowDelete" color="error mr-2" small>{{ $t("main.button.delete") }}</v-btn>
               <v-btn @click="handleRowUncheck" color="neutral" small>{{ $t("main.button.cancel") }}</v-btn>
             </v-col>
           </v-row>
@@ -87,6 +89,13 @@ export default {
         headers,
         items: this.serviceRows
       };
+    },
+    allSelected() {
+      let rows = [];
+      Object.values(this.selectedRows).forEach(table => {
+        rows = [...rows, ...table];
+      });
+      return rows || [];
     }
   },
 
@@ -114,8 +123,18 @@ export default {
       if (service !== "sales") return "neutral";
       return "primary";
     },
-    async handleRowDelete() {},
-    async handleRowUncheck() {}
+    async handleBulkRowDelete() {
+      const rows = this.allSelected;
+      const userId = this.currentUser._id;
+      await this.rowBulkDelete(userId, rows);
+      this.handleRowUncheck();
+    },
+    handleRowUncheck() {
+      this.$store.commit("items/setStoreValue", {
+        value: {},
+        pathToSet: ["selectedRows"]
+      });
+    }
   }
 };
 </script>

@@ -46,11 +46,11 @@ export default {
       });
     },
     async addRow(data, userId) {
-      const { table } = data;
+      const { row } = data;
       const { rows } = await Row.add(data, userId);
       this.$store.commit("items/setStoreValue", {
         value: rows,
-        pathToSet: ["tables", table]
+        pathToSet: ["tables", row.table]
       });
     },
     async getRows(userId, type) {
@@ -58,6 +58,20 @@ export default {
       this.$store.commit("items/setStoreValue", {
         value: rows,
         pathToSet: ["tables", type]
+      });
+    },
+    async rowDelete(userId, type, rowId) {
+      const { rows } = await Row.delete(userId, type, rowId);
+      this.$store.commit("items/setStoreValue", {
+        value: rows,
+        pathToSet: ["tables", type]
+      });
+    },
+    async rowBulkDelete(userId, rows) {
+      const { tables } = await Row.bulkDelete({ id: userId, rows });
+      this.$store.commit("items/setStoreValue", {
+        value: tables,
+        pathToSet: ["tables"]
       });
     },
     translateHeaders(headers) {

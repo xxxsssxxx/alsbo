@@ -62,12 +62,11 @@ export const getters = {
     };
     return fields;
   },
-  selectedRows: s => {
-    let rows = [];
-    Object.values(s.selectedRows).forEach(table => {
-      rows = [...rows, ...table];
-    });
-    return rows || [];
+  selectedRows: s => s.selectedRows,
+  tableToSave: (s, mutations, rootState) => {
+    const service = rootState.service;
+    if (service === "sales") return "sale";
+    return "service";
   },
   sale: s => s.tables.sale || [],
   service: s => s.tables.service || [],

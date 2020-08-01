@@ -52,7 +52,7 @@ export default {
       type: Array,
       default: () => []
     },
-    type: {
+    table: {
       type: String,
       default: ""
     }
@@ -81,7 +81,8 @@ export default {
   computed: {
     ...mapGetters({
       urlPrefix: "urlPrefix",
-      fields: "items/newModalFields"
+      fields: "items/newModalFields",
+      tableToSave: "items/tableToSave"
     }),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
@@ -92,7 +93,7 @@ export default {
     columnsListOptions() {
       return {
         accessibleColumns: this.availableColumns,
-        type: this.type
+        type: this.table
       };
     }
   },
@@ -113,17 +114,12 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-
-    deleteItem(item) {
-      const index = this.desserts.indexOf(item);
-      confirm("Are you sure you want to delete this item?") && this.desserts.splice(index, 1);
-    },
-
     handleClose() {
       this.dialog = false;
     },
     handleSave({ item }) {
-      this.$emit("row:added", { table: this.type, row: item });
+      item.table = this.tableToSave;
+      this.$emit("row:added", { row: item });
       this.handleClose();
     }
   }

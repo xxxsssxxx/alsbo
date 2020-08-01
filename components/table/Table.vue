@@ -21,7 +21,7 @@
           <TableToolbar
             :title="title"
             :accessible-columns="availableColumns"
-            :type="type"
+            :table="table"
             @column:select="handleColumnToggle"
             @row:added="handleRowAdd"
           />
@@ -74,38 +74,35 @@ export default {
       type: Object,
       default: () => {}
     },
-    type: {
+    table: {
       type: String,
       default: ""
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
       dialog: false,
       menu: false,
-      selectedRows: [],
-      activeColumns: [],
-      editedIndex: -1,
-      editedItem: {
-        name: "",
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      },
-      defaultItem: {
-        name: "",
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      }
+      newSelected: [],
+      activeColumns: []
     };
   },
 
   computed: {
     availableColumns() {
       return this.$props.accessibleColumns;
+    },
+    selectedRows: {
+      get() {
+        return this.$props.selected;
+      },
+      set(val) {
+        this.newSelected = val;
+      }
     }
   },
 
@@ -113,10 +110,10 @@ export default {
     dialog(val) {
       val || this.close();
     },
-    selectedRows(rows) {
+    newSelected(rows) {
       this.$store.commit("items/setStoreValue", {
         value: rows,
-        pathToSet: ["selectedRows", this.type],
+        pathToSet: ["selectedRows", this.$props.table],
         toPush: true
       });
     }

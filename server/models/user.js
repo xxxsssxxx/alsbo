@@ -24,7 +24,8 @@ const Row = new mongoose.Schema({
   repair_status: { type: String, required: false },
   service: { type: Object, required: false },
   service_type: { type: Object, required: false },
-  serial_number: { type: String, required: false }
+  serial_number: { type: String, required: false },
+  table: { type: String, required: true }
 });
 
 const User = new mongoose.Schema({

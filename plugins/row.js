@@ -27,6 +27,37 @@ class Row {
       throw new SyntaxError(`Getting rows error: ${err}`);
     }
   }
+
+  static async delete(userId, table, rowId) {
+    try {
+      const options = {
+        method: "DELETE"
+      };
+      const resposne = await fetch(`/api/users/${userId}/${table}/row/${rowId}/delete`, options);
+      const { rows, errorMessage } = await resposne.json();
+      return { rows, errorMessage };
+    } catch (err) {
+      throw new SyntaxError(`Deleting row error: ${err}`);
+    }
+  }
+
+  static async bulkDelete(data) {
+    const { id } = data;
+    try {
+      const options = {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const resposne = await fetch(`/api/users/${id}/rows/delete`, options);
+      const { tables, errorMessage } = await resposne.json();
+      return { tables, errorMessage };
+    } catch (err) {
+      throw new SyntaxError(`Deleting row error: ${err}`);
+    }
+  }
 }
 
 export default Row;

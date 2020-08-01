@@ -111,7 +111,7 @@ router.get("/api/users/:id/rows/:table", async (req, res) => {
 // @route POST /users/:id/row/add
 // @desc Add an user rows
 router.post("/api/users/:id/row/add", async (req, res) => {
-  const { table, row } = req.body;
+  const { row } = req.body;
   const id = req.params.id;
   try {
     await User.findOne({ _id: id }, "service sale", async (err, user) => {
@@ -123,9 +123,57 @@ router.post("/api/users/:id/row/add", async (req, res) => {
         res.status(404).json({ errorMessage: "error.user_not_found" });
         return;
       }
-      user[table].push(row);
+      user[row.table].push(row);
+      const newUser = await user.save();
+      res.status(200).json({ rows: newUser[row.table] });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// @route DELETE /users/:id/row/:table/:rowId/delete
+// @desc Delete an users row
+router.delete("/api/users/:id/:table/row/:rowId/delete", async (req, res) => {
+  const { table, rowId, id } = req.params;
+  try {
+    await User.findOne({ _id: id }, "service sale", async (err, user) => {
+      if (err) {
+        res.status(403).json({ errorMessage: err });
+        return;
+      }
+      if (!user) {
+        res.status(404).json({ errorMessage: "error.user_not_found" });
+        return;
+      }
+      user[table].pull({ _id: rowId });
       const newUser = await user.save();
       res.status(200).json({ rows: newUser[table] });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// @route PATCH /users/:id/row/:rowId/delete
+// @desc Bulk delete an users rows
+router.patch("/api/users/:id/rows/delete", async (req, res) => {
+  const { id, rows } = req.body;
+  try {
+    await User.findOne({ _id: id }, "service sale", async (err, user) => {
+      if (err) {
+        res.status(403).json({ errorMessage: err });
+        return;
+      }
+      if (!user) {
+        res.status(404).json({ errorMessage: "error.user_not_found" });
+        return;
+      }
+      rows.forEach(({ _id, table }) => {
+        user[table].pull({ _id });
+      });
+      const newUser = await user.save();
+      res.status(200).json({ tables: newUser });
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
