@@ -35,10 +35,12 @@ config.dev = process.env.NODE_ENV !== "production";
 const users = require("../server/routes/users");
 const columns = require("../server/routes/columns");
 const fields = require("../server/routes/fields");
+const currency = require("../server/routes/currency_rates");
 // Add routes to server
 app.use(users);
 app.use(columns);
 app.use(fields);
+app.use(currency);
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);
