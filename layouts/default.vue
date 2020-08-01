@@ -40,7 +40,7 @@
     <v-main>
       <v-container>
         <v-alert
-          :value="notification"
+          :value="!!notification"
           :color="notification.type"
           :icon="notification.icon"
           transition="scale-transition"

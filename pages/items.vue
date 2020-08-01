@@ -32,22 +32,16 @@
         </client-only>
       </v-col>
     </v-row>
-    <v-bottom-sheet :value="allSelected.length" hide-overlay inset persistent max-width="300">
-      <v-sheet class="secondary" height="100px" width="100%">
-        <div class="bottom-sheet_wrapper secondary">
-          <v-row align="center" justify="center">
-            <v-col cols="3" class="d-flex justify-center">
-              <span class="display-1 text-center">{{ allSelected.length }}</span>
-              <span v-for="(dot, i) in allSelected" :key="i" :class="`dot ${dotClass(dot)}`"></span>
-            </v-col>
-            <v-col cols="8" class="d-flex justify-end">
-              <v-btn @click="handleBulkRowDelete" color="error mr-2" small>{{ $t("main.button.delete") }}</v-btn>
-              <v-btn @click="handleRowUncheck" color="neutral" small>{{ $t("main.button.cancel") }}</v-btn>
-            </v-col>
-          </v-row>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
+    <v-snackbar :value="!!allSelected.length" :timeout="-1" color="secondary">
+      <span class="display-1 text-center">{{ allSelected.length }}</span>
+      <span v-for="(dot, i) in allSelected" :key="i" :class="`dot ${dotClass(dot)}`"></span>
+      <template v-slot:action="{ attrs }">
+        <v-btn @click="handleBulkRowDelete" v-bind="attrs" color="error mr-2" small>{{
+          $t("main.button.delete")
+        }}</v-btn>
+        <v-btn @click="handleRowUncheck" v-bind="attrs" color="neutral" small>{{ $t("main.button.cancel") }}</v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -142,18 +136,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.bottom-sheet_wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  .dot {
-    height: 10px;
-    width: 10px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-  }
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
 </style>
