@@ -181,6 +181,23 @@
             </template>
           </v-select>
         </v-col>
+        <v-col cols="12" sm="6" md="6" lg="4">
+          <v-chip v-for="(rate, i) in rates" :key="i" class="ma-2" color="indigo" text-color="white">
+            <v-avatar left>
+              <v-icon>{{ rate.icon }}</v-icon>
+            </v-avatar>
+            {{ rate.name }} : {{ rate.value }}
+          </v-chip>
+          <v-tooltip bottom>
+            <template #activator="{ on: hover }">
+              <slot name="trigger" />
+              <v-icon v-on="hover" @click="reloadCurrencyRates">
+                mdi-reload
+              </v-icon>
+            </template>
+            <span>{{ $t("main.button.reload") }} ({{ ratesUpdated }})</span>
+          </v-tooltip>
+        </v-col>
       </v-row>
     </v-flex>
   </v-layout>
@@ -192,6 +209,7 @@ import { localize } from "vee-validate";
 export default {
   name: "User",
   middleware: "auth",
+  fetchOnServer: false,
   data() {
     return {
       items: [
@@ -208,7 +226,8 @@ export default {
         street: false,
         zip: false,
         email: false,
-        password: false
+        password: false,
+        rates: false
       },
       success: {
         lang: false,
@@ -219,7 +238,8 @@ export default {
         street: false,
         zip: false,
         email: false,
-        password: false
+        password: false,
+        rates: false
       },
       error: {
         lang: false
@@ -232,7 +252,8 @@ export default {
       state: "",
       city: "",
       street: "",
-      zip: ""
+      zip: "",
+      reloadedDate: ""
     };
   },
   computed: {
@@ -247,6 +268,19 @@ export default {
       set(val) {
         this.setLanguage(val);
       }
+    },
+    rates() {
+      const rates = this.$store.state.rates;
+      const items = [
+        { name: "EUR", value: rates.eur, icon: "mdi-currency-eur" },
+        { name: "USD", value: rates.usd, icon: "mdi-currency-usd" }
+      ];
+      return items;
+    },
+    ratesUpdated() {
+      const rates = this.$store.state.rates;
+      const updated = rates.upd;
+      return this.dateFormat(updated, true);
     }
   },
   asyncData({ app, params, store }) {
@@ -259,6 +293,10 @@ export default {
       street: store.state.currentUser.address.street,
       zip: store.state.currentUser.address.zip
     };
+  },
+  async fetch() {
+    const id = this.currentUser._id;
+    await this.setCurrencyRates(id);
   },
   methods: {
     async setLanguage(lang) {
@@ -289,6 +327,11 @@ export default {
       return import(`vee-validate/dist/locale/${code}.json`).then(locale => {
         localize(code, locale);
       });
+    },
+    async reloadCurrencyRates() {
+      const id = this.currentUser._id;
+      await this.loadingStateManager(this.setCurrencyRates, id);
+      this.notify();
     }
   }
 };

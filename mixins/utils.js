@@ -2,10 +2,20 @@ import User from "@/plugins/user";
 import Column from "@/plugins/column";
 import Field from "@/plugins/field";
 import Row from "@/plugins/row";
+import Currency from "@/plugins/currencyRates";
 import Vue from "vue";
 
 export default {
   methods: {
+    dateFormat(date, withTime) {
+      let toFormat = date;
+      if (!date) toFormat = new Date();
+      const formatted = toFormat.toLocaleDateString();
+      if (!withTime) return formatted;
+      const hours = toFormat.getHours();
+      const minutes = toFormat.getMinutes();
+      return `${formatted} ${hours}:${minutes}`;
+    },
     async updateUsersProp(prop, value, userId) {
       this.loading[prop] = true;
       const { token, user, errorMessage } = await User.save(prop, { id: userId, [prop]: value });
@@ -114,6 +124,43 @@ export default {
       this.notificationTimer = setTimeout(() => {
         this.$store.commit("notify", false);
       }, this.$store.state.messageTimeout);
+    },
+    notifyDefaultError(message) {
+      const data = {
+        title: this.$t("main.notification.form.title_validation_error"),
+        text: message,
+        type: "error"
+      };
+      this.notify(data);
+    },
+    async setCurrencyRates(userId) {
+      const isFirstDayOfMonth = new Date().getDate() === 1;
+      let rates = {};
+      let error = "";
+      let upd = "";
+      if (isFirstDayOfMonth) {
+        const { parsedRates, updated, errorMessage } = await Currency.set(userId);
+        rates = parsedRates;
+        error = errorMessage;
+        upd = updated;
+      } else {
+        const { parsedRates, updated, errorMessage } = await Currency.get(userId);
+        rates = parsedRates;
+        error = errorMessage;
+        upd = updated;
+      }
+      if (error) {
+        this.notifyDefaultError(error);
+        return;
+      }
+      this.$store.commit("setStoreValue", {
+        value: rates,
+        pathToSet: ["rates"]
+      });
+      this.$store.commit("setStoreValue", {
+        value: upd,
+        pathToSet: ["rates", "upd"]
+      });
     },
     // Method to set a deep obj values.
     // Main - the main object, value - value to set

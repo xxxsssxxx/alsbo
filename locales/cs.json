@@ -13,7 +13,8 @@
     "save_continue": "Uložit a Pokračovat",
     "save_new": "Uložit a nový",
     "submit": "Odeslat",
-    "clear": "Vyčistit"
+    "clear": "Vyčistit",
+    "reload": "Reload"
   },
   "email": {
     "long": "Emailová addresa ",

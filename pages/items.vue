@@ -99,6 +99,7 @@ export default {
     await this.getAllColumns(id);
     await this.getRows(id, "sale");
     await this.getRows(id, "service");
+    await this.setCurrencyRates(id);
   },
 
   created() {},

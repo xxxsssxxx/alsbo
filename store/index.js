@@ -10,7 +10,7 @@ export const state = () => ({
   service: "sales",
   currency: "",
   notification: false,
-  rate: {},
+  rates: {},
   allFields: {},
   modalGlobalError: null,
   messageTimeout: 3000,

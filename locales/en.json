@@ -13,7 +13,8 @@
     "save_continue": "Save and Continue",
     "save_new": "Save and New",
     "submit": "Submit",
-    "clear": "Clear"
+    "clear": "Clear",
+    "reload": "Reload"
   },
   "email": {
     "long": "Email address",
