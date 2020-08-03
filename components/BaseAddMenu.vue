@@ -5,7 +5,7 @@
         <template #activator="{ on: hover }">
           <slot name="trigger" />
           <v-btn v-on="{ ...hover, ...click }" fab color="neutral" x-small class="mr-2">
-            <v-icon dark>mdi-plus</v-icon>
+            <v-icon dark>mdi-table-column-plus-before</v-icon>
           </v-btn>
         </template>
         <span>{{ tooltip }}</span>

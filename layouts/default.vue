@@ -32,6 +32,20 @@
         </template>
       </v-img>
       <v-spacer />
+      <v-dialog v-model="dialog" max-width="500px" scrollable>
+        <template #activator="{ on, attrs }">
+          <v-tooltip bottom>
+            <template #activator="{ on: hover }">
+              <slot name="trigger" />
+              <v-btn v-on="hover" v-bind="attrs" @click.stop="openModal" fab color="success" x-small class="mr-2">
+                <v-icon dark>mdi-plus</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $t("main.modal.new_item") }}</span>
+          </v-tooltip>
+        </template>
+        <NewItemModal :title="formTitle" :fields="fields" @modal:cancel="handleClose" @modal:save="handleSave" />
+      </v-dialog>
       <v-switch v-model="theme" color="secondary" inset hide-details append-icon="mdi-brightness-4"> </v-switch>
       <v-btn @click.stop="rightDrawer = !rightDrawer" icon class="text--text">
         <v-icon>mdi-menu</v-icon>
@@ -76,22 +90,28 @@
 
 <script>
 import Loading from "@/components/Loading";
+import NewItemModal from "@/components/NewItemModal";
 import { mapGetters } from "vuex";
 export default {
   name: "Default",
   components: {
-    Loading
+    Loading,
+    NewItemModal
   },
   data() {
     return {
       miniVariant: false,
-      rightDrawer: false
+      rightDrawer: false,
+      dialog: false,
+      formTitle: "New item"
     };
   },
   computed: {
     ...mapGetters({
       currentUser: "currentUser",
-      notification: "notification"
+      notification: "notification",
+      fields: "items/newModalFields",
+      tableToSave: "items/tableToSave"
     }),
     theme: {
       get() {
@@ -152,6 +172,26 @@ export default {
   },
   mounted() {
     this.$vuetify.theme.dark = false;
+  },
+  methods: {
+    async openModal() {
+      this.setLoadingState(true);
+      if (!this.fields) {
+        await this.getFieldsFor("NewItemModal", this.urlPrefix);
+      }
+      this.setLoadingState(false);
+      this.dialog = true;
+    },
+    async handleSave({ item }) {
+      item.table = this.tableToSave;
+      const userId = this.currentUser._id;
+      await this.loadingStateManager(this.addRow, { row: item }, userId);
+      this.notify();
+      this.handleClose();
+    },
+    handleClose() {
+      this.dialog = false;
+    }
   }
 };
 </script>
