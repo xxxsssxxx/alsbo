@@ -21,6 +21,7 @@
             </div>
           </template>
           <NewItemModal
+            v-if="dialog"
             :title="formTitle"
             :item="editedItem"
             :fields="fields"

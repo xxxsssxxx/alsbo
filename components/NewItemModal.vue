@@ -12,6 +12,7 @@
               :component="field.type"
               :label="$t(`main.table.header.${field.name}`)"
               :items="field.selectOptions"
+              :value="{}"
               @select:changed="handleSelectChange($event, field.name)"
               @date:changed="handleDateChange($event, field.name)"
               @textfield:blured="handleBlurString($event, field.name)"
@@ -127,7 +128,7 @@ export default {
     },
     async resetFields() {
       await this.$nextTick();
-      this.item = {};
+      this.$set(this, "item", {});
     }
   }
 };

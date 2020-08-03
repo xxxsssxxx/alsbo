@@ -44,7 +44,13 @@
             <span>{{ $t("main.modal.new_item") }}</span>
           </v-tooltip>
         </template>
-        <NewItemModal :title="formTitle" :fields="fields" @modal:cancel="handleClose" @modal:save="handleSave" />
+        <NewItemModal
+          v-if="dialog"
+          :title="formTitle"
+          :fields="fields"
+          @modal:cancel="handleClose"
+          @modal:save="handleSave"
+        />
       </v-dialog>
       <v-switch v-model="theme" color="secondary" inset hide-details append-icon="mdi-brightness-4"> </v-switch>
       <v-btn @click.stop="rightDrawer = !rightDrawer" icon class="text--text">
