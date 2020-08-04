@@ -51,8 +51,8 @@
       "pn": "П/Н",
       "quantity": "Кол-во",
       "quantity_long": "Количество",
-      "select_service_type": "Выберите тип услуги",
-      "select_service": "Выберите услугу",
+      "service_type": "Выберите тип услуги",
+      "service": "Выберите услугу",
       "serial_number": "Серийный номер"
     }
   },
@@ -133,8 +133,8 @@
       "pn": "П/Н",
       "quantity": "Кол-во",
       "quantity_long": "Количество",
-      "select_service_type": "Выберите тип услуги",
-      "select_service": "Выберите услугу",
+      "service_type": "Выберите тип услуги",
+      "service": "Выберите услугу",
       "serial_number": "Серийный номер",
       "repair_status": "Статус ремонта"
     },

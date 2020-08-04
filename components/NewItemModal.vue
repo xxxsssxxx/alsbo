@@ -6,43 +6,58 @@
     <v-divider></v-divider>
     <v-card-text>
       <v-container>
-        <v-row>
-          <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              :value="{}"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
+        <ValidationObserver ref="observer" v-slot="{ validate, reset }">
+          <form>
+            <v-row>
+              <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
+                <ValidationProvider v-slot="{ errors, valid }" :name="field.name" :rules="'required'">
+                  <BaseInput
+                    :component="field.type"
+                    :label="$t(`main.table.header.${field.name}`)"
+                    :name="field.name"
+                    :items="field.selectOptions"
+                    :errors="errors"
+                    @select:changed="handleSelectChange($event, field.name)"
+                    @date:changed="handleDateChange($event, field.name)"
+                    @textfield:blured="handleBlurString($event, field.name)"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
+                <ValidationProvider v-slot="{ errors, valid }" :name="field.name" :rules="'required'">
+                  <BaseInput
+                    :component="field.type"
+                    :label="$t(`main.table.header.${field.name}`)"
+                    :name="field.name"
+                    :items="field.selectOptions"
+                    :errors="errors"
+                    @select:changed="handleSelectChange($event, field.name)"
+                    @date:changed="handleDateChange($event, field.name)"
+                    @textfield:blured="handleBlurString($event, field.name)"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
+                <ValidationProvider v-slot="{ errors, valid }" :name="field.name" :rules="'required'">
+                  <BaseInput
+                    :component="field.type"
+                    :label="$t(`main.table.header.${field.name}`)"
+                    :name="field.name"
+                    :items="field.selectOptions"
+                    :errors="errors"
+                    @select:changed="handleSelectChange($event, field.name)"
+                    @date:changed="handleDateChange($event, field.name)"
+                    @textfield:blured="handleBlurString($event, field.name)"
+                  />
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+          </form>
+        </ValidationObserver>
       </v-container>
     </v-card-text>
     <v-divider></v-divider>
@@ -122,7 +137,10 @@ export default {
       this.$emit("modal:cancel");
       this.resetFields();
     },
-    handleSave() {
+    async handleSave() {
+      const valid = await this.$refs.observer.validate();
+      debugger;
+      if (!valid) return;
       this.$emit("modal:save", { item: this.item });
       this.resetFields();
     },

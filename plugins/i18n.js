@@ -32,7 +32,11 @@ export default ({ app, store }) => {
   configure({
     // this will be used to generate messages.
     defaultMessage: (field, values) => {
-      values._field_ = app.i18n.t(`main.fields.${field}`);
+      let fieldName = app.i18n.t(`main.fields.${field}`);
+      if (fieldName.startsWith("main.fields")) {
+        fieldName = app.i18n.t(`main.table.header.${field}`);
+      }
+      values._field_ = fieldName;
       return app.i18n.t(`validation.${values._rule_}`, values);
     }
   });
