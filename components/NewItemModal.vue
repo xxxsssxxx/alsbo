@@ -6,43 +6,53 @@
     <v-divider></v-divider>
     <v-card-text>
       <v-container>
-        <v-row>
-          <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              :value="{}"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
-            <BaseInput
-              :component="field.type"
-              :label="$t(`main.table.header.${field.name}`)"
-              :items="field.selectOptions"
-              @select:changed="handleSelectChange($event, field.name)"
-              @date:changed="handleDateChange($event, field.name)"
-              @textfield:blured="handleBlurString($event, field.name)"
-            />
-          </v-col>
-        </v-row>
+        <ValidationObserver ref="observer" v-slot="{ validate, reset }">
+          <v-row>
+            <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
+              <BaseInput
+                :component="field.type"
+                :label="$t(`main.table.header.${field.name}`)"
+                :rules="field.rules"
+                :field="field.name"
+                :items="field.selectOptions"
+                :value="item[field.name]"
+                @select:changed="handleSelectChange($event, field.name)"
+                @date:changed="handleDateChange($event, field.name)"
+                @textfield:blured="handleBlurString($event, field.name)"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
+              <BaseInput
+                :component="field.type"
+                :label="$t(`main.table.header.${field.name}`)"
+                :rules="field.rules"
+                :field="field.name"
+                :items="field.selectOptions"
+                :value="item[field.name]"
+                @select:changed="handleSelectChange($event, field.name)"
+                @date:changed="handleDateChange($event, field.name)"
+                @textfield:blured="handleBlurString($event, field.name)"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
+              <BaseInput
+                :component="field.type"
+                :label="$t(`main.table.header.${field.name}`)"
+                :rules="field.rules"
+                :field="field.name"
+                :items="field.selectOptions"
+                :value="item[field.name]"
+                @select:changed="handleSelectChange($event, field.name)"
+                @date:changed="handleDateChange($event, field.name)"
+                @textfield:blured="handleBlurString($event, field.name)"
+              />
+            </v-col>
+          </v-row>
+        </ValidationObserver>
       </v-container>
     </v-card-text>
     <v-divider></v-divider>
@@ -82,12 +92,14 @@ export default {
   },
   data() {
     return {
-      item: {}
+      item: {},
+      valid: {}
     };
   },
   computed: {
     ...mapGetters({
-      currency: "currency"
+      currency: "currency",
+      currentUser: "currentUser"
     }),
     main() {
       return this.$props.fields.main;
@@ -128,7 +140,23 @@ export default {
     "item.order_price": {
       handler(newValue, oldValue) {
         if (isNaN(newValue) || newValue === oldValue) return;
+        if (!this.item.currency) return;
         const currency = this.item.currency.value;
+        const rate = this.currency[currency];
+        const price = rate ? newValue * rate : newValue;
+        this.item.total_local_price = `${Math.floor(price * 100) / 100}`;
+      }
+    },
+    "item.currency": {
+      immediate: true,
+      handler(newValue, oldValue) {
+        // Set default currency for user from user settings
+        if (!newValue) {
+          this.item.currency = this.currentUser.defaultCurrency;
+          return;
+        }
+        if (oldValue && newValue.id === oldValue.id) return;
+        const currency = newValue.value;
         const rate = this.currency[currency];
         const price = rate ? newValue * rate : newValue;
         this.item.total_local_price = `${Math.floor(price * 100) / 100}`;
@@ -168,22 +196,28 @@ export default {
       }
       return Math.floor(margin * 100) / 100;
     },
-    handleSelectChange({ value }, field) {
+    handleSelectChange({ value, valid }, field) {
       this.$set(this.item, field, value);
+      this.$set(this.valid, field, valid);
     },
-    handleDateChange({ value }, field) {
+    handleDateChange({ value, valid }, field) {
       this.$set(this.item, field, value);
+      this.$set(this.valid, field, valid);
     },
-    handleBlurString({ value }, field) {
+    handleBlurString({ value, valid }, field) {
       this.$set(this.item, field, value);
+      this.$set(this.valid, field, valid);
     },
     handleClose() {
       this.$emit("modal:cancel");
       this.resetFields();
     },
-    handleSave() {
-      this.$emit("modal:save", { item: this.item });
-      this.resetFields();
+    async handleSave() {
+      const valid = await this.$refs.observer.validate();
+      if (valid) {
+        this.$emit("modal:save", { item: this.item });
+        this.resetFields();
+      }
     },
     async resetFields() {
       await this.$nextTick();

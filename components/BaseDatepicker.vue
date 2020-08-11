@@ -9,7 +9,17 @@
     min-width="290px"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-text-field v-model="date" :label="label" v-bind="attrs" v-on="on" readonly></v-text-field>
+      <ValidationProvider v-slot="{ errors, valid }" :name="field" :rules="validationRules">
+        <v-text-field
+          v-model="date"
+          :label="label"
+          v-bind="attrs"
+          v-on="on"
+          @change="validDate = valid"
+          :error-messages="errors"
+          readonly
+        ></v-text-field>
+      </ValidationProvider>
     </template>
     <v-date-picker v-model="date" :first-day-of-week="4" :locale="locale" no-title scrollable show-current show-week>
       <v-spacer></v-spacer>
@@ -30,18 +40,27 @@ export default {
     locale: {
       type: String,
       default: "en"
+    },
+    field: {
+      type: String,
+      default: () => ""
+    },
+    validationRules: {
+      type: String,
+      default: () => ""
     }
   },
   data() {
     return {
-      date: new Date().toISOString().substr(0, 10),
-      menu: false
+      date: "",
+      menu: false,
+      validDate: true
     };
   },
   methods: {
     handleSave() {
       this.$refs.menu.save(this.date);
-      this.$emit("date:change", this.date);
+      this.$emit("date:change", { value: this.date, valid: this.validDate });
     }
   }
 };

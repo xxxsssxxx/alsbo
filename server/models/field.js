@@ -7,6 +7,7 @@ const Field = new mongoose.Schema({
   type: { type: String, required: true, default: "string" },
   place: { type: String, required: false, default: "NewItemModal" },
   visible: { type: Boolean, required: true, default: true },
+  rules: [String],
   selectOptions: [
     {
       value: { type: String, required: true },

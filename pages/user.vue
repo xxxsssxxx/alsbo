@@ -173,7 +173,7 @@
             :error="error.lang"
             :error-messages="error.lang ? errorMessage : ''"
             :success-messages="success.lang ? successMessage : ''"
-            item-text="name"
+            item-text="value"
             item-value="attribute"
           >
             <template v-slot:label>
@@ -198,6 +198,24 @@
             <span>{{ $t("main.button.reload") }} ({{ ratesUpdated }})</span>
           </v-tooltip>
         </v-col>
+        <v-col cols="12" sm="6" md="6" lg="4">
+          <v-select
+            v-model="defaultCurrency"
+            :items="currencies"
+            :loading="loading.defaultCurrency"
+            :success="success.defaultCurrency"
+            :error="error.defaultCurrency"
+            :error-messages="error.defaultCurrency ? errorMessage : ''"
+            :success-messages="success.defaultCurrency ? successMessage : ''"
+            @change="updateUser('defaultCurrency', true)"
+            item-text="value"
+            return-object
+          >
+            <template v-slot:label>
+              <span>{{ $t("main.table.header.currency") }}</span>
+            </template>
+          </v-select>
+        </v-col>
       </v-row>
     </v-flex>
   </v-layout>
@@ -213,9 +231,14 @@ export default {
   data() {
     return {
       items: [
-        { name: this.$t("main.languages.english"), attribute: "en" },
-        { name: this.$t("main.languages.czech"), attribute: "cs" },
-        { name: this.$t("main.languages.russian"), attribute: "ru" }
+        { value: this.$t("main.languages.english"), attribute: "en" },
+        { value: this.$t("main.languages.czech"), attribute: "cs" },
+        { value: this.$t("main.languages.russian"), attribute: "ru" }
+      ],
+      currencies: [
+        { value: "usd", id: 1 },
+        { value: "eur", id: 2 },
+        { value: "czk", id: 3 }
       ],
       loading: {
         lang: false,
@@ -227,7 +250,8 @@ export default {
         zip: false,
         email: false,
         password: false,
-        rates: false
+        rates: false,
+        defaultCurrency: false
       },
       success: {
         lang: false,
@@ -239,7 +263,8 @@ export default {
         zip: false,
         email: false,
         password: false,
-        rates: false
+        rates: false,
+        defaultCurrency: false
       },
       error: {
         lang: false
@@ -253,7 +278,8 @@ export default {
       city: "",
       street: "",
       zip: "",
-      reloadedDate: ""
+      reloadedDate: "",
+      defaultCurrency: ""
     };
   },
   computed: {
@@ -284,14 +310,16 @@ export default {
     }
   },
   asyncData({ app, params, store }) {
+    const user = store.state.currentUser;
     return {
-      firstname: store.state.currentUser.firstname,
-      lastname: store.state.currentUser.lastname,
-      email: store.state.currentUser.email,
-      state: store.state.currentUser.address.state,
-      city: store.state.currentUser.address.city,
-      street: store.state.currentUser.address.street,
-      zip: store.state.currentUser.address.zip
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      state: user.address.state,
+      city: user.address.city,
+      street: user.address.street,
+      zip: user.address.zip,
+      defaultCurrency: user.defaultCurrency
     };
   },
   async fetch() {

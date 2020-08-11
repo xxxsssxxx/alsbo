@@ -1,20 +1,26 @@
 <template>
   <div class="input_wrapper">
-    <component
-      :is="currentComponent"
-      v-model="value"
-      :label="currentLabel"
-      :items="currentItems"
-      v-bind:[fieldType]="true"
-      @blur="handleBlur"
-      @change="handleChange"
-      @date:change="handleDateChange"
-      return-object
-      clearable
-      hide-selected
-      item-text="value"
-      item-value="id"
-    ></component>
+    <ValidationProvider v-slot="{ errors, valid }" :name="field" :rules="currentRules">
+      <component
+        :is="currentComponent"
+        v-model="input"
+        :label="label"
+        :field="field"
+        :validation-rules="currentRules"
+        :items="items"
+        :error-messages="errors"
+        :key="field"
+        v-bind:[fieldType]="true"
+        @blur="handleBlur($event, valid)"
+        @change="handleChange($event, valid)"
+        @date:change="handleDateChange($event, valid)"
+        return-object
+        clearable
+        hide-selected
+        item-text="value"
+        item-value="id"
+      ></component>
+    </ValidationProvider>
   </div>
 </template>
 
@@ -46,10 +52,23 @@ export default {
     fieldType: {
       type: String,
       default: ""
+    },
+    field: {
+      type: String,
+      default: ""
+    },
+    rules: {
+      type: Array,
+      default: () => []
+    },
+    value: {
+      type: [Boolean, String, Object, Date],
+      default: () => ""
     }
   },
   data() {
     return {
+      input: this.$props.value,
       newValue: "",
       componentsMap: {
         string: "v-text-field",
@@ -72,42 +91,32 @@ export default {
     currentComponent() {
       return this.componentsMap[this.$props.component];
     },
-    currentLabel() {
-      return this.$props.label;
-    },
-    currentItems() {
-      return this.$props.items;
-    },
-    value: {
-      get() {
-        return this.$props.value || "";
-      },
-      set(value) {
-        this.newValue = value;
-      }
+    currentRules() {
+      const rules = this.$props.rules.join("|");
+      return rules;
     }
   },
   methods: {
-    handleBlur() {
+    handleBlur(e, valid) {
       const handler = this.blurHandlers[this.$props.component];
       if (typeof handler === "function") {
-        handler();
+        handler(e, valid);
       }
     },
-    handleChange() {
+    handleChange(e, valid) {
       const handler = this.changeHandlers[this.$props.component];
       if (typeof handler === "function") {
-        handler();
+        handler(e, valid);
       }
     },
-    handleSelectChange() {
-      this.$emit("select:changed", { value: this.newValue });
+    handleSelectChange(e, valid) {
+      this.$emit("select:changed", { value: this.input, valid });
     },
-    handleDateChange(value) {
-      this.$emit("date:changed", { value });
+    handleDateChange({ value, valid }) {
+      this.$emit("date:changed", { value, valid });
     },
-    handleBlurString() {
-      this.$emit("textfield:blured", { value: this.newValue });
+    handleBlurString(e, valid) {
+      this.$emit("textfield:blured", { value: this.input, valid });
     }
   }
 };

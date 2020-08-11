@@ -51,8 +51,8 @@
       "order_price": "Cena objednávky",
       "quantity": "Množ.",
       "quantity_long": "Množství",
-      "select_service": "Vyberte si službu",
-      "select_service_type": "Vyberte typ služby",
+      "service": "Vyberte si službu",
+      "service_type": "Vyberte typ služby",
       "serial_number": "Sériové číslo"
     }
   },
@@ -133,8 +133,8 @@
       "order_price": "Cena objednávky",
       "quantity": "Množ.",
       "quantity_long": "Množství",
-      "select_service": "Vyberte si službu",
-      "select_service_type": "Vyberte typ služby",
+      "service": "Vyberte si službu",
+      "service_type": "Vyberte typ služby",
       "serial_number": "Sériové číslo",
       "repair_status": "Stav opravy"
     },

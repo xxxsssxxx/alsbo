@@ -44,16 +44,20 @@ router.post("/api/users/new", async (req, res) => {
 router.post("/api/users/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    await User.findOne({ email }, "firstname lastname address email password lang", async (err, user) => {
-      if (err) throw err;
-      // test a matching password
-      if (!user) {
-        res.status(404).json({ message: "error.user_not_found" });
+    await User.findOne(
+      { email },
+      "firstname lastname address email password lang defaultCurrency",
+      async (err, user) => {
+        if (err) throw err;
+        // test a matching password
+        if (!user) {
+          res.status(404).json({ message: "error.user_not_found" });
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        const token = await user.generateAuthToken();
+        res.status(200).json({ matched: passwordMatch, user, token });
       }
-      const passwordMatch = await bcrypt.compare(password, user.password);
-      const token = await user.generateAuthToken();
-      res.status(200).json({ matched: passwordMatch, user, token });
-    });
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -68,20 +72,24 @@ router.post("/api/users/:id/update", async (req, res) => {
   const isAddress = userAddressProps.find(el => el === prop);
   const newValue = data[prop];
   try {
-    await User.findOne({ _id: id }, "firstname lastname address email password lang", async (err, user) => {
-      if (err) {
-        res.status(403).json({ errorMessage: err });
-        return;
+    await User.findOne(
+      { _id: id },
+      "firstname lastname address email password lang defaultCurrency",
+      async (err, user) => {
+        if (err) {
+          res.status(403).json({ errorMessage: err });
+          return;
+        }
+        if (!user) {
+          res.status(404).json({ errorMessage: "error.user_not_found" });
+          return;
+        }
+        isAddress ? (user.address[prop] = newValue) : (user[prop] = newValue);
+        const token = await user.generateAuthToken();
+        const newUser = await user.save();
+        res.status(200).json({ user: newUser, token });
       }
-      if (!user) {
-        res.status(404).json({ errorMessage: "error.user_not_found" });
-        return;
-      }
-      isAddress ? (user.address[prop] = newValue) : (user[prop] = newValue);
-      const token = await user.generateAuthToken();
-      const newUser = await user.save();
-      res.status(200).json({ user: newUser, token });
-    });
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -49,6 +49,10 @@ const User = new mongoose.Schema({
     required: true
   },
   lang: { type: String, default: "en" },
+  defaultCurrency: {
+    id: { type: Number },
+    value: { type: String }
+  },
   sale: [Row],
   service: [Row]
 });
@@ -74,7 +78,7 @@ User.pre("save", function (next) {
   });
 });
 
-User.methods.generateAuthToken = async function () {
+User.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
   const token = jwt.sign(
@@ -84,7 +88,8 @@ User.methods.generateAuthToken = async function () {
       lastname: user.lastname,
       lang: user.lang,
       email: user.email,
-      address: user.address
+      address: user.address,
+      defaultCurrency: user.defaultCurrency
     },
     process.env.JWT_SECRET_KEY || "secretKey"
   );

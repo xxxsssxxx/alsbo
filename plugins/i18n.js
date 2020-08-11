@@ -13,6 +13,7 @@ export default ({ app, store }) => {
   app.i18n = new VueI18n({
     locale: store.state.locale,
     fallbackLocale: "en",
+    silentTranslationWarn: true,
     messages: {
       en: {
         main: require("~/locales/en.json"),
@@ -32,7 +33,12 @@ export default ({ app, store }) => {
   configure({
     // this will be used to generate messages.
     defaultMessage: (field, values) => {
-      values._field_ = app.i18n.t(`main.fields.${field}`);
+      let fieldString = app.i18n.t(`main.fields.${field}`);
+      const notTranslated = fieldString.startsWith("main");
+      if (notTranslated) {
+        fieldString = app.i18n.t(`main.table.header.${field}`);
+      }
+      values._field_ = fieldString;
       return app.i18n.t(`validation.${values._rule_}`, values);
     }
   });
