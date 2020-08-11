@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import BaseInput from "@/components/BaseInput";
 export default {
   name: "NewItemModal",
@@ -85,6 +86,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      currency: "currency"
+    }),
     main() {
       return this.$props.fields.main;
     },
@@ -106,9 +110,64 @@ export default {
         };
         this.$store.commit("setStoreValue", data);
       }
+    },
+    "item.price_per_unit": {
+      handler(newValue, oldValue) {
+        if (oldValue === newValue) return;
+        const price = this.countAcquisitionPrice();
+        this.item.acquistition_price = price || "0";
+      }
+    },
+    "item.quantity": {
+      handler(newValue, oldValue) {
+        if (oldValue === newValue) return;
+        const price = this.countAcquisitionPrice();
+        this.item.acquistition_price = price || "0";
+      }
+    },
+    "item.order_price": {
+      handler(newValue, oldValue) {
+        if (isNaN(newValue) || newValue === oldValue) return;
+        const currency = this.item.currency.value;
+        const rate = this.currency[currency];
+        const price = rate ? newValue * rate : newValue;
+        this.item.total_local_price = `${Math.floor(price * 100) / 100}`;
+      }
+    },
+    "item.total_local_price": {
+      handler(newValue, oldValue) {
+        if (oldValue === newValue) return;
+        const margin = this.countMargin();
+        this.item.margin = margin || "0";
+      }
+    },
+    "item.acquistition_price": {
+      handler(newValue, oldValue) {
+        if (oldValue === newValue) return;
+        const margin = this.countMargin();
+        this.item.margin = margin;
+      }
     }
   },
   methods: {
+    countAcquisitionPrice() {
+      const unitPrice = this.item.price_per_unit;
+      const qty = this.item.quantity;
+      if (!unitPrice || !qty) return "0";
+      const price = qty * unitPrice;
+      return Math.floor(price * 100) / 100;
+    },
+    countMargin() {
+      const totalLocalPrice = this.item.total_local_price;
+      const totalAcqPrice = this.item.acquistition_price;
+      if (!totalLocalPrice || !totalAcqPrice) return "0";
+      const margin = +totalLocalPrice - +totalAcqPrice;
+      if (margin < 0) {
+        console.log("Negative margin");
+        return "0";
+      }
+      return Math.floor(margin * 100) / 100;
+    },
     handleSelectChange({ value }, field) {
       this.$set(this.item, field, value);
     },

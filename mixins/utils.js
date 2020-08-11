@@ -87,7 +87,8 @@ export default {
     translateHeaders(headers) {
       const headersArray = this.deepSimpleCopy(headers);
       const translated = headersArray.map(header => {
-        header.text = this.$t(`main.table.header.${header.value}`);
+        const headerString = header.value.split(".")[0];
+        header.text = this.$t(`main.table.header.${headerString}`);
         return header;
       });
       return translated;

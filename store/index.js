@@ -91,5 +91,6 @@ export const getters = {
   error: s => s.modalGlobalError,
   currentUser: s => s.currentUser,
   urlPrefix: s => s.urlPrefix,
-  notification: s => s.notification
+  notification: s => s.notification,
+  currency: s => s.rates
 };
