@@ -46,7 +46,7 @@ router.post("/api/users/login", async (req, res) => {
   try {
     await User.findOne(
       { email },
-      "firstname lastname address email password lang defaultCurrency",
+      "firstname lastname address email password lang defaultCurrency defaultService",
       async (err, user) => {
         if (err) throw err;
         // test a matching password
@@ -74,7 +74,7 @@ router.post("/api/users/:id/update", async (req, res) => {
   try {
     await User.findOne(
       { _id: id },
-      "firstname lastname address email password lang defaultCurrency",
+      "firstname lastname address email password lang defaultCurrency defaultService",
       async (err, user) => {
         if (err) {
           res.status(403).json({ errorMessage: err });

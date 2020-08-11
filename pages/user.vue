@@ -198,6 +198,8 @@
             <span>{{ $t("main.button.reload") }} ({{ ratesUpdated }})</span>
           </v-tooltip>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="12" sm="6" md="6" lg="4">
           <v-select
             v-model="defaultCurrency"
@@ -216,12 +218,31 @@
             </template>
           </v-select>
         </v-col>
+        <v-col cols="12" sm="6" md="6" lg="4">
+          <v-select
+            v-model="defaultService"
+            :items="services"
+            :loading="loading.defaultService"
+            :success="success.defaultService"
+            :error="error.defaultService"
+            :error-messages="error.defaultService ? errorMessage : ''"
+            :success-messages="success.defaultService ? successMessage : ''"
+            @change="updateUser('defaultService', true)"
+            item-text="value"
+            return-object
+          >
+            <template v-slot:label>
+              <span>{{ $t("main.table.header.service") }}</span>
+            </template>
+          </v-select>
+        </v-col>
       </v-row>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { localize } from "vee-validate";
 
 export default {
@@ -251,7 +272,8 @@ export default {
         email: false,
         password: false,
         rates: false,
-        defaultCurrency: false
+        defaultCurrency: false,
+        defaultService: false
       },
       success: {
         lang: false,
@@ -264,7 +286,8 @@ export default {
         email: false,
         password: false,
         rates: false,
-        defaultCurrency: false
+        defaultCurrency: false,
+        defaultService: false
       },
       error: {
         lang: false
@@ -279,13 +302,16 @@ export default {
       street: "",
       zip: "",
       reloadedDate: "",
-      defaultCurrency: ""
+      defaultCurrency: "",
+      defaultService: ""
     };
   },
   computed: {
-    currentUser() {
-      return this.$store.state.currentUser;
-    },
+    ...mapGetters({
+      urlPrefix: "urlPrefix",
+      fields: "items/newModalFields",
+      currentUser: "currentUser"
+    }),
     lang: {
       get() {
         const lang = this.$store.state.locale;
@@ -307,6 +333,11 @@ export default {
       const rates = this.$store.state.rates;
       const updated = rates.upd;
       return this.dateFormat(updated, true);
+    },
+    services() {
+      const main = this.fields.main;
+      const services = main && main.find(field => field.name === "service").selectOptions;
+      return services;
     }
   },
   asyncData({ app, params, store }) {
@@ -319,12 +350,14 @@ export default {
       city: user.address.city,
       street: user.address.street,
       zip: user.address.zip,
-      defaultCurrency: user.defaultCurrency
+      defaultCurrency: user.defaultCurrency,
+      defaultService: user.defaultService
     };
   },
   async fetch() {
     const id = this.currentUser._id;
     await this.setCurrencyRates(id);
+    await this.getFieldsFor("NewItemModal", this.urlPrefix);
   },
   methods: {
     async setLanguage(lang) {

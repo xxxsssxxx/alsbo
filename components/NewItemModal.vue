@@ -113,7 +113,13 @@ export default {
   },
   watch: {
     "item.service": {
+      immediate: true,
       handler(newValue, oldValue) {
+        // Set default currency for user from user settings
+        if (!newValue) {
+          this.item.service = this.currentUser.defaultService;
+          return;
+        }
         if (oldValue && newValue && newValue.id === oldValue.id) return;
         const value = newValue ? newValue.value : "sales";
         const data = {

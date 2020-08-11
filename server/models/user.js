@@ -53,6 +53,10 @@ const User = new mongoose.Schema({
     id: { type: Number },
     value: { type: String }
   },
+  defaultService: {
+    id: { type: Number },
+    value: { type: String }
+  },
   sale: [Row],
   service: [Row]
 });
@@ -89,7 +93,8 @@ User.methods.generateAuthToken = async function() {
       lang: user.lang,
       email: user.email,
       address: user.address,
-      defaultCurrency: user.defaultCurrency
+      defaultCurrency: user.defaultCurrency,
+      defaultService: user.defaultService
     },
     process.env.JWT_SECRET_KEY || "secretKey"
   );
