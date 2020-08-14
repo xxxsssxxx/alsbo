@@ -16,6 +16,7 @@
                 :field="field.name"
                 :items="field.selectOptions"
                 :value="item[field.name]"
+                :error-messages="errors[field.name]"
                 @select:changed="handleSelectChange($event, field.name)"
                 @date:changed="handleDateChange($event, field.name)"
                 @textfield:blured="handleBlurString($event, field.name)"
@@ -31,6 +32,7 @@
                 :field="field.name"
                 :items="field.selectOptions"
                 :value="item[field.name]"
+                :error-messages="errors[field.name]"
                 @select:changed="handleSelectChange($event, field.name)"
                 @date:changed="handleDateChange($event, field.name)"
                 @textfield:blured="handleBlurString($event, field.name)"
@@ -46,6 +48,7 @@
                 :field="field.name"
                 :items="field.selectOptions"
                 :value="item[field.name]"
+                :error-messages="errors[field.name]"
                 @select:changed="handleSelectChange($event, field.name)"
                 @date:changed="handleDateChange($event, field.name)"
                 @textfield:blured="handleBlurString($event, field.name)"
@@ -93,7 +96,8 @@ export default {
   data() {
     return {
       item: {},
-      valid: {}
+      valid: {},
+      errors: {}
     };
   },
   computed: {
@@ -131,16 +135,17 @@ export default {
     },
     "item.price_per_unit": {
       handler(newValue, oldValue) {
+        debugger;
         if (oldValue === newValue) return;
         const price = this.countAcquisitionPrice();
-        this.item.acquistition_price = price || "0";
+        this.$set(this.item, "acquistition_price", price || "0");
       }
     },
     "item.quantity": {
       handler(newValue, oldValue) {
         if (oldValue === newValue) return;
         const price = this.countAcquisitionPrice();
-        this.item.acquistition_price = price || "0";
+        this.$set(this.item, "acquistition_price", price || "0");
       }
     },
     "item.order_price": {
@@ -150,7 +155,7 @@ export default {
         const currency = this.item.currency.value;
         const rate = this.currency[currency];
         const price = rate ? newValue * rate : newValue;
-        this.item.total_local_price = `${Math.floor(price * 100) / 100}`;
+        this.$set(this.item, "total_local_price", `${Math.floor(price * 100) / 100}`);
       }
     },
     "item.currency": {
@@ -165,21 +170,21 @@ export default {
         const currency = newValue.value;
         const rate = this.currency[currency];
         const price = rate ? newValue * rate : newValue;
-        this.item.total_local_price = `${Math.floor(price * 100) / 100}`;
+        this.$set(this.item, "total_local_price", `${Math.floor(price * 100) / 100}`);
       }
     },
     "item.total_local_price": {
       handler(newValue, oldValue) {
         if (oldValue === newValue) return;
         const margin = this.countMargin();
-        this.item.margin = margin || "0";
+        this.$set(this.item, "margin", margin || "0");
       }
     },
     "item.acquistition_price": {
       handler(newValue, oldValue) {
         if (oldValue === newValue) return;
         const margin = this.countMargin();
-        this.item.margin = margin;
+        this.$set(this.item, "margin", margin || "0");
       }
     }
   },
@@ -197,9 +202,11 @@ export default {
       if (!totalLocalPrice || !totalAcqPrice) return "0";
       const margin = +totalLocalPrice - +totalAcqPrice;
       if (margin < 0) {
-        console.log("Negative margin");
-        return "0";
+        this.errors.order_price = this.errors.order_price || [];
+        this.errors.order_price.push(this.$t("main.notification.form.error.negative_margin"));
+        return `-${Math.floor(margin * 100) / 100}`;
       }
+      this.errors.order_price = [];
       return Math.floor(margin * 100) / 100;
     },
     handleSelectChange({ value, valid }, field) {

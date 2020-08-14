@@ -8,7 +8,7 @@
         :field="field"
         :validation-rules="currentRules"
         :items="items"
-        :error-messages="errors"
+        :error-messages="[...errors, ...errorMessages]"
         :key="field"
         v-bind:[fieldType]="true"
         @blur="handleBlur($event, valid)"
@@ -64,6 +64,10 @@ export default {
     value: {
       type: [Boolean, String, Object, Date],
       default: () => ""
+    },
+    errorMessages: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
