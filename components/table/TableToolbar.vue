@@ -23,7 +23,7 @@
           <NewItemModal
             v-if="dialog"
             :title="formTitle"
-            :item="editedItem"
+            :editing-item="editingItem"
             :fields="fields"
             @modal:cancel="handleClose"
             @modal:save="handleSave"
@@ -56,27 +56,17 @@ export default {
     table: {
       type: String,
       default: ""
+    },
+    editingItem: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       dialog: false,
       columnsButtonTooltip: this.$t("main.table.toolbar.new_columns"),
-      editedIndex: -1,
-      editedItem: {
-        name: "",
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      },
-      defaultItem: {
-        name: "",
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      }
+      formTitle: this.$t("main.modal.new_item")
     };
   },
   computed: {
@@ -85,9 +75,6 @@ export default {
       fields: "items/newModalFields",
       tableToSave: "items/tableToSave"
     }),
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
     availableColumns() {
       return this.$props.accessibleColumns;
     },
@@ -96,6 +83,16 @@ export default {
         accessibleColumns: this.availableColumns,
         type: this.table
       };
+    },
+    isEditing() {
+      return !this.emptyObject(this.editingItem);
+    }
+  },
+  watch: {
+    async editingItem(newValue) {
+      if (!this.isEditing) return;
+      this.formTitle = this.$t("main.modal.edit_item");
+      await this.openModal();
     }
   },
   methods: {
@@ -110,17 +107,22 @@ export default {
       this.setLoadingState(false);
       this.dialog = true;
     },
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
     handleClose() {
       this.dialog = false;
     },
     handleSave({ item }) {
+      let action = "add";
+      let oldTable = null;
+      if (this.isEditing) {
+        oldTable = item.table !== this.tableToSave ? item.table : null;
+        action = "edit";
+      }
       item.table = this.tableToSave;
-      this.$emit("row:added", { row: item });
+      const actions = {
+        add: () => this.$emit("row:added", { row: item }),
+        edit: () => this.$emit("row:edited", { row: item, oldTable })
+      };
+      actions[action]();
       this.handleClose();
     }
   }

@@ -10,8 +10,11 @@
             :accessible-columns="translateHeaders(saleAvailableColumns)"
             :current-user="currentUser"
             :selected="selectedRows.sale"
+            :items-per-page="itemsPerPage.sale"
             @column:select="handleColumnSelect"
             @row:added="handleRowAdd"
+            @row:edited="handleRowEdit"
+            @items-per-page:changed="handleItemsPerPageChange"
             table="sale"
           />
         </client-only>
@@ -25,8 +28,11 @@
             :accessible-columns="translateHeaders(serviceAvailableColumns)"
             :current-user="currentUser"
             :selected="selectedRows.service"
+            :items-per-page="itemsPerPage.service"
             @column:select="handleColumnSelect"
             @row:added="handleRowAdd"
+            @row:edited="handleRowEdit"
+            @items-per-page:changed="handleItemsPerPageChange"
             table="service"
           />
         </client-only>
@@ -54,7 +60,12 @@ export default {
   components: { Table },
   fetchOnServer: false,
   data() {
-    return {};
+    return {
+      itemsPerPage: {
+        sale: 15,
+        service: 15
+      }
+    };
   },
   computed: {
     ...mapGetters({
@@ -97,8 +108,8 @@ export default {
   async fetch() {
     const id = this.currentUser._id;
     await this.getAllColumns(id);
-    await this.getRows(id, "sale");
-    await this.getRows(id, "service");
+    await this.getRows(id, "sale", this.itemsPerPage.sale);
+    await this.getRows(id, "service", this.itemsPerPage.service);
     await this.setCurrencyRates(id);
   },
 
@@ -114,6 +125,18 @@ export default {
       const userId = this.currentUser._id;
       await this.loadingStateManager(this.addRow, data, userId);
       this.notify();
+    },
+    async handleRowEdit(data) {
+      const userId = this.currentUser._id;
+      await this.loadingStateManager(this.editRow, data, userId);
+      const oldTable = data.oldTable;
+      if (oldTable) {
+        await this.loadingStateManager(this.getRows, userId, oldTable, this.itemsPerPage[oldTable]);
+      }
+      this.notify();
+    },
+    handleItemsPerPageChange({ itemsLength, table }) {
+      this.$set(this.itemsPerPage, table, itemsLength);
     },
     dotClass(dot) {
       const service = dot.service.value;

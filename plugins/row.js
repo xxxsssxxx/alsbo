@@ -18,9 +18,28 @@ class Row {
     }
   }
 
-  static async get(userId, table) {
+  static async edit(data, userId) {
+    const url = `/api/users/${userId}/row/edit`;
     try {
-      const resposne = await fetch(`/api/users/${userId}/rows/${table}`);
+      const req = new Request(url);
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const resposne = await fetch(req, options);
+      const { rows, errorMessage } = await resposne.json();
+      return { rows, errorMessage };
+    } catch (err) {
+      SyntaxError(`Adding row error: ${err}`);
+    }
+  }
+
+  static async get(userId, table, offset) {
+    try {
+      const resposne = await fetch(`/api/users/${userId}/rows/${offset}/${table}`);
       const { rows, errorMessage } = await resposne.json();
       return { rows, errorMessage };
     } catch (err) {

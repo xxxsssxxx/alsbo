@@ -80,10 +80,6 @@ export default {
       type: String,
       default: () => "Title"
     },
-    editedItem: {
-      type: Object,
-      default: () => {}
-    },
     type: {
       type: String,
       default: () => ""
@@ -91,11 +87,16 @@ export default {
     fields: {
       type: Object,
       default: () => {}
+    },
+    editingItem: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
+    const item = this.deepSimpleCopy(this.$props.editingItem);
     return {
-      item: {},
+      item: item || {},
       valid: {},
       errors: {}
     };
@@ -121,7 +122,7 @@ export default {
       handler(newValue, oldValue) {
         // Set default currency for user from user settings
         if (!newValue) {
-          this.item.service = this.currentUser.defaultService;
+          this.item.service = this.item.service || this.currentUser.defaultService;
           return;
         }
         if (oldValue && newValue && newValue.id === oldValue.id) return;
@@ -135,7 +136,6 @@ export default {
     },
     "item.price_per_unit": {
       handler(newValue, oldValue) {
-        debugger;
         if (oldValue === newValue) return;
         const price = this.countAcquisitionPrice();
         this.$set(this.item, "acquistition_price", price || "0");
@@ -167,9 +167,11 @@ export default {
           return;
         }
         if (oldValue && newValue.id === oldValue.id) return;
+        const orderPrice = this.item.order_price;
+        if (!orderPrice) return;
         const currency = newValue.value;
         const rate = this.currency[currency];
-        const price = rate ? newValue * rate : newValue;
+        const price = rate ? orderPrice * rate : orderPrice;
         this.$set(this.item, "total_local_price", `${Math.floor(price * 100) / 100}`);
       }
     },

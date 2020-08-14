@@ -63,8 +63,16 @@ export default {
         pathToSet: ["tables", row.table]
       });
     },
-    async getRows(userId, type) {
-      const { rows } = await Row.get(userId, type);
+    async editRow(data, userId) {
+      const { row } = data;
+      const { rows } = await Row.edit(data, userId);
+      this.$store.commit("items/setStoreValue", {
+        value: rows,
+        pathToSet: ["tables", row.table]
+      });
+    },
+    async getRows(userId, type, offset) {
+      const { rows } = await Row.get(userId, type, offset);
       this.$store.commit("items/setStoreValue", {
         value: rows,
         pathToSet: ["tables", type]
@@ -196,12 +204,20 @@ export default {
     },
     deepSimpleCopy(obj) {
       let copy;
+      if (!obj) return;
       try {
         copy = JSON.parse(JSON.stringify(obj));
         return copy;
       } catch (err) {
         throw new SyntaxError(`Error while parsing obj in deep simple copy: ${err}`);
       }
+    },
+    emptyObject(obj) {
+      if (!obj) return true;
+      if (typeof obj !== "object") {
+        throw new SyntaxError(`Expected type 'object' got ${typeof obj}`);
+      }
+      return !Object.keys(obj).length;
     },
     // Send function as argument, and a function arguments
     // Handle set and unset loading state for async functions

@@ -95,10 +95,10 @@ router.post("/api/users/:id/update", async (req, res) => {
   }
 });
 
-// @route Get /users/:id/rows/:table
+// @route Get /users/:id/rows/:offset/:table
 // @desc Get users rows for table
-router.get("/api/users/:id/rows/:table", async (req, res) => {
-  const { id, table } = req.params;
+router.get("/api/users/:id/rows/:offset/:table", async (req, res) => {
+  const { id, table, offset } = req.params;
   try {
     await User.findOne({ _id: id }, "service sale", async (err, user) => {
       if (err) {
@@ -109,7 +109,8 @@ router.get("/api/users/:id/rows/:table", async (req, res) => {
         res.status(404).json({ errorMessage: "error.user_not_found" });
         return;
       }
-      res.status(200).json({ rows: user[table] });
+      const newRows = user[table].slice(0, offset);
+      res.status(200).json({ rows: newRows });
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -119,7 +120,7 @@ router.get("/api/users/:id/rows/:table", async (req, res) => {
 // @route POST /users/:id/row/add
 // @desc Add an user rows
 router.post("/api/users/:id/row/add", async (req, res) => {
-  const { row } = req.body;
+  const { row, offset } = req.body;
   const id = req.params.id;
   try {
     await User.findOne({ _id: id }, "service sale", async (err, user) => {
@@ -133,7 +134,39 @@ router.post("/api/users/:id/row/add", async (req, res) => {
       }
       user[row.table].push(row);
       const newUser = await user.save();
-      res.status(200).json({ rows: newUser[row.table] });
+      const newRows = newUser[row.table].slice(0, offset);
+      res.status(200).json({ rows: newRows });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// @route POST /users/:id/row/edit
+// @desc edit an user rows
+router.post("/api/users/:id/row/edit", async (req, res) => {
+  const { row, offset, oldTable } = req.body;
+  const id = req.params.id;
+  try {
+    await User.findOne({ _id: id }, "service sale", async (err, user) => {
+      if (err) {
+        res.status(403).json({ errorMessage: err });
+        return;
+      }
+      if (!user) {
+        res.status(404).json({ errorMessage: "error.user_not_found" });
+        return;
+      }
+      if (!oldTable) {
+        let editedRow = user[row.table].find(el => `${el._id}` === row._id);
+        editedRow = Object.assign(editedRow, row);
+      } else {
+        user[oldTable].pull({ _id: row._id });
+        user[row.table].push(row);
+      }
+      const newUser = await user.save();
+      const newRows = newUser[row.table].slice(0, offset);
+      res.status(200).json({ rows: newRows });
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

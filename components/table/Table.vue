@@ -6,24 +6,31 @@
         :headers-length="headers.length"
         :items="items"
         :show-select="!!items.length"
-        :server-items-length="15"
-        :items-per-page="15"
+        :server-items-length="itemsPerPage"
+        :items-per-page="itemsPerPage"
+        @pagination="handlePagination"
         :footer-props="{
           'items-per-page-text': $t('main.table.toolbar.items_per_page_text'),
           showCurrentPage: true
         }"
         v-model="selectedRows"
+        @dblclick:row="handleDblClick"
         item-key="_id"
         class="elevation-3"
         calculate-widths
       >
+        <template #item.invoice_status.value="{ item }">
+          <v-chip :color="statusColor(item.invoice_status)" dark>{{ item.invoice_status.value }}</v-chip>
+        </template>
         <template #top>
           <TableToolbar
             :title="title"
             :accessible-columns="availableColumns"
             :table="table"
+            :editing-item="editingItem"
             @column:select="handleColumnToggle"
             @row:added="handleRowAdd"
+            @row:edited="handleRowEdit"
           />
         </template>
         <template #item.actions="{ item }">
@@ -81,14 +88,17 @@ export default {
     selected: {
       type: Array,
       default: () => []
+    },
+    itemsPerPage: {
+      type: Number,
+      default: () => 15
     }
   },
   data() {
     return {
-      dialog: false,
-      menu: false,
       newSelected: [],
-      activeColumns: []
+      activeColumns: [],
+      editingItem: {}
     };
   },
 
@@ -107,9 +117,6 @@ export default {
   },
 
   watch: {
-    dialog(val) {
-      val || this.close();
-    },
     newSelected(rows) {
       this.$store.commit("items/setStoreValue", {
         value: rows,
@@ -123,35 +130,31 @@ export default {
     handleColumnToggle(col) {
       this.$emit("column:select", col);
     },
-    handleRowAdd(data) {
-      this.$emit("row:added", data);
+    handleRowAdd({ row }) {
+      this.$emit("row:added", { row, offset: this.itemsPerPage });
     },
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+    async handleRowEdit({ row, oldTable }) {
+      this.$emit("row:edited", { row, offset: this.itemsPerPage, oldTable });
+      await this.$nextTick();
+      this.$set(this, "editingItem", {});
     },
-
-    deleteItem(item) {
-      const index = this.desserts.indexOf(item);
-      confirm("Are you sure you want to delete this item?") && this.desserts.splice(index, 1);
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
+    handlePagination(e) {
+      const { itemsPerPage } = e;
+      if (this.itemsPerPage !== itemsPerPage) {
+        this.$emit("items-per-page:changed", { itemsPerPage: this.itemsPerPage, table: this.$props.table });
       }
-      this.close();
+    },
+    statusColor(status) {
+      const colors = {
+        1: "success",
+        2: "warning"
+      };
+      return colors[status.id];
+    },
+    handleDblClick(e, data) {
+      const { item } = data;
+      const itemCopy = this.deepSimpleCopy(item);
+      this.$set(this, "editingItem", itemCopy);
     }
   }
 };
