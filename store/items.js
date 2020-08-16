@@ -10,14 +10,6 @@ const getDefaultState = () => {
 export const namespaced = () => true;
 export const state = () => defaultState;
 export const mutations = {
-  addTableRow(state, payload) {
-    const { value, pathToSet, push = true } = payload;
-    !push ? (state[pathToSet] = value) : state[pathToSet].push(value);
-  },
-  setTableHeaders(state, payload) {
-    const { value, pathToSet, push = true } = payload;
-    !push ? (state[pathToSet] = value) : state[pathToSet].push(value);
-  },
   resetState(state) {
     state = Object.assign(state, getDefaultState());
   },

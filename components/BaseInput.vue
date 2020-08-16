@@ -2,6 +2,7 @@
   <div class="input_wrapper">
     <ValidationProvider v-slot="{ errors, valid }" :name="field" :rules="currentRules">
       <component
+        v-if="currentComponent"
         :is="currentComponent"
         v-model="input"
         :label="label"

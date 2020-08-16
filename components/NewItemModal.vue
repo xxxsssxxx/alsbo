@@ -8,7 +8,7 @@
       <v-container>
         <ValidationObserver ref="observer" v-slot="{ validate, reset }">
           <v-row>
-            <v-col v-for="(field, i) in main" :key="i" cols="12" sm="6" md="6">
+            <v-col v-for="field in main" :key="field.name" cols="12" sm="6" md="6">
               <BaseInput
                 :component="field.type"
                 :label="$t(`main.table.header.${field.name}`)"
@@ -24,7 +24,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col v-for="(field, i) in additional" :key="i" cols="12" sm="6" md="6">
+            <v-col v-for="field in additional" :key="field.name" cols="12" sm="6" md="6">
               <BaseInput
                 :component="field.type"
                 :label="$t(`main.table.header.${field.name}`)"
@@ -40,7 +40,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col v-for="(field, i) in conclusive" :key="i" cols="12" sm="6" md="6">
+            <v-col v-for="field in conclusive" :key="field.name" cols="12" sm="6" md="6">
               <BaseInput
                 :component="field.type"
                 :label="$t(`main.table.header.${field.name}`)"
@@ -120,18 +120,8 @@ export default {
     "item.service": {
       immediate: true,
       handler(newValue, oldValue) {
-        // Set default currency for user from user settings
-        if (!newValue) {
-          this.item.service = this.item.service || this.currentUser.defaultService;
-          return;
-        }
         if (oldValue && newValue && newValue.id === oldValue.id) return;
-        const value = newValue ? newValue.value : "sales";
-        const data = {
-          value,
-          pathToSet: ["service"]
-        };
-        this.$store.commit("setStoreValue", data);
+        this.handleServiceChange(newValue);
       }
     },
     "item.price_per_unit": {
@@ -191,6 +181,23 @@ export default {
     }
   },
   methods: {
+    handleServiceChange(service) {
+      let value = "";
+      // Set default currency for user from user settings
+      if (!service) {
+        const defaultService = this.item.service || this.currentUser.defaultService;
+        this.$set(this.item, "service", defaultService);
+        value = this.item.service.value;
+        return;
+      } else {
+        value = service ? service.value : "sales";
+      }
+      const data = {
+        value,
+        pathToSet: ["service"]
+      };
+      this.$store.commit("setStoreValue", data);
+    },
     countAcquisitionPrice() {
       const unitPrice = this.item.price_per_unit;
       const qty = this.item.quantity;
