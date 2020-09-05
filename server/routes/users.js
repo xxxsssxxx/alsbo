@@ -221,4 +221,105 @@ router.patch("/api/users/:id/rows/delete", async (req, res) => {
   }
 });
 
+(async () => {
+  const dates = ["2020-09-13", "2020-11-09", "2020-02-27", "2020-05-04", "2020-12-11"];
+  const currencies = [
+    { value: "czk", id: 3 },
+    { value: "eur", id: 1 },
+    { value: "usd", id: 2 },
+    { value: "czk", id: 3 },
+    { value: "usd", id: 2 }
+  ];
+  const names = ["Starbucks s.r.o", "Neurolink s.r.o", "WizzAir", "Tesla", "Apple inc."];
+  const pos = ["jxjs8sdDS", "sad8sDsd", "gdss88ds7", "hgft7s454", "asd867fs5"];
+  const serviceTypes = [
+    { value: "old", id: 2 },
+    { value: "oil", id: 3 },
+    { value: "tvp", id: 4 },
+    { value: "csa", id: 6 },
+    { value: "sale", id: 1 }
+  ];
+  const bathces = ["sad65sdDS87", "dfgdg54dfg64", "dferter45458df", "dfv58754", "sdf5we7867w"];
+  const pns = ["asfafa", "sferferfe", "wqwe746", "qwe87278", "sad6872367"];
+  const quantites = ["12", "50", "5", "100", "96"];
+  const pricesPerUnit = ["100", "500", "5105", "55", "12"];
+  const acquistitions = ["1200", "25000", "25525", "5500", "1152"];
+  const orderPrices = ["1500", "28000", "30525", "600", "900"];
+  const localPrices = ["1500", "732900", "674327", "600", "19881"];
+  const margins = ["300", "707900", "648802", "-4900", "18729"];
+  const serialNumbers = ["sadwwer333", "weqe334", "324sasdg", "asd32rwe", "qweqw445sd"];
+  const newSerialNumbers = ["sa54as45", "s8454324e", "asd548asd54", "asd78asd24", "asd8845asd"];
+  const invSatuses = [
+    { value: "approved", id: 1 },
+    { value: "pending", id: 2 },
+    { value: "pending", id: 2 },
+    { value: "approved", id: 1 },
+    { value: "approved", id: 1 }
+  ];
+  const tables = ["sale", "service"];
+  try {
+    await User.updateOne({}, { $set: { sale: [], service: [] } });
+    await User.findOne({}, "service sale", async (err, user) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      let row = {};
+      for (let i = 0; i < 5; i++) {
+        row = {
+          action_date: dates[i],
+          service: { value: "sales", id: 1 },
+          currency: currencies[i],
+          customer_name: names[i],
+          customer_po: pos[i],
+          customer_type: "",
+          service_type: serviceTypes[i],
+          batch_number: bathces[i],
+          pn: pns[i],
+          description: `Test number ${i}`,
+          quantity: quantites[i],
+          acquistition_price: acquistitions[i],
+          margin: margins[i],
+          price_per_unit: pricesPerUnit[i],
+          invoice_status: invSatuses[i],
+          order_price: orderPrices[i],
+          total_local_price: localPrices[i],
+          table: tables[0]
+        };
+        user[tables[0]].push(row);
+      }
+      row.service = { value: "exchange", id: 2 };
+      row.table = tables[1];
+      for (let i = 0; i < 5; i++) {
+        row = {
+          action_date: dates[i],
+          service: { value: "exchange", id: 2 },
+          currency: currencies[i],
+          customer_name: names[i],
+          customer_po: pos[i],
+          customer_type: "",
+          service_type: serviceTypes[i],
+          batch_number: bathces[i],
+          pn: pns[i],
+          description: `Test number ${i}`,
+          quantity: quantites[i],
+          acquistition_price: acquistitions[i],
+          margin: margins[i],
+          price_per_unit: pricesPerUnit[i],
+          invoice_status: invSatuses[i],
+          order_price: orderPrices[i],
+          total_local_price: localPrices[i],
+          serial_number: serialNumbers[i],
+          new_serial_number: newSerialNumbers[i],
+          table: tables[0]
+        };
+        user[tables[1]].push(row);
+      }
+      await user.save();
+    });
+  } catch (error) {
+    console.log(error);
+  }
+})();
+
 module.exports = router;
